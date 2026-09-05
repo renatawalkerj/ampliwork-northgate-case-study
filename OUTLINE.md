@@ -47,11 +47,14 @@ No external fact to look up here (fictional client), but there's a real techniqu
 ## Frameworks in play
 - **PIL** — claims stay ASSUMED until sourced or you sign off. Governs the domain research below, the customer-profile numbers, and shows up in the deck itself as the "how we built this" appendix.
 - **Build Engine** (`pil/build-engine/`) — PRD → architecture decision → parallel background-agent build. Runs the prototype build at Breakpoint B. Also the pattern we'd propose to Northgate for the real build, so it doubles as roadmap credibility.
-- **Consulting frameworks** (`career/Consulting management books/`) — fast-pass extraction, not full reads, mapped to specific steps:
+- **Consulting frameworks** (`research/consulting-frameworks.md`) — fast-pass extraction, not full reads, mapped to specific steps:
   - *Bulletproof Problem Solving* (Conn & McLean) → structuring the diagnosis and the productization case
   - *Playing to Win* (Lafley & Martin) → the "where to play / how to win" niche choice (Part 2)
   - *The McKinsey Way* (Rasiel) → yours to draw on for pitch structure and storyline when you design the deck
-  - *The Flawless Consulting Fieldbook* (Block) → stakeholder handling — VP vs. Head of Tax Risk, the "she's wrong about X" moment, pre-read tone, composure under pushback
+  - *The Flawless Consulting Fieldbook* (Block) → stakeholder handling — VP vs. Head of Tax Risk, the "she's wrong about X" moment, pre-read tone
+  - *Influence* (Cialdini) → the pitch's persuasive structure, and specifically winning the risk-averse Head of Tax Risk via loss-framing rather than upside-selling
+  - *Switch* (Heath & Heath) → Rider/Elephant/Path — the phased roadmap already *is* "shaping the Path"; reframes her buy-in as identity work, not just argument
+  - *Never Split the Difference* (Voss) and *The Challenger Sale* (Dixon & Adamson) — not owned, honestly reconstructed from general knowledge (ASSUMED, flagged as such) — for the live interruption, the fact-change curveball, and the "VP is wrong" moment specifically
 
 ## Step: get you to expert level — fast pass, runs first (Breakpoint A)
 Three domain tracks, each a short list of real sources plus a brief you can skim fast, not study. Goal: enough to hold your own against the Head of Tax Risk, not exhaustive mastery. This has to land *before* the diagnosis decision, the workflow/info-model design, and the prototype design — all three depend on it.
