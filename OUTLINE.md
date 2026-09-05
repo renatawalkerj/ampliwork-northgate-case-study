@@ -5,9 +5,9 @@
 
 ## Deliverables
 - [ ] Deck: ≤8 slides (pitch) + ≤4 slides (product) = 12 max. Appendix optional, uncapped.
-- [ ] Agent/workflow proposal, with a stated human-in-the-loop point — Part 1, slide 2
-- [ ] Information model — summary on slide 3, full entity detail in the appendix — Part 1, slide 3
-- [ ] Customer roadmap (phasing, timeline, **and pricing logic**, mapped to stakeholder needs) — Part 1, slide 5
+- [ ] Agent/workflow proposal, with a stated human-in-the-loop point (Part 1 proposal)
+- [ ] Information model — a concise version plus full entity-by-entity detail as reference material (Part 1 info model)
+- [ ] Customer roadmap (phasing, timeline, **and pricing logic**, mapped to stakeholder needs) (Part 1 phasing)
 - [ ] Live prototype demo (not screenshots) — ≤3 min, must handle one messy input + show the exception path. Brief explicitly says low fidelity/ugly is fine — the "wow" has to come from nailing the hard case, not from polish. Don't spend build budget on cosmetics.
 - [ ] Eval harness for the prototype — doubles as a client-facing roadmap item
 - [ ] Productization recommendation (Part 2) — yes/no, niche, market sizing, packaging/pricing logic
@@ -38,7 +38,7 @@ No external fact to look up here (fictional client), but there's a real techniqu
 - **Consulting frameworks** (`career/Consulting management books/`) — fast-pass extraction, not full reads, mapped to specific steps:
   - *Bulletproof Problem Solving* (Conn & McLean) → structuring the diagnosis and the productization case
   - *Playing to Win* (Lafley & Martin) → the "where to play / how to win" niche choice (Part 2)
-  - *The McKinsey Way* (Rasiel) → pitch structure, hypothesis-driven storyline
+  - *The McKinsey Way* (Rasiel) → yours to draw on for pitch structure and storyline when you design the deck
   - *The Flawless Consulting Fieldbook* (Block) → stakeholder handling — VP vs. Head of Tax Risk, the "she's wrong about X" moment, pre-read tone, composure under pushback
 
 ## Step: get you to expert level — fast pass, runs first (Breakpoint A)
@@ -59,7 +59,7 @@ The brief names the entities explicitly — don't improvise a different set. Def
 1. **Legal entity, jurisdiction, supplier, transaction, invoice, recoverability determination, filing period, reclaim** — what each means in Northgate's world and how they relate.
 2. What's deliberately left out of v1 (e.g., is "supplier" one entity or does it need a dedupe/identity layer given EMEA's 3-vendors-1-supplier problem?) and what breaks if the model is wrong.
 3. Needs the tax + SAP domain briefings first — these entities have real-world SAP/tax-engine analogs, don't invent them from scratch. If the research doesn't pin down entity-level detail (attributes, exact relationships) that a real SAP/tax-engine data model would have, treat that as a gap to research one layer deeper before guessing — and only if it's still unresolved, assume it was clarified with the customer during discovery, tagged ASSUMED in `claims.md` like the customer profile below.
-4. Main deck slide 3 carries the summary relationships; the full entity-by-entity detail goes in the appendix, presented as settled background the panel can dig into if they ask.
+4. Write it up as two clean pieces — a concise version and the full entity-by-entity detail — and leave what becomes slide vs. appendix to the deck-design step, not here.
 
 ## Step: business case — assumed customer profile
 The brief omits the numbers a real deal needs, and we can't email the fictional client. So: construct the missing customer facts ourselves, grounded in the domain research, not invented from nothing.
@@ -84,7 +84,7 @@ Not "build the final thing and hope it fits" — sequence around what Northgate 
 3. In the deck, present evals as a roadmap deliverable to Northgate — not internal QA. It's the trust mechanism the Head of Tax Risk actually wants, and the first milestone's proof point above.
 
 ## Step: is this a product? (Part 2)
-1. Recommendation, one sentence, first slide — yes or no, defended.
+1. Recommendation, one sentence — yes or no, defended.
 2. First niche — *Playing to Win*'s where-to-play/how-to-win: segment by size, geography, ERP landscape, buying trigger; name who we'd refuse to sell to.
 3. Market-sizing arithmetic, defensible — built from the comparables research and the assumed customer profile extrapolated across the niche (how many companies look like Northgate).
 4. Packaging/pricing logic — how a pilot converts into something recurring.
@@ -105,11 +105,12 @@ Distinct from the deck — this is rehearsal, not content. Evaluation criteria e
 | 1. Diagnose, propose & model | 60 min | Together | Read briefings → diagnosis locked, agent/workflow design, info model v1, prototype flow chosen, "VP is wrong about ___" |
 | 2. Business case, roadmap & product case | 60 min | Together | Assumed customer profile + signing date, customer roadmap (needs → milestones → pricing logic), product niche & market-sizing approach, data plan, eval plan |
 | **Breakpoint B** | agent time, background | Agents (Build Engine) | PRD → prototype build + eval harness, on the data plan above |
-| 3. Deck + pre-read draft | 90 min | Together | Slide narrative (both parts + roadmap + product case), pre-read draft |
-| 4. Test + integrate | 45 min | Together | Prototype passes its evals, demo rehearsed inside the deck flow |
-| 5. Polish + curveball prep | 30 min | Together | Final deck, final pre-read, PIL appendix, Q&A/composure rehearsal |
+| 3. Consolidate findings | 60 min | Together | Clean, concise write-up of every locked decision — diagnosis, workflow, info model, roadmap, business case, product case — content only, no deck yet. Pre-read draft. |
+| 4. Test + integrate | 45 min | Together | Prototype passes its evals |
+| 5. Design the deck & story | — | You, solo | Slide flow and narrative, whichever pitch framework fits — your call. We're on hand if you want a sounding board, not to design it for you. |
+| 6. Polish + curveball prep | 30 min | Together | Final deck, final pre-read, PIL appendix, Q&A/composure rehearsal |
 
-**Together time ≈ 5 hrs** — past the original 4-hour hope. Splits cleanly across the 5 days to Thursday — no need to do it in one sitting.
+**Together time ≈ 4.5 hrs** — close to the original 4-hour hope; deck design is your own time and isn't counted here. Splits cleanly across the 5 days to Thursday — no need to do it in one sitting.
 
 ## PIL rule
 No market-size number, competitor claim, domain fact, or customer-profile figure (including the signing date) goes in the deck as fact until it's in `claims.md` — sourced, or explicitly signed off by you as a stated assumption. Default status: ASSUMED.
