@@ -5,8 +5,10 @@
 
 ## Deliverables
 - [ ] Deck: ≤8 slides (pitch) + ≤4 slides (product) = 12 max. Appendix optional, uncapped.
-- [ ] Live prototype demo (not screenshots) — ≤3 min, must handle one messy input + show the exception path
+- [ ] Live prototype demo (not screenshots) — ≤3 min, must handle one messy input + show the exception path. Goal: it should feel like proof they've found the right partner, not a tech demo.
+- [ ] Eval harness for the prototype — doubles as a client-facing roadmap item (see below)
 - [ ] One-page pre-read email to the VP
+- [ ] "How we built this" appendix — PIL claims ledger + tools/frameworks used (answers the brief's "tell us what you used, where it helped, where it led you astray")
 - [ ] Survive: 1 live interruption during the pitch + a "we're changing one fact, 3 min to react" curveball in Q&A
 
 ## Contradictions to resolve first — judgment, not research
@@ -15,26 +17,47 @@
 - APAC analyst: recovery loss is often invoice-format non-compliance, not misclassification.
 - **Decide:** which failure mode is primary, state it as an assumption on one slide, and pick the one flow the prototype proves.
 
-## Research needed — delegate to agents (Breakpoint A)
-1. Indirect tax domain: VAT/GST recoverability rules, reclaim windows, invoice compliance requirements by jurisdiction.
-2. SAP tax stack: multi-instance SAP + tax engine (Vertex/ONESOURCE/Avalara-type) integration patterns, read-only; realistic "no data leaves tenant" architecture (customer-tenant-hosted or on-prem model).
-3. Enterprise vendor security review norms (~11 weeks) — how vendors phase delivery around them.
-4. Comparable/competitor products in AI-for-tax-recovery — for Part 2 market sizing. Real players, real methodology, estimates labeled as estimates.
+## Frameworks in play
+- **PIL** — claims stay ASSUMED until sourced or you sign off. Governs the domain research below, the customer-profile numbers, and shows up in the deck itself as the "how we built this" appendix.
+- **Build Engine** (`pil/build-engine/`) — PRD → architecture decision → parallel background-agent build. Runs the prototype build at Breakpoint B.
 
-## Plan — target ~4 hours of your time
+## Step: get you to expert level — before the prototype is designed
+Three tracks, each ends in a short list of real sources (books/references, not summaries we invent) plus a briefing doc you actually read. Goal: you can hold your own against the Head of Tax Risk, not just the enthusiastic VP.
+1. **Indirect tax domain** — VAT/GST/sales-and-use mechanics, recoverability, reclaim windows, invoice compliance rules by jurisdiction.
+2. **SAP technical domain** — multi-instance SAP + tax engine (Vertex/ONESOURCE/Avalara-type) integration patterns, what read-only access actually constrains.
+3. **Vendor security review norms** — what an ~11-week enterprise security review checks and how vendors typically phase delivery around it.
+
+## Step: prototype data
+1. Search for open-source invoice/tax datasets first — check license and realism.
+2. If nothing usable: hand-build synthetic data using the domain briefings above — one clean invoice, one non-compliant-format invoice, one duplicate-supplier-three-tax-profiles case, one missing-field case.
+3. Log which path we took and why in `claims.md`.
+
+## Step: business case — assumed customer profile
+The brief omits the numbers a real deal needs, and we can't email the fictional client. So: construct the missing customer facts ourselves (AP volume per hub, invoice mix, avg invoice value, current team cost, today's recovery rate), grounded in the domain research, not invented from nothing.
+1. Draft the assumed profile, each figure tagged ASSUMED with its reasoning, in `claims.md`.
+2. Use it to make the ROI/market-sizing arithmetic defensible under a skeptic's pushback — this is where Part 2 gets pushed hardest.
+
+## Step: evals — first-class, not an afterthought
+1. Before building, define what "correct" looks like for the prototype's flow: treatment call, confidence, exception routing.
+2. Build a small eval set from the synthetic data above.
+3. In the deck, present evals as a roadmap deliverable to Northgate — not internal QA. It's the trust mechanism the Head of Tax Risk actually wants.
+
+## Plan
 
 | Phase | Time | Mode | Output |
 |---|---|---|---|
-| 1. Diagnosis & scope | 45 min | Together | Locked diagnosis, info model v1, prototype flow chosen, "VP is wrong about ___" |
-| **Breakpoint A** | — | Agents, background | Research: tax domain, SAP/no-data-leaves-tenant architecture, security-review phasing, comparables |
-| 2. Lock the plan | 30 min | Together | Architecture + phasing decided, product niche & market-size approach decided |
-| **Breakpoint B** | — | Agents, background | Build prototype (messy-input flow + exception path) |
-| 3. Deck + pre-read draft | 90 min | Together | Slide narrative (both parts), pre-read draft |
-| 4. Test + integrate | 45 min | Together | Demo rehearsed inside the deck flow, breaks fixed |
-| 5. Polish + curveball prep | 30 min | Together | Final deck, final pre-read, list of "what fact might they change" to rehearse reacting to |
+| 1. Diagnosis & scope | 45 min | Together | Diagnosis locked, info model v1, prototype flow chosen, "VP is wrong about ___" |
+| **Breakpoint A** | agent time, background | Agents | Domain briefings (tax / SAP / security review), comparables research, open-data search |
+| 2. Study + lock plan | 60 min | Together | You're briefed on all 3 domains; architecture, niche, customer-profile assumptions, data plan, eval plan all locked |
+| **Breakpoint B** | agent time, background | Agents (Build Engine) | PRD → prototype build + eval harness, on the data plan above |
+| 3. Deck + pre-read draft | 90 min | Together | Slide narrative (both parts), pre-read draft, evals framed as a roadmap item |
+| 4. Test + integrate | 45 min | Together | Prototype passes its evals, demo rehearsed inside the deck flow |
+| 5. Polish + curveball prep | 30 min | Together | Final deck, final pre-read, PIL appendix, curveball rehearsal list |
+
+**Together time ≈ 4.5 hrs** — a bit past the original 4-hour hope; the up-skilling and evals steps you just added are the reason. Splits cleanly across the 5 days to Thursday — no need to do it in one sitting.
 
 ## PIL rule
-No market-size number, competitor claim, or domain fact goes in the deck as fact until it's VERIFIED in `claims.md` — either sourced or signed off by you. Default status: ASSUMED.
+No market-size number, competitor claim, domain fact, or customer-profile figure goes in the deck as fact until it's in `claims.md` — sourced, or explicitly signed off by you as a stated assumption. Default status: ASSUMED.
 
 ## Next action
 Start Phase 1 together: read the contradictions above, pick a diagnosis.
