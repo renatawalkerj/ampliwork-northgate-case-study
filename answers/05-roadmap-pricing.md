@@ -11,7 +11,12 @@ Status: not started. See `OUTLINE.md`, "Step: customer roadmap." Needs `research
 
 **Two separate assumptions stacked in reasons 1-3, tag both distinctly:** (a) EMEA has the most countries in Northgate's footprint — consistent with the assumed 30-country-by-hub distribution in `case-facts.md` §4; (b) more countries implies more AP volume/payables — a second, unverified assumption layered on top, since the brief gives no data on relative volume by hub. Reason 4 (Italy's window) doesn't depend on either of these — it holds regardless of the volume assumption.
 
-**Sequencing after EMEA:** expand to Americas next (Canada's 2yr large-business threshold is the real floor there, per `case-facts.md` §4 — more tractable than APAC's fully fragmented regimes), APAC last. Note APAC's own floor (India, ~8-20mo) is tighter than its Singapore-anchored 5yr headline suggested — worth naming when justifying why APAC still isn't first despite that, since the reason is regulatory fragmentation and tractability, not urgency.
+## Sequencing after EMEA: two lenses that disagree, and how we resolve it
+**Build-tractability lens** (how hard is it to build for): EMEA → Americas → APAC — APAC's regulatory fragmentation makes it the hardest to build for as a whole hub.
+
+**Cost of Delay lens** (Reinertsen's framework — ASSUMED/general knowledge, ranking by what delay actually destroys, not what's easiest to build): rank hubs by their real tightest floor, since a tighter window means unclaimed money there is decaying into permanent loss faster while we're busy elsewhere. That ranking is EMEA (Italy, ~4-5mo) → **APAC (India, ~8-20mo)** → Americas (Canada, ~2yr large-business threshold) — the *opposite* middle slot from the tractability lens.
+
+**These conflict on APAC vs. Americas, and we shouldn't paper over it.** The resolution: don't sequence phase 2 by hub at all — sequence by *jurisdiction*, the same unit of analysis already locked into the info model (§ jurisdiction-not-hub design decision). After the EMEA pilot, target the highest-cost-of-delay **jurisdiction** next — India specifically, not "all of APAC" — as a bounded, single-jurisdiction add-on proving the system handles a return-deadline-bound window correctly, before committing to APAC's full regulatory fragmentation. Americas (lower urgency, more tractable) follows. This keeps the rollout logic consistent with the data-model logic instead of switching frameworks between the two.
 
 ## To answer
 1. Milestones sequenced against the 8-week build / 11-week security review / year-end close, with the riskiest question (does the exception path satisfy the Head of Tax Risk) proven early on bounded data, scoped to EMEA first per above.
