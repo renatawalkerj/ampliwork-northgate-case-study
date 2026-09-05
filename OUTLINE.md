@@ -11,11 +11,19 @@
 - [ ] "How we built this" appendix — PIL claims ledger + tools/frameworks used (answers the brief's "tell us what you used, where it helped, where it led you astray")
 - [ ] Survive: 1 live interruption during the pitch + a "we're changing one fact, 3 min to react" curveball in Q&A
 
-## Contradictions to resolve first — judgment, not research
-- VP: auto-coding frees 24 people → the business case. Head of Tax Risk (has veto): cares about *wrong*, not *slow* — paid $4M in penalties last year on returns filed on time and wrong.
-- EMEA manager: coding isn't the hard part, supplier master data is (same supplier = 3 vendors, 3 tax profiles).
-- APAC analyst: recovery loss is often invoice-format non-compliance, not misclassification.
-- **Decide:** which failure mode is primary, state it as an assumption on one slide, and pick the one flow the prototype proves.
+## Stakeholder map — a method, not a guess
+No external fact to look up here (fictional client), but there's a real technique: stakeholder mapping (champion / approver / gatekeeper), not vibes. Six voices, two roles that matter most:
+
+- **Champion — VP, Global Indirect Tax.** Holds budget, sponsor, already sold it to the CFO. Her quotes ("free 24 people from data entry, that's the whole business case" / "I need a number I can defend by year-end close") are a throughput-and-ROI story. She needs us to be right — her credibility is already staked on it upward.
+- **Approver we actually have to convince — Head of Tax Risk.** No budget, no enthusiasm, but "nothing ships without her." Her quote ("$4M in penalties last year on returns filed on time and wrong — I care far more about wrong than slow") reframes the whole deal around correctness, not speed. Win the VP and lose her, and the deal is dead. **Budget-holder ≠ approver is itself the central risk in this deal.**
+
+**Everyone else — not deciders, but each can quietly break the plan:**
+- *EMEA regional manager (9 yrs)*, practitioner reality-check — says the VP's own diagnosis is wrong: coding isn't the bottleneck, dirty supplier master data is (same supplier, 3 tax profiles). If true, it changes what the prototype needs to prove.
+- *APAC analyst*, practitioner reality-check — a third root cause: much of the loss is non-compliant supplier invoices, not misclassification. Caps how much of the $8–30M an AI classifier can ever recover — a scope boundary to state, not hide.
+- *Head of Tax Technology*, technical gatekeeper — can't approve the deal but can make it unbuildable: 3 SAP instances, no consolidation before 2029.
+- *Enterprise security*, compliance gatekeeper — owns the ~11-week review that collides with the 8-week build window. Not a vote on the idea, but can stall or kill the timeline regardless of who's sold.
+
+**Decide in Phase 1:** which root-cause story (VP's / EMEA's / APAC's) is primary, state it as an assumption on one slide, and pick the one flow the prototype proves.
 
 ## Frameworks in play
 - **PIL** — claims stay ASSUMED until sourced or you sign off. Governs the domain research below, the customer-profile numbers, and shows up in the deck itself as the "how we built this" appendix.
