@@ -67,7 +67,7 @@ The brief omits the numbers a real deal needs, and we can't email the fictional 
 2. **A contract-signing date** — needed to put the 8-week build and the 11-week security review on an actual calendar against the year-end close. Assume the engagement signs shortly after this pitch; this is the number the whole roadmap timeline hangs on.
 3. Tag every figure ASSUMED with its reasoning, in `claims.md`. Used to make the ROI/market-sizing arithmetic defensible under a skeptic's pushback — where Part 2 gets pushed hardest.
 
-## Step: customer roadmap — needs mapped to milestones, phasing + pricing logic (Part 1, slide 5)
+## Step: customer roadmap — needs mapped to milestones, phasing + pricing logic (Part 1, point 5)
 Not "build the final thing and hope it fits" — sequence around what Northgate actually needs at each stage, and around one hard fact: **the 11-week security review outlasts the 8-week build by ~3 weeks.** Early milestones can't depend on full production access, because it isn't cleared yet. So: de-risk the most contested question first, on bounded/sandboxed data, and only expand access as trust and the review both clear.
 1. List each stakeholder's need from the map above (VP: freed headcount + defensible year-end number; Head of Tax Risk: proof of correctness before scale; EMEA: master-data problem not ignored; APAC: compliance-chasing burden; Tech: works across 3 unconsolidated instances; Security: review satisfied, nothing leaves tenant).
 2. Sequence milestones so the riskiest/most contested thing (does the exception path actually satisfy the Head of Tax Risk) gets proven early and cheaply, before asking for full production trust.
