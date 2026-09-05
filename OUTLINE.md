@@ -20,6 +20,7 @@
 Scaffolded now so it's clear where things land as we do the work; content gets filled in phase by phase, not right away.
 
 - `research/` — Breakpoint A + business-case outputs: `tax-domain.md`, `sap-domain.md`, `security-review-norms.md`, `commercial-models.md`, `consulting-frameworks.md`, `comparables-market.md`, `open-data-search.md`, `assumed-customer-profile.md`
+- `case-facts.md` — what the brief actually says vs. what we're assuming vs. what research filled in, organized by topic (the tax function's job, the two clocks, the money, jurisdictions, evidence documents, the four data sources, the VP's framing vs. the real job). Read this before Phase 1 — it's the direct input to the diagnosis, the workflow proposal, and the info model.
 - `answers/` — the content answering each part of the brief, one file per requirement (see `answers/README.md` for the full map and shared writing standard)
 - `prototype/` — the working build + eval harness (Breakpoint B, via Build Engine)
 - `claims.md` — the PIL ledger every figure above traces back to
@@ -117,7 +118,7 @@ Distinct from the deck — this is rehearsal, not content. Evaluation criteria e
 |---|---|---|---|
 | 0. Kick off research | 15 min | Together | Confirm research questions, launch Breakpoint A |
 | **Breakpoint A** | agent time, background | Agents | Fast-pass domain briefings (tax / SAP / security review / commercial models), consulting-framework extraction, comparables research, open-data search |
-| 1. Diagnose, propose & model | 60 min | Together | Read briefings → diagnosis locked, agent/workflow design, info model v1, prototype flow chosen, "VP is wrong about ___" |
+| 1. Diagnose, propose & model | 60 min | Together | Read briefings + `case-facts.md` → diagnosis locked, agent/workflow design, info model v1, prototype flow chosen, "VP is wrong about ___" |
 | 2. Business case, roadmap & product case | 60 min | Together | Assumed customer profile + signing date, customer roadmap (needs → milestones → pricing logic), product niche & market-sizing approach, data plan, eval plan |
 | **Breakpoint B** | agent time, background | Agents (Build Engine) | PRD → prototype build + eval harness, on the data plan above |
 | 3. Consolidate findings | 60 min | Together | All `answers/` files written — content only, no deck yet |

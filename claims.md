@@ -2,6 +2,12 @@
 
 PIL rule: every claim starts ASSUMED. Moves to VERIFIED only with a source or Renata's sign-off. Nothing in the deck as fact until VERIFIED. Merged from `research/*.md` after Breakpoint A — see each file for full context.
 
+## Case facts cross-check (see `case-facts.md`)
+
+| Claim | Status | Source | Notes |
+|---|---|---|---|
+| AP spend for an industrial manufacturer is roughly 40-60% of revenue | ASSUMED | Common general-manufacturing cost-structure range, not sourced to a specific benchmark | Used only for a rough sanity-check on the $8-30M figure in `case-facts.md` §3 — two assumptions stacked (this + the $1M/$1B recovery-audit ratio), not something to state as fact |
+
 ## Tax domain
 
 | Claim | Status | Source | Notes |
@@ -9,6 +15,8 @@ PIL rule: every claim starts ASSUMED. Moves to VERIFIED only with a source or Re
 | EU input VAT invoice content rules are set by Directive 2006/112/EC Article 226, an exhaustive list of up to 15 fields; member states can't require fields beyond Art. 226/227/230 | VERIFIED | EU VAT Directive 2006/112/EC Art. 226; VATupdate.com explainer | Directly usable for the information-model slide |
 | CJEU case law generally holds the right to deduct VAT shouldn't be denied purely for formal invoice defects if substantive conditions are provable — but tax authorities routinely deny administratively first | VERIFIED | VATupdate ECJ Art. 226 case-law roundup; VAT IT | Supports APAC analyst's quote as a real, documented mechanism |
 | Reclaim/deduction windows vary materially by jurisdiction: UK ~4yr, Germany ~4yr, Netherlands ~5yr, France ~2yr; US state sales/use tax refunds typically 3-4yr | VERIFIED | Marosa VAT country manuals; VATupdate NL guide; Cyplom (France); TaxValet/Commenda/CDTFA (US) | Brief's "3-4 years" is a reasonable average, not literal everywhere — France is tighter, NL looser |
+| Singapore GST input tax must be claimed within 5 years of the end of the relevant accounting period; invoices/receipts must be retained 5 years | VERIFIED | IRAS (Singapore's tax authority) — iras.gov.sg, "Claim Input Tax in the Correct Accounting Period" | Primary regulator source, not a third-party summary. Closes the gap on Northgate's third hub (Singapore was previously unresearched) |
+| Singapore GST has a secondary payment-timing rule: if input tax is claimed before the supplier is paid, payment is due within 12 months or the claim must be repaid (reclaimable again within 5 years once paid) | VERIFIED | IRAS — "Paying suppliers after claiming GST" | A third, Singapore-specific clock beyond the two the brief describes generically — worth having if pushed on jurisdiction-specific detail |
 | **No published benchmark quantifies indirect-tax leakage as a % split across misclassification vs. dirty supplier master data vs. non-compliant invoices** — all three are independently documented as real by KPMG, Deloitte, and vendor sources, none ranked against the others | VERIFIED (as an absence) | KPMG 2026 Indirect Tax Benchmarking Survey; Deloitte digital-indirect-tax commentary; Oversight.com/Vertex on master-data duplication | **Key finding for `answers/01-diagnosis.md`** — can't be weighed externally, has to be diagnosed from Northgate's own data |
 | Duplicate/fragmented supplier master records is a named, recognized driver of VAT leakage and audit risk | VERIFIED | Oversight.com "Five Ways Duplicates..."; Vertex "Master Data..." | Corroborates EMEA manager's quote |
 | KPMG Global Tax Function Benchmarking: tax departments average ~17 FTEs at HQ + ~19 at other locations | VERIFIED (source exists), not indirect-tax-specific | KPMG "Inside global tax functions" | Total tax function, not indirect-tax-only or revenue-scaled — don't overstate as a Northgate comparator |
