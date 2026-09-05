@@ -38,9 +38,39 @@ Feeds Phase 1 (diagnose, propose, model) directly. Three layers throughout: **Wh
 
 **Named directly:** only the 3 hub countries (US, Netherlands, Singapore) out of "30 countries." The other ~27 aren't enumerated anywhere in the brief.
 
-**Reclaim windows confirmed (VERIFIED):** UK, Germany, Netherlands, France, generic US states, and now Singapore (§2).
+**ASSUMED — a plausible 30-country footprint, split by hub.** The brief gives no country list. This is a constructed assumption for a $14B industrial manufacturer with real physical operations (factories/distribution, not a digital-only footprint), built to be representative, not a claim about the actual Northgate. Do not present this list as fact in the room — it exists so the jurisdiction analysis below has something concrete to sit on.
 
-**Recommendation:** don't attempt to research all 30 jurisdictions — not feasible at fast-pass depth and not needed. Use the 3 hub jurisdictions as the representative set for the info model, the prototype, and the diagnosis narrative; treat the general "2–5 year, jurisdiction-dependent" pattern as sufficiently well-evidenced for everything outside those 3.
+| Hub | Assumed countries (count) |
+|---|---|
+| **Americas — Chicago** | US, Canada, Mexico, Brazil, Argentina, Chile, Colombia (7) |
+| **EMEA — Rotterdam** | Netherlands, UK, Germany, France, Italy, Spain, Belgium, Poland, Sweden, Switzerland, Austria, Czech Republic, Turkey, South Africa (14) |
+| **APAC — Singapore** | Singapore, China, Japan, India, South Korea, Australia, Thailand, Vietnam, Indonesia (9) |
+| **Total** | **30** |
+
+**Reclaim windows confirmed for the 6 previously-researched countries (VERIFIED, §2):** UK ~4yr, Germany ~4yr, Netherlands ~5yr, France ~2yr, US states ~3–4yr, Singapore 5yr.
+
+**The gap this fills: is there a tighter window per hub, beyond those 6?** The brief's own framing — "a window in which a reclaim can still be made... after which the money is simply gone" — implies the number that actually matters operationally for a hub is its *tightest* window, because that's the fastest point at which money becomes permanently unrecoverable. A hub-wide "5 years" story (Singapore) or "3–4 years" story (US) is misleading if one country in that hub's footprint has a materially shorter clock. Fast-pass research (not exhaustive — India, China, Canada, and Italy were checked as the most-likely-to-be-tight candidates per hub; not all 30 countries) found real, non-obvious minimums in two of the three hubs:
+
+### Americas hub — real floor: Canada, ~2 years for large businesses, not the US's ~3–4yr
+
+**Finding:** Canada's general GST/HST input tax credit (ITC) time limit is 4 years — but it drops to **2 years** for "large businesses" (annual taxable supplies over CAD $6 million) and listed financial institutions. A $14B multinational's Canadian entity would almost certainly exceed that $6M threshold.
+**Source:** VERIFIED — Canada Revenue Agency (CRA) directly, "Input tax credits" (canada.ca/en/revenue-agency/services/tax/businesses/topics/gst-hst-businesses/calculate-prepare-report/input-tax-credit.html) — primary regulator source, same tier as the Singapore/IRAS citation in §2.
+**What it means operationally:** the Americas hub's real floor is likely Canada's ~2yr, not the US's ~3–4yr the brief's average implies — a large-business Canadian claim has half the runway to self-correct that the US-anchored story suggests.
+
+### EMEA hub — real floor: Italy, a return-deadline-bound window as short as ~4–5 months, not France's flat ~2yr
+
+**Finding:** Italy's *current* rule (in effect until a scheduled 1 Jan 2027 reform) does not give a fixed number of years — it lets a business deduct input VAT only up to the filing deadline of the *annual VAT return for the year the deduction right arose* (that return is due ~30 April of the following year). Because the window's length depends on *when in the year* the invoice lands, an invoice from January gives ~15–16 months of runway, but an invoice from December gives only **~4–5 months**. From 2027 this extends to a flat 2 years, matching the France pattern — but that reform isn't in effect yet.
+**Source:** VERIFIED (converging multiple tax-advisory sources, not one primary regulator citation — same sourcing tier used for UK/Germany/France in §2): vatcalc.com ("Italy VAT changes to deductions and penalties"), globalvatcompliance.com Italy VAT Guide 2025, eurofiscalis.com. Could not pull the exact DPR 633/72 Article 19 statutory text directly in this pass — flag if pushed on the legal citation itself.
+**What it means operationally:** EMEA's real floor for a late-year invoice is tighter than France's already-tight ~2yr, and tighter in the worst case than APAC's India finding below — the France outlier isn't EMEA's actual floor, Italy's year-end timing risk is.
+
+### APAC hub — real floor: India, ~8–20 months (Nov 30 cutoff), decisively beating Singapore's 5yr
+
+**Finding:** India's GST input tax credit (ITC) cannot be claimed after **30 November following the end of the financial year** (India's FY runs April–March) the invoice belongs to, or the filing of that year's annual return, whichever is earlier. Because the clock runs to a fixed calendar date regardless of invoice date, an invoice from early in the FY (April) gets ~19–20 months of runway; an invoice from late in the FY (March) gets only **~8 months**.
+**Source:** VERIFIED — primary regulator source. CBIC (India's Central Board of Indirect Taxes and Customs) Circular No. 237/31/2024-GST (15 Oct 2024), which reproduces the exact bare-act text of CGST Act Section 16(4) directly. Same tier of sourcing as the Singapore/IRAS citation in §2.
+**Secondary check — China:** China's general rule allows indefinite carryforward of excess input VAT (confirmed structurally under the new VAT Law effective 1 Jan 2026) — but multiple secondary/practitioner sources (not a primary State Taxation Administration citation — **could not verify this one from a primary source in this pass**) describe a longstanding **360-day** window to certify/confirm a special VAT invoice (fapiao) on the government's invoice platform, after which the right to deduct that invoice's input VAT is lost. If accurate, that's a ~12-month procedural clock — tighter than Singapore's 5yr, in the same range as India's floor, but structurally different (a certification deadline, not a claim-filing deadline) and its status under the new 2026 VAT Law regime is unconfirmed. Flag as ASSUMED, not stated as fact.
+**What it means operationally:** APAC's real floor may be India's ~8–20 months (or China's ~360 days, if that rule still holds), not Singapore's 5yr — the Singapore-hub story significantly undersells APAC's actual urgency. Of all three hubs, APAC's spread between its best-documented country (Singapore, 5yr) and its real floor (India, as low as ~8 months) is the widest — roughly an 8x difference within one hub.
+
+**Recommendation:** don't attempt to research all 30 jurisdictions — not feasible at fast-pass depth and not needed. Use the hub-level minimums above (not the 3 hub headquarters' own numbers) as the representative "how fast can money actually be lost" figures for the info model, the prototype, and the diagnosis narrative. Keep the three hubs' numbers separate — do not flatten into one global "reclaim window" constant; that's exactly the mistake the brief's own "typically three to four years" framing risks, and the India/Italy/Canada findings show the risk is real, not theoretical. Also note: Italy and India's windows aren't flat N-years-from-invoice-date at all — they're bound to an annual return-filing deadline, so the actual runway depends on *when in the year* the invoice lands (see `answers/03-information-model.md` for why this is a modeling risk, not just a bigger number). All claims merged into `claims.md`.
 
 ## 5. Evidence document types — what they are, and what they map to
 

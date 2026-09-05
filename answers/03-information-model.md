@@ -7,6 +7,8 @@ The 3 regional hubs (Chicago/Rotterdam/Singapore) are a staffing and org constru
 
 **Concrete "what breaks if you get this wrong":** if reclaim window were modeled per-hub instead of per-jurisdiction, the system would treat a Netherlands transaction (5yr window) as expired at whatever the coarser EMEA minimum turned out to be — actively abandoning money that was still legally recoverable. Flattening 30 countries to 3 hub-buckets repeats the exact mistake the brief warns against, just one level coarser than flattening to a single global constant.
 
+**A second, sharper failure mode research surfaced:** reclaim window isn't even a flat N-years-from-invoice-date everywhere. Italy and India both bind the deadline to an *annual return filing date*, not a rolling count from the invoice — so the actual runway depends on when in the fiscal year the invoice lands (Italy: ~4-5 months for a December invoice vs. ~15-16 months for a January one; India similarly ~8 to ~20 months depending on FY timing). A model that stores "reclaim window = N years" per jurisdiction, even correctly per-jurisdiction, still gets Italy and India wrong — it needs the jurisdiction's *rule type* (rolling N-years vs. return-deadline-bound) as an attribute, not just a number. See `case-facts.md` §4.
+
 ## Summary (for the deck)
 Legal entity, jurisdiction, supplier, transaction, invoice, recoverability determination, filing period, reclaim — what each means in Northgate's world, and how they relate. What's deliberately left out of v1, and what breaks if the model is wrong.
 
