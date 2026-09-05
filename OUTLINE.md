@@ -3,9 +3,10 @@
 **Due: EOD Thu Sep 10, 2026** · Today: Sep 5 · 5 days out
 **Ask, one line:** pitch an AI system for indirect-tax invoice recovery to a fictional client, live-demo a working prototype, argue whether to productize it, send a one-page follow-up. Evaluated on thinking, not slides.
 
-## Open logistics questions — ask Roxane (brief explicitly allows this, unlike content questions)
-- **Curveball reaction time conflicts in the brief itself:** "Before you start" says 30 seconds to react to the fact-change; "How the session runs" says three minutes. Confirm which — until then, rehearse for the harder constraint (30 sec).
-- **When is the live session** (10 min pitch + 5 min product + 15 min Q&A, prototype demoed live) **relative to the Thursday EOD send deadline?** The brief separates "Send by" from "Session" — worth confirming they're not the same moment, since the prototype has to run live, not just be attached.
+## Ambiguities in the brief — resolved ourselves, not asked
+Roxane is scheduling contact for booking the next interview, not a case-study clarification channel — nothing case-study-related goes to her. Both of these get an ASSUMED resolution in `claims.md` instead:
+- **Curveball reaction time conflicts in the brief itself:** "Before you start" says 30 seconds to react to the fact-change; "How the session runs" says three minutes. **Resolution: prepare for 30 sec** — the harder constraint, safe regardless of which one is real.
+- **When the live session falls relative to the Thursday EOD send deadline is unstated.** **Resolution: treat the prototype and deck as demo-ready by Thursday EOD**, full stop — no upside to assuming extra runway that may not exist.
 
 ## Deliverables
 - [ ] Deck: ≤8 slides (pitch) + ≤4 slides (product) = 12 max. Appendix optional, uncapped.
@@ -117,4 +118,4 @@ Distinct from the deck — this is rehearsal, not content. Evaluation criteria e
 No market-size number, competitor claim, domain fact, or customer-profile figure (including the signing date) goes in the deck as fact until it's in `claims.md` — sourced, or explicitly signed off by you as a stated assumption. Default status: ASSUMED.
 
 ## Next action
-Resolve the two logistics questions with Roxane (or decide to proceed on worst-case assumptions), then kick off Phase 0: confirm the research questions above and launch Breakpoint A.
+Log the two ambiguity resolutions above in `claims.md`, then kick off Phase 0: confirm the research questions above and launch Breakpoint A.
