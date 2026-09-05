@@ -19,10 +19,15 @@
 
 ## Frameworks in play
 - **PIL** — claims stay ASSUMED until sourced or you sign off. Governs the domain research below, the customer-profile numbers, and shows up in the deck itself as the "how we built this" appendix.
-- **Build Engine** (`pil/build-engine/`) — PRD → architecture decision → parallel background-agent build. Runs the prototype build at Breakpoint B.
+- **Build Engine** (`pil/build-engine/`) — PRD → architecture decision → parallel background-agent build. Runs the prototype build at Breakpoint B. Also the pattern we'd propose to Northgate for the real build, so it doubles as roadmap credibility.
+- **Consulting frameworks** (`career/Consulting management books/`) — fast-pass extraction, not full reads, mapped to specific steps:
+  - *Bulletproof Problem Solving* (Conn & McLean) → structuring the diagnosis (Phase 1) and the productization case (Part 2)
+  - *Playing to Win* (Lafley & Martin) → the "where to play / how to win" niche choice (Part 2)
+  - *The McKinsey Way* (Rasiel) → pitch structure, hypothesis-driven storyline (Phase 3)
+  - *The Flawless Consulting Fieldbook* (Block) → stakeholder handling — VP vs. Head of Tax Risk, the "she's wrong about X" moment, pre-read tone
 
-## Step: get you to expert level — before the prototype is designed
-Three tracks, each ends in a short list of real sources (books/references, not summaries we invent) plus a briefing doc you actually read. Goal: you can hold your own against the Head of Tax Risk, not just the enthusiastic VP.
+## Step: get you to expert level — fast pass, before the prototype is designed
+Three domain tracks, each a short list of real sources plus a brief you can skim fast, not study. Goal: enough to hold your own against the Head of Tax Risk, not exhaustive mastery.
 1. **Indirect tax domain** — VAT/GST/sales-and-use mechanics, recoverability, reclaim windows, invoice compliance rules by jurisdiction.
 2. **SAP technical domain** — multi-instance SAP + tax engine (Vertex/ONESOURCE/Avalara-type) integration patterns, what read-only access actually constrains.
 3. **Vendor security review norms** — what an ~11-week enterprise security review checks and how vendors typically phase delivery around it.
@@ -47,8 +52,8 @@ The brief omits the numbers a real deal needs, and we can't email the fictional 
 | Phase | Time | Mode | Output |
 |---|---|---|---|
 | 1. Diagnosis & scope | 45 min | Together | Diagnosis locked, info model v1, prototype flow chosen, "VP is wrong about ___" |
-| **Breakpoint A** | agent time, background | Agents | Domain briefings (tax / SAP / security review), comparables research, open-data search |
-| 2. Study + lock plan | 60 min | Together | You're briefed on all 3 domains; architecture, niche, customer-profile assumptions, data plan, eval plan all locked |
+| **Breakpoint A** | agent time, background | Agents | Fast-pass domain briefings (tax / SAP / security review), consulting-framework extraction, comparables research, open-data search |
+| 2. Study + lock plan | 60 min | Together | Fast-pass on all 3 domains + relevant frameworks; architecture, niche, customer-profile assumptions, data plan, eval plan all locked |
 | **Breakpoint B** | agent time, background | Agents (Build Engine) | PRD → prototype build + eval harness, on the data plan above |
 | 3. Deck + pre-read draft | 90 min | Together | Slide narrative (both parts), pre-read draft, evals framed as a roadmap item |
 | 4. Test + integrate | 45 min | Together | Prototype passes its evals, demo rehearsed inside the deck flow |
