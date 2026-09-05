@@ -3,5 +3,10 @@
 Senior PM take-home for Ampliwork. Due EOD Thu Sep 10, 2026.
 
 - `OUTLINE.md` — working project plan, edit this directly
-- `claims.md` — PIL assumption tracker
 - `source/case-study-brief.md` — original brief
+- `research/` — domain briefings and market research (Breakpoint A)
+- `answers/` — content answering each part of the brief (see `answers/README.md`)
+- `prototype/` — the working build + eval harness (Breakpoint B)
+- `claims.md` — PIL assumption tracker
+- `extras-rationale.md` — what we added beyond the literal brief, and why
+- `checklist.md` — final gate before sending: constraints, evaluation criteria, content integrity

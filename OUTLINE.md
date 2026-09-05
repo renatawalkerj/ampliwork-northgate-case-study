@@ -16,6 +16,18 @@
 - [ ] Talking points ready, not slides: one thing chosen **not** to build and why; one thing that surprised you while building it
 - [ ] Survive: 1 live interruption during the pitch (unscripted — "handle it however you would in the room") + the fact-change curveball at the start of Q&A + general pushback through the 15 min of questions
 
+## Repo structure — where each answer gets written
+Scaffolded now so it's clear where things land as we do the work; content gets filled in phase by phase, not right away.
+
+- `research/` — Breakpoint A + business-case outputs: `tax-domain.md`, `sap-domain.md`, `security-review-norms.md`, `commercial-models.md`, `consulting-frameworks.md`, `comparables-market.md`, `open-data-search.md`, `assumed-customer-profile.md`
+- `answers/` — the content answering each part of the brief, one file per requirement (see `answers/README.md` for the full map and shared writing standard)
+- `prototype/` — the working build + eval harness (Breakpoint B, via Build Engine)
+- `claims.md` — the PIL ledger every figure above traces back to
+- `extras-rationale.md` — everything we're adding beyond the literal brief, and which point each earns its place against
+- `checklist.md` — the final gate before sending: all 7 constraints, all 5 evaluation criteria, content integrity
+
+Deck design (Phase 5) reads from `answers/` and `research/` — it doesn't create new content, it selects and sequences what's already written here.
+
 ## Stakeholder map — a method, not a guess
 No external fact to look up here (fictional client), but there's a real technique: stakeholder mapping (champion / approver / gatekeeper), not vibes. Six voices, two roles that matter most:
 
@@ -105,10 +117,10 @@ Distinct from the deck — this is rehearsal, not content. Evaluation criteria e
 | 1. Diagnose, propose & model | 60 min | Together | Read briefings → diagnosis locked, agent/workflow design, info model v1, prototype flow chosen, "VP is wrong about ___" |
 | 2. Business case, roadmap & product case | 60 min | Together | Assumed customer profile + signing date, customer roadmap (needs → milestones → pricing logic), product niche & market-sizing approach, data plan, eval plan |
 | **Breakpoint B** | agent time, background | Agents (Build Engine) | PRD → prototype build + eval harness, on the data plan above |
-| 3. Consolidate findings | 60 min | Together | Clean, concise write-up of every locked decision — diagnosis, workflow, info model, roadmap, business case, product case — content only, no deck yet. Pre-read draft. |
+| 3. Consolidate findings | 60 min | Together | All `answers/` files written — content only, no deck yet |
 | 4. Test + integrate | 45 min | Together | Prototype passes its evals |
 | 5. Design the deck & story | — | You, solo | Slide flow and narrative, whichever pitch framework fits — your call. We're on hand if you want a sounding board, not to design it for you. |
-| 6. Polish + curveball prep | 30 min | Together | Final deck, final pre-read, PIL appendix, Q&A/composure rehearsal |
+| 6. Polish + curveball prep | 30 min | Together | Final deck, final pre-read, Q&A/composure rehearsal, `checklist.md` fully checked |
 
 **Together time ≈ 4.5 hrs** — close to the original 4-hour hope; deck design is your own time and isn't counted here. Splits cleanly across the 5 days to Thursday — no need to do it in one sitting.
 
