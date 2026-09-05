@@ -3,11 +3,6 @@
 **Due: EOD Thu Sep 10, 2026** · Today: Sep 5 · 5 days out
 **Ask, one line:** pitch an AI system for indirect-tax invoice recovery to a fictional client, live-demo a working prototype, argue whether to productize it, send a one-page follow-up. Evaluated on thinking, not slides.
 
-## Ambiguities in the brief — resolved ourselves, not asked
-Roxane is scheduling contact for booking the next interview, not a case-study clarification channel — nothing case-study-related goes to her. Both of these get an ASSUMED resolution in `claims.md` instead:
-- **Curveball reaction time conflicts in the brief itself:** "Before you start" says 30 seconds to react to the fact-change; "How the session runs" says three minutes. **Resolution: prepare for 30 sec** — the harder constraint, safe regardless of which one is real.
-- **When the live session falls relative to the Thursday EOD send deadline is unstated.** **Resolution: treat the prototype and deck as demo-ready by Thursday EOD**, full stop — no upside to assuming extra runway that may not exist.
-
 ## Deliverables
 - [ ] Deck: ≤8 slides (pitch) + ≤4 slides (product) = 12 max. Appendix optional, uncapped.
 - [ ] Agent/workflow proposal, with a stated human-in-the-loop point — Part 1, slide 2
@@ -95,7 +90,7 @@ Not "build the final thing and hope it fits" — sequence around what Northgate 
 
 ## Step: Q&A and composure prep
 Distinct from the deck — this is rehearsal, not content. Evaluation criteria explicitly reward defending a position, updating it when the argument is good, and saying "I don't know" when true — bluffing is penalized.
-1. Rehearse the fact-change curveball (worst case: 30 sec, per the brief's own conflicting timings above).
+1. Rehearse reacting to the fact-change curveball fast — assume the tightest plausible window.
 2. Mock pushback round on the diagnosis, the architecture, and the productization case — not just the scripted curveball.
 3. Land on the one thing not built (and why) and the one build surprise, ready to say out loud.
 
@@ -118,4 +113,4 @@ Distinct from the deck — this is rehearsal, not content. Evaluation criteria e
 No market-size number, competitor claim, domain fact, or customer-profile figure (including the signing date) goes in the deck as fact until it's in `claims.md` — sourced, or explicitly signed off by you as a stated assumption. Default status: ASSUMED.
 
 ## Next action
-Log the two ambiguity resolutions above in `claims.md`, then kick off Phase 0: confirm the research questions above and launch Breakpoint A.
+Kick off Phase 0: confirm the research questions above and launch Breakpoint A.
