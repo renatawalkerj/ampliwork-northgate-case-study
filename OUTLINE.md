@@ -6,7 +6,7 @@
 ## Deliverables
 - [ ] Deck: ≤8 slides (pitch) + ≤4 slides (product) = 12 max. Appendix optional, uncapped.
 - [ ] Agent/workflow proposal, with a stated human-in-the-loop point — Part 1, slide 2
-- [ ] Information model — named entities + relationships, what's out of v1 — Part 1, slide 3
+- [ ] Information model — summary on slide 3, full entity detail in the appendix — Part 1, slide 3
 - [ ] Customer roadmap (phasing, timeline, **and pricing logic**, mapped to stakeholder needs) — Part 1, slide 5
 - [ ] Live prototype demo (not screenshots) — ≤3 min, must handle one messy input + show the exception path. Brief explicitly says low fidelity/ugly is fine — the "wow" has to come from nailing the hard case, not from polish. Don't spend build budget on cosmetics.
 - [ ] Eval harness for the prototype — doubles as a client-facing roadmap item
@@ -46,6 +46,7 @@ Three domain tracks, each a short list of real sources plus a brief you can skim
 1. **Indirect tax domain** — VAT/GST/sales-and-use mechanics, recoverability, reclaim windows, invoice compliance rules by jurisdiction.
 2. **SAP technical domain** — multi-instance SAP + tax engine (Vertex/ONESOURCE/Avalara-type) integration patterns, what read-only access actually constrains.
 3. **Vendor security review norms** — what an ~11-week enterprise security review checks and how vendors typically phase delivery around it.
+4. **Commercial models already in this space** — what tax-recovery specialists and tax-tech vendors actually charge today (contingency fee as % of recovered amount is common in VAT reclaim specifically, vs. per-transaction fees, seat/subscription pricing, fixed implementation + retainer). Real reference points, not a guessed number — feeds both the Part 1 engagement pricing and the Part 2 productization pricing.
 
 ## Step: agent & workflow design (Part 1, point 2)
 "What you propose" — the core of the pitch, not a bullet inside the diagnosis. Shaped by two hard constraints, not just preference:
@@ -57,7 +58,8 @@ Three domain tracks, each a short list of real sources plus a brief you can skim
 The brief names the entities explicitly — don't improvise a different set. Define, and diagram if useful:
 1. **Legal entity, jurisdiction, supplier, transaction, invoice, recoverability determination, filing period, reclaim** — what each means in Northgate's world and how they relate.
 2. What's deliberately left out of v1 (e.g., is "supplier" one entity or does it need a dedupe/identity layer given EMEA's 3-vendors-1-supplier problem?) and what breaks if the model is wrong.
-3. Needs the tax + SAP domain briefings first — these entities have real-world SAP/tax-engine analogs, don't invent them from scratch.
+3. Needs the tax + SAP domain briefings first — these entities have real-world SAP/tax-engine analogs, don't invent them from scratch. If the research doesn't pin down entity-level detail (attributes, exact relationships) that a real SAP/tax-engine data model would have, treat that as a gap to research one layer deeper before guessing — and only if it's still unresolved, assume it was clarified with the customer during discovery, tagged ASSUMED in `claims.md` like the customer profile below.
+4. Main deck slide 3 carries the summary relationships; the full entity-by-entity detail goes in the appendix, presented as settled background the panel can dig into if they ask.
 
 ## Step: business case — assumed customer profile
 The brief omits the numbers a real deal needs, and we can't email the fictional client. So: construct the missing customer facts ourselves, grounded in the domain research, not invented from nothing.
@@ -99,7 +101,7 @@ Distinct from the deck — this is rehearsal, not content. Evaluation criteria e
 | Phase | Time | Mode | Output |
 |---|---|---|---|
 | 0. Kick off research | 15 min | Together | Confirm research questions, launch Breakpoint A |
-| **Breakpoint A** | agent time, background | Agents | Fast-pass domain briefings (tax / SAP / security review), consulting-framework extraction, comparables research, open-data search |
+| **Breakpoint A** | agent time, background | Agents | Fast-pass domain briefings (tax / SAP / security review / commercial models), consulting-framework extraction, comparables research, open-data search |
 | 1. Diagnose, propose & model | 60 min | Together | Read briefings → diagnosis locked, agent/workflow design, info model v1, prototype flow chosen, "VP is wrong about ___" |
 | 2. Business case, roadmap & product case | 60 min | Together | Assumed customer profile + signing date, customer roadmap (needs → milestones → pricing logic), product niche & market-sizing approach, data plan, eval plan |
 | **Breakpoint B** | agent time, background | Agents (Build Engine) | PRD → prototype build + eval harness, on the data plan above |
