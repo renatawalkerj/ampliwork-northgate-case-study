@@ -44,6 +44,8 @@ The VP's exact ask — "I need a number I can defend by the year-end close" — 
 
 This also gives the pitch a natural visual (a burndown chart) and ties the working-capital ask directly to the same infrastructure already built for urgency-weighted queueing — it isn't a separate reporting workstream.
 
+**Measure and report the supplier-master-data scale the same way.** Milestone 1's diagnostic work isn't only about the $8-30M range — it's also where the EMEA manager's "a third of our supplier master data is wrong" gets measured against real data (see `answers/01-diagnosis.md`), not left as an unresolved estimate. Report the actual figure back to her specifically, alongside the dollar burndown. This is what turns her from a skeptic into either a validated ally or an early, cheap correction to the diagnosis — the same logic the EMEA-first pilot choice already rests on, made concrete as a deliverable rather than left implicit.
+
 ## Risks & mitigations
 | Risk | Why it's real | Mitigation |
 |---|---|---|

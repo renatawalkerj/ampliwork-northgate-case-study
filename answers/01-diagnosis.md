@@ -7,6 +7,8 @@ To answer:
 2. State it as an assumption, defended, not hedged.
 3. One thing the VP of Global Indirect Tax is wrong about, and how to tell her — she's already presented this to the CFO.
 
+**Weight the EMEA complaint accordingly.** It's the single most concrete, falsifiable claim of the six quotes, and it's independently corroborated by real SAP architecture research (`research/sap-domain.md`), not just her own impression — that's a different evidentiary status than the other quotes, which are all stated as opinion/experience without an outside mechanism confirming them. The exact fraction ("a third") doesn't need resolving to weight this heavily — under any reasonable denominator it's a material problem, not a minor one. If the diagnosis doesn't visibly treat this as central, that's a credibility risk with her specifically, not just an incomplete answer.
+
 ## Two candidates for point 3 — pick one as the headline, or unify them
 **Candidate A — solution framing (§7 of `case-facts.md`):** her literal ask ("reads invoices, tells us treatment") is invoice-only; the team's actual job needs evidence beyond the invoice for 2 of 3 determinations. More technical, ties directly into the info-model and workflow-proposal requirements.
 
