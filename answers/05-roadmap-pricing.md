@@ -33,6 +33,15 @@ The VP wants headcount freed; the Head of Tax Risk wants to not get burned. Inst
 
 **Why this pricing model is coherent and not double-charging:** per `answers/02-workflow-proposal.md`, Phase 1's backlog run and Phase 2+'s ongoing monthly operation are the same engine, not two builds — the fixed fee pays for the platform once; the contingency fee is just applied to that platform's first output (the backlog it clears), and the same system then rolls into ongoing operation under the fixed-fee/retainer. Northgate isn't paying twice for two systems.
 
+## Phase 1 as calibration, not just a cash source
+Backlog processing runs as iterative cycles, not one pass: run against the eval set + a real backlog sample → measure against the eval framework (accuracy, confidence calibration, exception rate) → identify failure patterns → refine the agent → re-run, with the confidence threshold tightening as accuracy is demonstrated on a given supplier/jurisdiction pattern (the same pattern found in `research/sap-domain.md`'s Vic.ai finding). Phase 1 does double duty: it clears urgent backlog (cash) **and** it's where the agent gets fine-tuned and the eval framework gets reinforced, using a bounded, controlled corpus — unlike live monthly volume, which has real-time pressure and no room for iteration before a filing deadline. This is also why backlog is the right place to earn trust before Phase 2+: the agent arrives at ongoing operation already calibrated, not calibrating live against real filing deadlines.
+
+## Risks & mitigations
+| Risk | Why it's real | Mitigation |
+|---|---|---|
+| Backlog data is "colder" than fresh monthly data — older records, possible staff turnover, weaker evidence trails | Expect a higher exception rate processing backlog than the system will show at steady-state on fresh volume | Report Phase 1's exception rate honestly as a backlog-specific baseline in the eval framework, not a steady-state claim to the VP/Head of Tax Risk |
+| Batch-to-continuous operational transition | Clearing the backlog runs as a one-time batch job; ongoing operation is a continuous monthly cadence — a real cutover, not just a bigger batch | Plan the batch→continuous transition as an explicit milestone gate with its own sign-off, not an assumed side effect of finishing the backlog |
+
 ## To answer
 1. Milestones sequenced against the 8-week build / 11-week security review / year-end close, with the riskiest question (does the exception path satisfy the Head of Tax Risk) proven early on bounded data, scoped to EMEA first per above, cash-first per the value sequencing above.
 1a. State plainly that Milestone 1's deliverable includes narrowing the $8-30M range using Northgate's own exception data — see `case-facts.md` §3. No external benchmark can do this; that's the actual justification for a diagnostic-first phase, not just a hedge.

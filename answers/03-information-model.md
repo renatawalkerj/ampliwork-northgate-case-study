@@ -11,6 +11,12 @@ The 3 regional hubs (Chicago/Rotterdam/Singapore) are a staffing and org constru
 
 **A derived attribute this all points to: time-to-expiration.** Every recoverability determination that's identified-but-not-yet-claimed should carry a computed "time remaining before this specific transaction's window closes" — not just the jurisdiction's rule, but that rule applied to this transaction's actual invoice date. This is the same idea as an AR-aging schedule (0-30/31-60/61-90 days), applied to unclaimed recoverable tax instead of unpaid invoices. Without it, a small amount three weeks from expiring and a large amount with years of runway look identical on a list — and the urgent one is the one that actually gets lost. This attribute is also what makes the workflow's exception queue urgency-aware, not just confidence-aware (see `answers/02-workflow-proposal.md`).
 
+## Batch is a UI/UX layer, never the unit of record
+Same principle as jurisdiction-not-hub, applied one level deeper: the atomic unit of the data model is the **individual transaction/determination**, never a batch. Batching exists only in the review UI — grouping similar transactions so a reviewer can bulk-approve efficiently — never in the underlying record. Reasons this has to hold, not just a style preference:
+- **Audit trail:** an auditor needs to see one transaction's own evidence and determination, not "processed as part of a $2M batch." Aggregating away transaction identity would recreate the exact audit-exposure risk the Head of Tax Risk owns.
+- **Time-to-expiration is inherently per-unit** (above) — each transaction has its own invoice date and therefore its own expiration date. Batching would average away the one thing the urgency-weighted queue depends on.
+- **Exception routing is per-unit** — two transactions a reviewer sees grouped in one UI batch can have different confidence scores; one may auto-process while its neighbor needs review. The batch is a convenience for the human, not a shared fate for the data.
+
 ## Summary (for the deck)
 Legal entity, jurisdiction, supplier, transaction, invoice, recoverability determination, filing period, reclaim — what each means in Northgate's world, and how they relate. What's deliberately left out of v1, and what breaks if the model is wrong.
 
