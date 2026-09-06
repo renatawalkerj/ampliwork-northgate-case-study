@@ -74,7 +74,18 @@ Feeds Phase 1 (diagnose, propose, model) directly. Three layers throughout: **Wh
 **Secondary check — China:** China's general rule allows indefinite carryforward of excess input VAT (confirmed structurally under the new VAT Law effective 1 Jan 2026) — but multiple secondary/practitioner sources (not a primary State Taxation Administration citation — **could not verify this one from a primary source in this pass**) describe a longstanding **360-day** window to certify/confirm a special VAT invoice (fapiao) on the government's invoice platform, after which the right to deduct that invoice's input VAT is lost. If accurate, that's a ~12-month procedural clock — tighter than Singapore's 5yr, in the same range as India's floor, but structurally different (a certification deadline, not a claim-filing deadline) and its status under the new 2026 VAT Law regime is unconfirmed. Flag as ASSUMED, not stated as fact.
 **What it means operationally:** APAC's real floor may be India's ~8–20 months (or China's ~360 days, if that rule still holds), not Singapore's 5yr — the Singapore-hub story significantly undersells APAC's actual urgency. Of all three hubs, APAC's spread between its best-documented country (Singapore, 5yr) and its real floor (India, as low as ~8 months) is the widest — roughly an 8x difference within one hub.
 
-**Urgency ranking — the jurisdictions actually researched, tightest floor first.** This ranks by *urgency* (how fast the window closes), not by dollar size of opportunity — the brief gives no per-country breakdown of the $8–30M, so a size-weighted ranking would need additional stacked assumptions on top of everything here. Covers the 11 jurisdictions researched, not the full assumed 30-country footprint — most of it remains unresearched, and this table doesn't claim otherwise.
+**Urgency ranking, grouped for a fast read.** Ranks by *urgency* (how fast the window closes), not dollar size — no per-jurisdiction $ breakdown of the $8–30M exists. Covers only the 11 jurisdictions researched, not the full assumed 30-country footprint.
+
+| Urgency | Jurisdiction(s) | Window | Source |
+|---|---|---|---|
+| Most urgent | Italy (EMEA) | ~4–5mo (Dec invoice) to ~15–16mo (Jan); flat 2yr from 2027 | Secondary |
+| 2nd | India (APAC) | ~8mo to ~20mo, depending on invoice date | Primary (CBIC) |
+| 3rd | China, if the fapiao rule holds (APAC) | ~12 months | ASSUMED, unverified |
+| Moderate | France (EMEA), Canada large-business (Americas) | 2 years, flat | Secondary / Primary (CRA) |
+| Lower | UK, Germany (EMEA), Canada general (Americas), US states | ~3–4 years, flat or varies | Secondary / Primary |
+| Least urgent | Netherlands (EMEA), Singapore (APAC) | 5 years, flat | Secondary / Primary (IRAS) |
+
+**Full per-jurisdiction detail, for sourcing and defensibility:**
 
 | Rank | Jurisdiction | Hub | Worst-case floor | Typical / flat case | Source |
 |---|---|---|---|---|---|
