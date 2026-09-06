@@ -36,11 +36,20 @@ The VP wants headcount freed; the Head of Tax Risk wants to not get burned. Inst
 ## Phase 1 as calibration, not just a cash source
 Backlog processing runs as iterative cycles, not one pass: run against the eval set + a real backlog sample → measure against the eval framework (accuracy, confidence calibration, exception rate) → identify failure patterns → refine the agent → re-run, with the confidence threshold tightening as accuracy is demonstrated on a given supplier/jurisdiction pattern (the same pattern found in `research/sap-domain.md`'s Vic.ai finding). Phase 1 does double duty: it clears urgent backlog (cash) **and** it's where the agent gets fine-tuned and the eval framework gets reinforced, using a bounded, controlled corpus — unlike live monthly volume, which has real-time pressure and no room for iteration before a filing deadline. This is also why backlog is the right place to earn trust before Phase 2+: the agent arrives at ongoing operation already calibrated, not calibrating live against real filing deadlines.
 
+## The working-capital number: burndown, not one static estimate
+The VP's exact ask — "I need a number I can defend by the year-end close" — needs an explicit mechanism in the plan, not just a promise to narrow the range once. Turn Milestone 1's "narrow the $8-30M range" into a reporting cadence:
+1. **Baseline** — at the start of Phase 1, establish a starting estimate from initial backlog sampling plus the current-error-rate measurement in `answers/02-workflow-proposal.md` (point 6). This baseline is explicitly provisional.
+2. **Burndown, on a recurring cycle through year-end close** — report actual $ recovered-to-date against the updated remaining-estimate, each cycle. The same shape as the time-to-expiration/aging-schedule concept already in `answers/03-information-model.md`: total estimated recoverable (declining as items are claimed or expire) vs. actual recovered (rising), tracked over time rather than guessed once.
+3. **By year-end close**, the number the VP brings to the board is whatever's been measured by then — defensible because it's grounded in real, human-approved recovered amounts, not the original range.
+
+This also gives the pitch a natural visual (a burndown chart) and ties the working-capital ask directly to the same infrastructure already built for urgency-weighted queueing — it isn't a separate reporting workstream.
+
 ## Risks & mitigations
 | Risk | Why it's real | Mitigation |
 |---|---|---|
 | Backlog data is "colder" than fresh monthly data — older records, possible staff turnover, weaker evidence trails | Expect a higher exception rate processing backlog than the system will show at steady-state on fresh volume | Report Phase 1's exception rate honestly as a backlog-specific baseline in the eval framework, not a steady-state claim to the VP/Head of Tax Risk |
 | Batch-to-continuous operational transition | Clearing the backlog runs as a one-time batch job; ongoing operation is a continuous monthly cadence — a real cutover, not just a bigger batch | Plan the batch→continuous transition as an explicit milestone gate with its own sign-off, not an assumed side effect of finishing the backlog |
+| The baseline estimate in the burndown could be wrong, since it's built on early, small-sample backlog data | Early cycles have the least data to estimate from — the baseline is the least reliable point in the whole burndown | State the baseline as explicitly provisional when first reported; don't let the VP anchor the CFO on it as if it were final |
 
 ## To answer
 1. Milestones sequenced against the 8-week build / 11-week security review / year-end close, with the riskiest question (does the exception path satisfy the Head of Tax Risk) proven early on bounded data, scoped to EMEA first per above, cash-first per the value sequencing above.
