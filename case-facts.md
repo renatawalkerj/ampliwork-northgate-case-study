@@ -74,6 +74,24 @@ Feeds Phase 1 (diagnose, propose, model) directly. Three layers throughout: **Wh
 **Secondary check — China:** China's general rule allows indefinite carryforward of excess input VAT (confirmed structurally under the new VAT Law effective 1 Jan 2026) — but multiple secondary/practitioner sources (not a primary State Taxation Administration citation — **could not verify this one from a primary source in this pass**) describe a longstanding **360-day** window to certify/confirm a special VAT invoice (fapiao) on the government's invoice platform, after which the right to deduct that invoice's input VAT is lost. If accurate, that's a ~12-month procedural clock — tighter than Singapore's 5yr, in the same range as India's floor, but structurally different (a certification deadline, not a claim-filing deadline) and its status under the new 2026 VAT Law regime is unconfirmed. Flag as ASSUMED, not stated as fact.
 **What it means operationally:** APAC's real floor may be India's ~8–20 months (or China's ~360 days, if that rule still holds), not Singapore's 5yr — the Singapore-hub story significantly undersells APAC's actual urgency. Of all three hubs, APAC's spread between its best-documented country (Singapore, 5yr) and its real floor (India, as low as ~8 months) is the widest — roughly an 8x difference within one hub.
 
+**Urgency ranking — the jurisdictions actually researched, tightest floor first.** This ranks by *urgency* (how fast the window closes), not by dollar size of opportunity — the brief gives no per-country breakdown of the $8–30M, so a size-weighted ranking would need additional stacked assumptions on top of everything here. Covers the 11 jurisdictions researched, not the full assumed 30-country footprint — most of it remains unresearched, and this table doesn't claim otherwise.
+
+| Rank | Jurisdiction | Hub | Worst-case floor | Typical / flat case | Source |
+|---|---|---|---|---|---|
+| 1 — most urgent | Italy | EMEA | ~4–5 months (Dec invoice) | ~15–16mo (Jan invoice); flat 2yr from 2027 | Secondary (converging) |
+| 2 | India | APAC | ~8 months (March invoice) | ~20mo (April invoice) | Primary (CBIC) |
+| 3 | China — *if* the fapiao-certification rule holds | APAC | ~12 months (360 days) | — | ASSUMED, secondary only, unverified |
+| 4 (tie) | France | EMEA | 2 years, flat | — | Secondary |
+| 4 (tie) | Canada, large business | Americas | 2 years, flat | — | Primary (CRA) |
+| 6 (tie) | UK | EMEA | ~4 years, flat | — | Secondary |
+| 6 (tie) | Germany | EMEA | ~4 years, flat | — | Secondary |
+| 6 (tie) | Canada, general | Americas | 4 years, flat | — | Primary (CRA) |
+| 9 | US states | Americas | ~3–4 years, varies by state | — | Secondary |
+| 10 (tie) — least urgent | Netherlands | EMEA | 5 years, flat | — | Secondary |
+| 10 (tie) | Singapore | APAC | 5 years, flat | — | Primary (IRAS) |
+
+**Why this is worth showing, not just knowing:** it turns eleven scattered facts into one clear priority order — exactly the kind of synthesis a strong partner produces. It also directly explains two decisions already in the plan: Italy's #1 ranking is the sharpest reason for piloting in EMEA first (`answers/05-roadmap-pricing.md`), and India's #2 ranking is why it's the named phase-2 target ahead of the rest of APAC, not a hub-level choice.
+
 **Recommendation:** don't attempt to research all 30 jurisdictions — not feasible at fast-pass depth and not needed. Use the hub-level minimums above (not the 3 hub headquarters' own numbers) as the representative "how fast can money actually be lost" figures for the info model, the prototype, and the diagnosis narrative. Keep the three hubs' numbers separate — do not flatten into one global "reclaim window" constant; that's exactly the mistake the brief's own "typically three to four years" framing risks, and the India/Italy/Canada findings show the risk is real, not theoretical. Also note: Italy and India's windows aren't flat N-years-from-invoice-date at all — they're bound to an annual return-filing deadline, so the actual runway depends on *when in the year* the invoice lands (see `answers/03-information-model.md` for why this is a modeling risk, not just a bigger number). All claims merged into `claims.md`.
 
 ## 5. Evidence document types — what they are, and what they map to
@@ -112,8 +130,83 @@ Feeds Phase 1 (diagnose, propose, model) directly. Three layers throughout: **Wh
 
 **How it reframes the other stakeholders' quotes:** EMEA's and APAC's complaints stop looking like two unrelated gripes and start looking like corroborating evidence for the same underlying point — both are describing exactly the kind of non-invoice context (supplier identity, document validity/compliance) that an invoice-only tool would miss. This gives the diagnosis a throughline: the VP's own framing of the ask, not just the three practitioners' complaints, is evidence for a broader-than-invoices information model — which is also the direct justification for why the workflow proposal (§Part 1.2) needs multi-document input, not invoice-only.
 
+## 8. The EMEA manager's claim — "a third of our supplier master data is wrong"
+
+**What the brief says:** "Coding is not the hard part. A third of our supplier master data is wrong. The same supplier exists as three vendors with three different tax profiles, and no model fixes that."
+
+**What research confirmed (`research/sap-domain.md`):** SAP splits vendor data into general (client-wide) and company-code-specific data, including tax classification. Because Northgate's 3 SAP instances came from 3 separate acquisitions, each instance's AP team independently onboarded suppliers with no cross-instance identity concept — SAP's native duplicate-detection only fuzzy-matches within one instance. The same real-world supplier ends up as 3 separate vendor records, each with its own independently-set tax profile. This is why "no model fixes that": a better invoice-reader still looks up whichever tax profile is attached to the record the invoice happens to be coded against — if that record's profile is wrong, the answer is confidently wrong regardless of how good the reading is.
+
+**Why this carries more weight than a stakeholder opinion:** independently corroborated by a real, documented SAP mechanism, not just her account — same evidentiary status as the APAC claim below, different from the VP's or Head of Tax Technology's quotes, which aren't independently confirmed by an outside mechanism.
+
+**Two things we're assuming, because the brief doesn't specify them:** (a) what "a third" is measured against — vendor records, unique suppliers, or AP dollar volume. This doesn't change the severity call (large under any reading), but it does affect how big the entity-resolution build actually is; (b) which specific field differs across a supplier's duplicate profiles — most likely tax classification (VAT registration status, exemption, rate category), since that's the most consequential field, but not confirmed.
+
+**Stakeholder-confidence risk, stated plainly:** treating this as a footnote risks losing her confidence — she gave the single most concrete, falsifiable claim in the whole discovery call. Phase 1 measures and reports the actual scale back to her, alongside the dollar burndown (`answers/05-roadmap-pricing.md`), rather than leaving her estimate unresolved.
+
+## 9. The APAC analyst's claim — "the invoice does not meet the local format rules"
+
+**What the brief says:** "Most of my month is chasing suppliers for compliant invoices. A lot of what we cannot recover is because the invoice does not meet the local format rules, not because anyone coded it wrong."
+
+**What research confirmed:** real and documented, not an excuse. EU Directive 2006/112/EC Art. 226 sets an exhaustive 15-field mandatory invoice list; CJEU case law holds the deduction right shouldn't in principle be denied for purely formal defects, but tax authorities routinely deny administratively first, forcing the taxpayer to fight it back with secondary evidence. A VAT-reclaim firm (VAT IT) working live EMEA cases names incomplete invoices and missing VAT numbers as a recurring real rejection cause; Germany has a specific named trap (a missing *Leistungsdatum*, the date of supply, distinct from the invoice date).
+
+**Is this only an APAC problem? No — confirmed as an EMEA problem too, and an expanding one.** Italy (since 2019), Poland (mandatory from 2026), and Spain (from 2027) are layering national e-invoicing *clearance* mandates on top of the EU content minimum — a correctly-fielded invoice can still be rejected on pure schema/clearance grounds. This is what confirms the format-compliance check belongs in Phase 1/EMEA scope now, not deferred to an APAC-only phase.
+
+**APAC specifics, researched to the same depth as the EU:** Singapore (IRAS — 10 mandatory fields, a S$1,000 simplified-invoice threshold, single-field omission voids the claim) is the same shape as the EU and should generalize cheaply. India (Rule 46, ~19 particulars, plus government IRP/IRN clearance above ₹5 crore turnover) is structurally closer to Italy/Poland's clearance model — real extension work, not a config change. China (special VAT fapiao, state-issued and STA-verified) is a fundamentally different model — secondary-sourced only, flagged as a "known won't work as-is" if China is ever discussed as a later phase.
+
+**A gap this surfaced in our own assumed footprint:** Switzerland and Turkey, both in the assumed EMEA country list, aren't EU members and aren't covered by Art. 226 at all — a compliance check built only against the EU baseline would silently miss them.
+
+**Scoping decision:** the compliance *check* is in scope — it feeds the recoverability determination directly (a non-compliant invoice can't be reliably scored regardless of what it says). Automated supplier *outreach* (drafting/tracking correction requests) is explicitly out of scope — a supplier-communication system, not a tax-determination system, outside the brief's ask and the 2-engineer/8-week budget. This is the answer to the prototype's required "one thing chosen not to build" talking point (`answers/04-prototype-notes.md`).
+
+## 10. Enterprise security — "nothing leaves our tenant," and the ~11-week review
+
+**What the brief says:** "Nothing leaves our tenant. And you go through the vendor security review like everyone else. It runs about eleven weeks."
+
+**In plain terms:** "tenant" means Northgate's own private cloud environment — like a locked room only Northgate holds the key to. The obvious approach (calling a public AI API directly) sends data out of that room into the AI vendor's own room. That's exactly what's ruled out. The answer isn't "don't use AI" — it's "run the AI inside Northgate's own room." Microsoft's Azure OpenAI offering lets a customer provision their own private instance of the model inside their own Azure account, so the question and answer never leave Northgate's environment. A "private endpoint" adds a private hallway between Northgate's system and that AI instance so the connection never touches the public internet either. Microsoft also contractually commits not to read the data or use it to train its own models. The one honest limit: the underlying hardware is still Microsoft's — no hosted option (and realistically no self-hosted one either) achieves a literal "zero third party ever involved." The checkable, defensible definition to propose: data stays in the customer-owned resource and chosen region, is never used for training, is never visible to the model provider, and never transits the public internet.
+
+**What research confirmed on the review itself (`research/security-review-norms.md`):** 8–12+ week reviews are standard for high-risk-tier vendors — Northgate's 11 weeks sits inside that range. SIG and CAIQ are the standard questionnaires; CAIQ specifically probes cloud tenancy, residency, and encryption — meaning the review will directly test whatever tenant-boundary answer is given, not just accept it as a slide claim. The review starts at signing and outlasts the 8-week build by ~3 weeks — the entire justification for the sandbox → shadow-mode → staged-access sequencing already in the roadmap.
+
+**The architecture recommendation (`answers/02-workflow-proposal.md`):** a hosted frontier model (Azure OpenAI, assuming an Azure landing zone — **unverified**, an open discovery question) provisioned in Northgate's own subscription, reached only via a private endpoint with public network access disabled, no-training-use terms in place. Two alternatives were considered and declined: a public multi-tenant API (directly disqualified) and self-hosting an open-weight model (the most literal answer, but unrealistic for 2 engineers in 8 weeks given the GPU/MLOps burden).
+
+**Reconciling the language:** "determine externally" (the workflow's architecture — outside SAP) and "nothing leaves our tenant" (outside Northgate's cloud boundary) describe two different boundaries, not a contradiction. State this explicitly on the assumptions slide rather than leaving it for the panel to question.
+
 ## Open items before Phase 1 locks
 
 - [ ] Decide whether to name illustrative jurisdictions for the $4M penalty story, or leave it as "two jurisdictions" per the brief (recommend the latter)
 - [ ] Decide whether the AP-spend cross-check calculation (§3) is worth including as a defensible sanity-check in the deck, clearly labeled as such
 - [ ] Confirm the "VP is wrong about invoice-only framing" angle (§7) as the Part 1.6 answer, or weigh it against alternatives
+- [ ] Confirm which hyperscaler Northgate actually runs (§10) — currently an unverified assumption (Azure)
+- [ ] Decide whether Switzerland/Turkey (§9) are excluded from compliance-check v1 coverage or given their own rule sets
+
+## Product requirements (for the PRD)
+
+Testable, categorized, ready to seed a PRD. Each traces back to a decision already established above or in `requirements.md`.
+
+**Functional**
+- FR1. The system shall determine, per transaction, whether tax was charged correctly, whether it is recoverable, and where it should be reported.
+- FR2. The system shall compute a confidence score for each determination.
+- FR3. The system shall route determinations below a configurable confidence threshold to human review, with supporting evidence and reasons attached.
+- FR4. The system shall compute a time-to-expiration value per transaction, from that transaction's own invoice date and its jurisdiction's reclaim-window rule (rolling-N-years or return-deadline-bound).
+- FR5. The exception queue shall be ordered by urgency (time-to-expiration) in addition to confidence.
+- FR6. The system shall check each invoice against its jurisdiction's mandatory-content requirements (field-checklist or government-clearance mechanism) as a distinct step feeding the recoverability determination.
+- FR7. The system shall not write or post any determination into SAP or any filing system; write-back is performed only by an authorized human or downstream system.
+- FR8. The system shall process both an accumulated historical backlog (batch mode) and an ongoing incoming stream (continuous mode) via the same determination pipeline.
+- FR9. The review interface shall present transactions grouped for reviewer efficiency, while each transaction remains its own individually addressable record.
+- FR10. The system shall report, on a recurring cycle, dollar amount recovered to date against the updated remaining-estimate (a burndown).
+- FR11. The system shall report the measured scale of the supplier-master-data-quality problem as part of Phase 1 diagnostics.
+
+**Non-functional / architecture**
+- NFR1. All data processed shall remain within Northgate's own cloud tenant/subscription; no data shall be sent to a public multi-tenant model API.
+- NFR2. All communication with any model/AI resource shall occur over a private network path, not the public internet.
+- NFR3. Any third-party model provider shall be contractually prohibited from using Northgate's data for training or accessing it outside the agreed service boundary.
+- NFR4. SAP access shall be read-only; no write access to any SAP instance, in any version.
+- NFR5. The confidence threshold shall be configurable and shall tighten over time as measured accuracy improves.
+- NFR6. Auto-processed determinations shall be optimized for precision; the routing decision shall be optimized for recall.
+
+**Data model**
+- DR1. Jurisdiction shall be a first-class entity with its own parameters (reclaim-window rule type/value, invoice-content rules, filing frequency), independent of which hub processes the transaction.
+- DR2. Supplier (real-world entity) and vendor master record (per-instance SAP object) shall be distinct entities, connected via an entity-resolution mapping.
+- DR3. The individual transaction shall be the atomic unit of record; no aggregation into a batch record at the data layer.
+
+**Explicit scope exclusions**
+- EX1. Automated supplier outreach (drafting/sending/tracking correction requests) is out of scope for this engagement.
+- EX2. Full support for China's fapiao-based invoicing model is out of scope until scheduled as its own phase; the compliance check shall not be assumed to extend there without dedicated rework.
+- EX3. Consolidation of the 3 SAP instances is out of scope; the solution operates across all 3 as-is.

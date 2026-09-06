@@ -19,6 +19,13 @@ Everything the proposal has to satisfy, consolidated from the brief's constraint
 - Which hyperscaler Northgate actually runs (Azure/AWS/GCP) is unverified — an open discovery question, not something to state as fact.
 - "Nothing leaves our tenant" needs a precise, checkable definition for the pitch: data stays within the customer-owned resource and region, never used for training, never visible to the model provider, never transits the public internet — not a literal "zero third-party infrastructure" claim, which no hosted (or even most self-hosted) option actually achieves.
 - Security review readiness: SIG and CAIQ are the standard questionnaires; CAIQ specifically probes tenancy/residency/encryption — the tenant-boundary architecture answer needs to hold up to that scrutiny, not just read well on a slide.
+- Plain-language version of the tenant explanation (for the pitch itself, not just internal understanding) is in `case-facts.md` §10.
+- Reclaim-window urgency ranking (11 researched jurisdictions, tightest first) is in `case-facts.md` §4 — Italy is the single most urgent, not France; India beats Singapore by ~8x.
+
+## Explicit scope exclusions
+- Automated supplier outreach (drafting/sending/tracking correction requests to suppliers) — out of scope.
+- Full support for China's fapiao-based invoicing model — out of scope until scheduled as its own phase; not assumed to extend for free.
+- Consolidation of the 3 SAP instances — out of scope; the solution operates across all 3 as-is.
 
 ## 3. Data model
 - Jurisdiction, not hub, is the rules boundary — parameterized per country (reclaim window, invoice-field requirements, filing frequency, compliance-mechanism type). Hub stays a separate entity for staffing/routing only. See `answers/03-information-model.md`.
