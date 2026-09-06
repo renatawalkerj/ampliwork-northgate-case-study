@@ -38,10 +38,7 @@ Precision = TP/(TP+FP): of what's flagged, how much is right. Recall = TP/(TP+FN
 
 8. **Where the model actually runs, resolved: "determine externally" (outside SAP) and "nothing leaves our tenant" (outside Northgate's cloud boundary) are answering two different questions, not contradicting each other.** State this explicitly on the assumptions slide rather than leaving it implicit.
 
-**Recommendation, stated as a menu with a leading assumption, not a single locked answer:** the determination layer's model calls run against a hosted frontier model provisioned inside Northgate's own cloud subscription. Which specific service depends on which cloud Northgate actually standardizes on. Two stacking signals point toward Azure as the leading assumption — SAP-centric multinationals commonly pair with Azure ("RISE with SAP"), and "tenant" is specifically Microsoft/Entra ID's core term (AWS: "Account/Organization"; GCP: "Project/Organization") — but neither is conclusive, and AWS/GCP should be kept genuinely ready given the brief's curveball mechanic, not just listed as afterthoughts:
-- Azure (leading assumption) → Azure OpenAI, in Northgate's own subscription.
-- AWS (kept ready) → AWS Bedrock, via PrivateLink.
-- Google Cloud (kept ready) → Vertex AI with VPC Service Controls and private endpoints (single-pass research, lower confidence than the Azure/AWS depth).
+**Recommendation, hyperscaler confirmed as Azure for planning purposes:** the determination layer's model calls run against **Azure OpenAI Service, provisioned inside Northgate's own Azure subscription**, private-endpoint-only, no-training-use terms. AWS Bedrock (via PrivateLink) is kept as a one-line noted alternative in case the brief's curveball ever touches this assumption — not presented as a hedged parallel option.
 
 All three are reached exclusively through a private endpoint with public network access disabled, no-training-use terms in place. Buildable by 2 engineers in 8 weeks (API integration, not infrastructure operation), capable of the multilingual extraction the prototype needs, and a real match for "nothing leaves our tenant": the resource lives in Northgate's subscription, data is pinned to their chosen region, never used for training, never visible to the model provider, never transits the public internet.
 

@@ -175,10 +175,9 @@ Feeds Phase 1 (diagnose, propose, model) directly. Three layers throughout: **Wh
 
 **What research confirmed on the review itself (`research/security-review-norms.md`):** 8–12+ week reviews are standard for high-risk-tier vendors — Northgate's 11 weeks sits inside that range. SIG and CAIQ are the standard questionnaires; CAIQ specifically probes cloud tenancy, residency, and encryption — meaning the review will directly test whatever tenant-boundary answer is given, not just accept it as a slide claim. The review starts at signing and outlasts the 8-week build by ~3 weeks — the entire justification for the sandbox → shadow-mode → staged-access sequencing already in the roadmap.
 
-**The options — a menu, with Azure as the leading assumption, not a confirmed answer (`answers/02-workflow-proposal.md`).** Two independent, stacking signals point toward Azure: large SAP-centric multinationals commonly pair with Azure (the "RISE with SAP" ecosystem), and "tenant" is specifically Microsoft/Entra ID's core term for this concept — AWS calls the equivalent an "Account/Organization," GCP a "Project/Organization." Neither signal is conclusive: "tenant" has also become genericized security jargon used loosely regardless of actual cloud, and the brief is fictional flavor text, not a deliberate technical clue. Azure is the leading working assumption, not confirmed — keep AWS/GCP genuinely ready, not just listed, given the brief's own curveball mechanic (it can change one fact and give almost no time to react).
-- **Azure (leading assumption)** → Azure OpenAI, provisioned in Northgate's own subscription, private-endpoint-only.
-- **AWS (kept ready)** → AWS Bedrock, reached via PrivateLink, model inference in AWS-operated per-provider accounts.
-- **Google Cloud (kept ready)** → Vertex AI with VPC Service Controls and private endpoints, data residency tied to the customer's own project/region. (Single-pass search only — lower confidence than the Azure/AWS research.)
+**Hyperscaler: confirmed as Microsoft/Azure for planning purposes.** Two independent, stacking signals supported this before it was settled: large SAP-centric multinationals commonly pair with Azure (the "RISE with SAP" ecosystem), and "tenant" is specifically Microsoft/Entra ID's core term for this concept — AWS calls the equivalent an "Account/Organization," GCP a "Project/Organization." Still ASSUMED in the PIL sense (nothing external verified this — it's Renata's call to settle the fictional detail for planning), but no longer hedged as an open three-way question.
+- **Azure (confirmed)** → Azure OpenAI, provisioned in Northgate's own subscription, private-endpoint-only. The primary, presented answer.
+- **AWS (noted alternative)** → AWS Bedrock, via PrivateLink — kept as a one-line fallback in case the brief's curveball ever touches this, not a hedged parallel option.
 - **Self-hosted open-weight model** — the most literal answer to "nothing leaves our tenant," considered and declined: unrealistic for 2 engineers in 8 weeks given the GPU/MLOps burden.
 - **A public multi-tenant API** — considered and declined: directly disqualified by the security stakeholder's line.
 
@@ -186,13 +185,20 @@ Feeds Phase 1 (diagnose, propose, model) directly. Three layers throughout: **Wh
 
 **Reconciling the language:** "determine externally" (the workflow's architecture — outside SAP) and "nothing leaves our tenant" (outside Northgate's cloud boundary) describe two different boundaries, not a contradiction. State this explicitly on the assumptions slide rather than leaving it for the panel to question.
 
-## Open items before Phase 1 locks
+## Decisions made
 
-- [ ] Decide whether to name illustrative jurisdictions for the $4M penalty story, or leave it as "two jurisdictions" per the brief (recommend the latter)
-- [ ] Decide whether the AP-spend cross-check calculation (§3) is worth including as a defensible sanity-check in the deck, clearly labeled as such
+- **$4M penalty jurisdictions:** left as stated in the brief — "two jurisdictions," not named, not "all of them." The brief is precise here: exactly two, a bounded and comparatively mild picture, not systemic exposure across the footprint.
+- **Hyperscaler:** confirmed as Microsoft/Azure for planning purposes. Simplifies the architecture story to Azure OpenAI directly (`answers/02-workflow-proposal.md`), with AWS/Bedrock kept as a one-line noted alternative rather than a hedged three-way menu.
+- **Contingency pricing:** revised — phased expansion from the narrow Phase 1 bucket to the full ongoing recovered-$, conditional on proven human-in-the-loop control, tracked metrics, and a demonstrated below-baseline error cost. See `answers/05-roadmap-pricing.md`.
+
+## Deferred as follow-ups (not blocking)
+
+- [ ] Switzerland/Turkey (§9): whether they get their own compliance rule set or are explicitly excluded from v1 coverage — not needed to lock the current plan, revisit later.
+
+## Still open
+
+- [ ] Decide whether the AP-spend cross-check calculation (§3) — Accounts Payable, money Northgate owes suppliers; the calc landed at ~$5.6-8.4M, near the low end of the $8-30M range — is worth including as a defensible sanity-check in the deck, clearly labeled as such
 - [ ] Confirm the "VP is wrong about invoice-only framing" angle (§7) as the Part 1.6 answer, or weigh it against alternatives
-- [ ] Confirm which hyperscaler Northgate actually runs (§10) — currently an unverified assumption (Azure)
-- [ ] Decide whether Switzerland/Turkey (§9) are excluded from compliance-check v1 coverage or given their own rule sets
 
 ## Product requirements (for the PRD)
 
