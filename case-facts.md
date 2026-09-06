@@ -164,10 +164,10 @@ Feeds Phase 1 (diagnose, propose, model) directly. Three layers throughout: **Wh
 
 **What research confirmed on the review itself (`research/security-review-norms.md`):** 8–12+ week reviews are standard for high-risk-tier vendors — Northgate's 11 weeks sits inside that range. SIG and CAIQ are the standard questionnaires; CAIQ specifically probes cloud tenancy, residency, and encryption — meaning the review will directly test whatever tenant-boundary answer is given, not just accept it as a slide claim. The review starts at signing and outlasts the 8-week build by ~3 weeks — the entire justification for the sandbox → shadow-mode → staged-access sequencing already in the roadmap.
 
-**The options — a menu, not a single answer (`answers/02-workflow-proposal.md`):** which one applies depends on which cloud Northgate actually standardizes on — **unconfirmed, an open discovery question**, not something to hard-code as fact.
-- **Azure** → Azure OpenAI, provisioned in Northgate's own subscription, private-endpoint-only.
-- **AWS** → AWS Bedrock, reached via PrivateLink, model inference in AWS-operated per-provider accounts.
-- **Google Cloud** → Vertex AI with VPC Service Controls and private endpoints, data residency tied to the customer's own project/region. (Single-pass search only — lower confidence than the Azure/AWS research.)
+**The options — a menu, with Azure as the leading assumption, not a confirmed answer (`answers/02-workflow-proposal.md`).** Two independent, stacking signals point toward Azure: large SAP-centric multinationals commonly pair with Azure (the "RISE with SAP" ecosystem), and "tenant" is specifically Microsoft/Entra ID's core term for this concept — AWS calls the equivalent an "Account/Organization," GCP a "Project/Organization." Neither signal is conclusive: "tenant" has also become genericized security jargon used loosely regardless of actual cloud, and the brief is fictional flavor text, not a deliberate technical clue. Azure is the leading working assumption, not confirmed — keep AWS/GCP genuinely ready, not just listed, given the brief's own curveball mechanic (it can change one fact and give almost no time to react).
+- **Azure (leading assumption)** → Azure OpenAI, provisioned in Northgate's own subscription, private-endpoint-only.
+- **AWS (kept ready)** → AWS Bedrock, reached via PrivateLink, model inference in AWS-operated per-provider accounts.
+- **Google Cloud (kept ready)** → Vertex AI with VPC Service Controls and private endpoints, data residency tied to the customer's own project/region. (Single-pass search only — lower confidence than the Azure/AWS research.)
 - **Self-hosted open-weight model** — the most literal answer to "nothing leaves our tenant," considered and declined: unrealistic for 2 engineers in 8 weeks given the GPU/MLOps burden.
 - **A public multi-tenant API** — considered and declined: directly disqualified by the security stakeholder's line.
 
