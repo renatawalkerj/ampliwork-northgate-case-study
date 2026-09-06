@@ -31,6 +31,8 @@ The VP wants headcount freed; the Head of Tax Risk wants to not get burned. Inst
 
 **Contingency/gain-share fee, narrowly, on the Phase 1 urgent-recoverables bucket only.** This bucket is structurally safe for contingency in a way the broader engagement isn't: the base is money that was heading to zero anyway (the counterfactual is $0, not "a judgment call about what counts as recoverable"), and every claim still goes through the Head of Tax Risk's team before filing. Standard in this exact market segment (VAT-reclaim contingency fees, `research/commercial-models.md`) — but scoped here to the one bucket where the incentive risk has nowhere to act, not the whole relationship.
 
+**Why this pricing model is coherent and not double-charging:** per `answers/02-workflow-proposal.md`, Phase 1's backlog run and Phase 2+'s ongoing monthly operation are the same engine, not two builds — the fixed fee pays for the platform once; the contingency fee is just applied to that platform's first output (the backlog it clears), and the same system then rolls into ongoing operation under the fixed-fee/retainer. Northgate isn't paying twice for two systems.
+
 ## To answer
 1. Milestones sequenced against the 8-week build / 11-week security review / year-end close, with the riskiest question (does the exception path satisfy the Head of Tax Risk) proven early on bounded data, scoped to EMEA first per above, cash-first per the value sequencing above.
 1a. State plainly that Milestone 1's deliverable includes narrowing the $8-30M range using Northgate's own exception data — see `case-facts.md` §3. No external benchmark can do this; that's the actual justification for a diagnostic-first phase, not just a hedge.
