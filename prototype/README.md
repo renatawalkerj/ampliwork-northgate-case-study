@@ -46,9 +46,7 @@ In production, this separation stops being a code-organization nicety and become
 
 ## Data files (`data/`)
 
-- `jurisdictions.json` — 4 EMEA jurisdictions (NL, DE, FR, IT), reclaim-window rule type/value, invoice-compliance mechanism and mandatory fields. VAT rates anchored to real, current values (vatnode/eu-vat-rates-data, MIT licensed). The only file left here — this is reference config the tool ships with, not per-run data.
-
-Vendor records, invoices, and the knowledge base used to live here as pre-merged JSON; they were superseded by the 3-separate-SAP-export CSV approach in `input/` (closer to how she'd actually receive this data) and removed once orphaned. See "Input (`input/`)" above for where that data lives now.
+- `jurisdictions.json` — 4 EMEA jurisdictions (NL, DE, FR, IT), reclaim-window rule type/value, invoice-compliance mechanism and mandatory fields. VAT rates anchored to real, current values (vatnode/eu-vat-rates-data, MIT licensed).
 
 ## Eval framework (`evals/`)
 
