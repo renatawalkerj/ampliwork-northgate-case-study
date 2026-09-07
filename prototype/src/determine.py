@@ -330,13 +330,18 @@ def main():
             flags, reasoning_parts, actions = [], [], []
 
             if conflict:
+                # De-dupe by vendor_record_id: `cluster` holds one row per invoice
+                # appearance, so a vendor with more than one invoice this period
+                # would otherwise get listed (and counted) more than once here,
+                # even though it's still a single distinct vendor record.
+                distinct_records = list({r["vendor_record_id"]: r for r in cluster}.values())
                 record_lines = "; ".join(
                     f"{r['vendor_record_id']} ({r['sap_instance']}): {r['tax_classification']}, {r['vat_id']}"
-                    for r in cluster
+                    for r in distinct_records
                 )
                 flags.append("ENTITY_CONFLICT")
                 reasoning_parts.append(
-                    f"This supplier resolves to {len(cluster)} vendor records across SAP instances with "
+                    f"This supplier resolves to {len(distinct_records)} vendor records across SAP instances with "
                     f"conflicting tax profiles, computed from 3 separate exports that didn't know about "
                     f"each other: {record_lines}. Route to analyst — do not auto-process (FR2a)."
                 )

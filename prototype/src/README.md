@@ -27,7 +27,7 @@ export GEMINI_API_KEY=your-key-here
 6. **Determine.** `call_llm()` sends that prompt to Gemini and gets back charged-correctly / recoverable / reporting-jurisdiction / confidence / reasoning. Wrapped in try/except: a quota or API failure writes that row as `RETRY_NEEDED` with the real error message, instead of crashing the whole run and losing every row already computed.
 7. **Sort and write.** All rows — gated and modeled — are sorted by `time_to_expiration_days` first, confidence second, and written to `../output/determination_sheet.csv`. Most urgent surfaces first regardless of how confident the model was, on purpose (FR4/FR5): urgency and certainty are different axes, and burying an urgent-but-uncertain case under confident ones is exactly the kind of thing this tool exists to prevent.
 
-**Can't run it right now (quota, no key yet)?** `../output/example_determination_sheet.csv` is a worked example showing exactly this output shape for all 7 scenarios — 4 rows are real, confirmed Gemini output from a live run this build session; 3 (INV-1005, INV-1006, INV-1007) are blind-test-verified per the quota note above, not yet reconfirmed on a live call. It's there to show the shape and the reasoning quality, not to stand in for running it yourself.
+**Can't run it right now (quota, no key yet)?** `../output/example_determination_sheet.csv` is a worked example showing exactly this output shape for all 8 scenarios — 4 rows are real, confirmed Gemini output from a live run this build session; 3 (INV-1005, INV-1006, INV-1007) are blind-test-verified per the quota note above, not yet reconfirmed on a live call; INV-1008 is fully deterministic (entity conflict + compliance check, no LLM call involved) so it needed neither.
 
 ## The 3-minute demo sequence
 
@@ -40,6 +40,7 @@ python3 determine.py
 Open `../output/determination_sheet.csv`. Point at these rows specifically:
 - **INV-1004** (Italy) sorts first — most urgent, not most uncertain. Proves urgency-weighting (FR4/FR5).
 - **INV-1002** (Vantpoint) shows `ENTITY_CONFLICT`, flagged without ever calling the LLM — the entity-conflict check is deterministic (FR2a).
+- **INV-1008** (a second Vantpoint invoice, also missing `gross_total`) shows `ENTITY_CONFLICT + COMPLIANCE_FAIL` together — proves both deterministic checks report independently when a transaction trips both, instead of one silently hiding the other.
 - **INV-1006** (Reinraum Technik, the cleanroom case) — the flagship "connects the dots across structured + unstructured evidence" story: SAP defaults to non-recoverable on a vague description, the model overrides using the invoice text, contract, and `KB-DE-004`. Blind-tested, not yet confirmed on a live Gemini call — verify before presenting.
 - **INV-1005** (Ostrava) resolves confidently now that its contract is attached and read, confirming no intra-group relationship — shows the value of document ingestion on its own, separate from the feedback loop below.
 - **INV-1007** (Nordkant Client Events) is the case that now carries "the agent is not sure" — client-appreciation-event costs, genuinely ambiguous (blocked entertainment spend vs. legitimate marketing), contract deliberately left unattached. Blind-tested, not yet confirmed live.
