@@ -1,0 +1,505 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1"><style>:root{color-scheme:light}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}[hidden]:not([hidden=until-found]){display:none!important}</style></head><body>
+<title>Analyst Journey &amp; Wireframe</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#F6F4EF; --surface:#FFFFFF; --surface-2:#FBFAF7;
+    --ink:#22201C; --ink-soft:#5C574C; --ink-faint:#948E80;
+    --line:#D8D4C9; --line-strong:#C2BCAC;
+    --current:#B1653A; --current-soft:#F3E3D8; --current-line:#DEB89A;
+    --proposed:#2D5F8A; --proposed-soft:#DCE7EE; --proposed-line:#AFC7D9;
+    --wire-fill:#ECEAE3; --wire-fill-2:#E2DFD6; --wire-line:#9C9890;
+    --urgent:#B23B2E; --urgent-soft:#F6DCD7;
+    --moderate:#A87B1F; --moderate-soft:#F2E7CD;
+    --calm:#3E7A52; --calm-soft:#DCEBE0;
+    --shadow: 0 1px 2px rgba(34,32,28,0.06), 0 4px 14px rgba(34,32,28,0.04);
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --bg:#171613; --surface:#1E1C18; --surface-2:#242220;
+      --ink:#EDEAE2; --ink-soft:#B6AF9F; --ink-faint:#7D7669;
+      --line:#37342C; --line-strong:#48443A;
+      --current:#E08A5C; --current-soft:#3A2A1E; --current-line:#5A3F2A;
+      --proposed:#7FB2DA; --proposed-soft:#1E2E3A; --proposed-line:#2E4A5E;
+      --wire-fill:#242220; --wire-fill-2:#2C2925; --wire-line:#5C574C;
+      --urgent:#E0776A; --urgent-soft:#3A211D;
+      --moderate:#D9AE5C; --moderate-soft:#362D19;
+      --calm:#7BC495; --calm-soft:#1D2F22;
+      --shadow: 0 1px 2px rgba(0,0,0,0.3), 0 4px 14px rgba(0,0,0,0.25);
+    }
+  }
+  :root[data-theme="dark"]{
+    --bg:#171613; --surface:#1E1C18; --surface-2:#242220;
+    --ink:#EDEAE2; --ink-soft:#B6AF9F; --ink-faint:#7D7669;
+    --line:#37342C; --line-strong:#48443A;
+    --current:#E08A5C; --current-soft:#3A2A1E; --current-line:#5A3F2A;
+    --proposed:#7FB2DA; --proposed-soft:#1E2E3A; --proposed-line:#2E4A5E;
+    --wire-fill:#242220; --wire-fill-2:#2C2925; --wire-line:#5C574C;
+    --urgent:#E0776A; --urgent-soft:#3A211D;
+    --moderate:#D9AE5C; --moderate-soft:#362D19;
+    --calm:#7BC495; --calm-soft:#1D2F22;
+    --shadow: 0 1px 2px rgba(0,0,0,0.3), 0 4px 14px rgba(0,0,0,0.25);
+  }
+  *{ box-sizing:border-box; }
+  body{ margin:0; background:var(--bg); color:var(--ink); font-family:"IBM Plex Sans", ui-sans-serif, system-ui, sans-serif; line-height:1.5; }
+  .wrap{ max-width:1080px; margin:0 auto; padding:2.2rem 1.4rem 4rem; }
+  h1,h2,h3{ font-family:"IBM Plex Mono", ui-monospace, monospace; color:var(--ink); font-weight:600; text-wrap:balance; }
+  h1{ font-size:1.5rem; margin:0 0 0.3rem; }
+  h2{ font-size:1.05rem; margin:0; }
+  h3{ font-size:0.85rem; margin:0; text-transform:uppercase; letter-spacing:0.04em; }
+  p{ margin:0; }
+  .eyebrow{ font-family:"IBM Plex Mono", monospace; font-size:0.7rem; letter-spacing:0.09em; text-transform:uppercase; color:var(--ink-faint); }
+
+  header{ padding-bottom:1.4rem; margin-bottom:2rem; border-bottom:1px solid var(--line); }
+  header p{ color:var(--ink-soft); font-size:0.95rem; max-width:64ch; margin-top:0.6rem; }
+  .scope-note{ display:flex; gap:0.6rem; align-items:flex-start; margin-top:1rem; padding:0.7rem 0.9rem; background:var(--surface-2); border:1px solid var(--line); border-radius:8px; font-size:0.82rem; color:var(--ink-soft); max-width:70ch; }
+  .scope-note b{ color:var(--ink); }
+
+  section{ margin-bottom:3rem; }
+  .sec-head{ display:flex; align-items:baseline; gap:0.6rem; margin-bottom:0.3rem; }
+  .sec-head .n{ font-family:"IBM Plex Mono", monospace; color:var(--ink-faint); font-size:1rem; }
+  .sec-note{ color:var(--ink-soft); font-size:0.88rem; max-width:68ch; margin:0.3rem 0 1.3rem; }
+
+  /* legend */
+  .legend{ display:flex; gap:1.4rem; flex-wrap:wrap; font-size:0.82rem; color:var(--ink-soft); margin-bottom:1.4rem; }
+  .legend .dot{ display:inline-block; width:0.6rem; height:0.6rem; border-radius:50%; margin-right:0.4rem; vertical-align:1px; }
+  .dot-current{ background:var(--current); }
+  .dot-proposed{ background:var(--proposed); }
+
+  /* system reality cards */
+  .sys-grid{ display:grid; grid-template-columns:repeat(2,1fr); gap:0.9rem; margin-bottom:2rem; }
+  @media (max-width:700px){ .sys-grid{ grid-template-columns:1fr; } }
+  .sys-card{ border:1px solid var(--line-strong); border-radius:10px; padding:0.95rem 1.1rem; background:var(--surface); }
+  .sys-card h4{ font-family:"IBM Plex Mono",monospace; font-size:0.82rem; margin:0 0 0.45rem; display:flex; align-items:center; gap:0.5rem; }
+  .sys-card h4 .num{ display:inline-flex; align-items:center; justify-content:center; width:1.4rem; height:1.4rem; border-radius:50%; background:var(--surface-2); border:1px solid var(--line-strong); font-size:0.7rem; }
+  .sys-card p{ font-size:0.82rem; color:var(--ink-soft); line-height:1.5; margin:0; }
+  .sys-card .cite{ display:block; font-size:0.68rem; color:var(--ink-faint); margin-top:0.4rem; font-style:italic; }
+
+  /* day-in-the-life timeline */
+  .day-timeline{ margin-bottom:0.4rem; }
+  .day-entry{ display:grid; grid-template-columns:5rem 1fr; gap:1rem; margin-bottom:1rem; align-items:start; }
+  @media (max-width:600px){ .day-entry{ grid-template-columns:1fr; gap:0.4rem; } }
+  .day-time{ font-family:"IBM Plex Mono",monospace; font-weight:600; font-size:0.85rem; color:var(--ink-faint); padding-top:0.8rem; }
+  .day-card{ border-radius:9px; padding:0.75rem 1rem; border:1px solid; font-size:0.85rem; }
+  .day-card.today{ background:var(--current-soft); border-color:var(--current-line); }
+  .day-card.proposed{ background:var(--proposed-soft); border-color:var(--proposed-line); }
+  .day-card .task{ font-weight:600; color:var(--ink); margin-bottom:0.3rem; display:block; }
+  .day-card .tools{ display:flex; gap:0.35rem; flex-wrap:wrap; margin-bottom:0.4rem; }
+  .day-card p{ color:var(--ink-soft); line-height:1.55; margin:0; }
+  .day-card .fr{ font-family:"IBM Plex Mono",monospace; font-size:0.68rem; color:var(--ink-faint); margin-top:0.4rem; display:block; }
+
+  .triple-row{ display:grid; grid-template-columns:7.2rem 1fr; gap:0.6rem; margin-bottom:0.5rem; }
+  .triple-row:last-child{ margin-bottom:0; }
+  @media (max-width:520px){ .triple-row{ grid-template-columns:1fr; gap:0.15rem; } }
+  .triple-label{ font-family:"IBM Plex Mono",monospace; font-size:0.65rem; letter-spacing:0.05em; text-transform:uppercase; color:var(--ink-faint); padding-top:0.1rem; }
+  .triple-text{ color:var(--ink-soft); line-height:1.55; }
+  .triple-text.strong{ color:var(--ink); font-weight:500; }
+
+  /* stepper journey */
+  .stepper{ position:relative; padding-left:2.4rem; }
+  .stepper::before{ content:""; position:absolute; left:0.95rem; top:0.6rem; bottom:2.2rem; width:2px; background:var(--line-strong); }
+  .step{ position:relative; margin-bottom:1.7rem; }
+  .step-num{ position:absolute; left:-2.4rem; top:0; width:1.9rem; height:1.9rem; border-radius:50%; background:var(--surface); border:2px solid var(--line-strong); display:flex; align-items:center; justify-content:center; font-family:"IBM Plex Mono",monospace; font-weight:600; font-size:0.85rem; color:var(--ink); z-index:1; }
+  .step-title-row{ display:flex; align-items:baseline; gap:0.6rem; flex-wrap:wrap; margin-bottom:0.6rem; }
+  .step-title-row h3{ text-transform:none; letter-spacing:0; font-size:0.98rem; }
+  .when-badge{ font-family:"IBM Plex Mono",monospace; font-size:0.66rem; letter-spacing:0.03em; text-transform:uppercase; color:var(--ink-faint); background:var(--surface-2); border:1px solid var(--line); border-radius:4px; padding:0.08rem 0.4rem; }
+
+  .lane{ border-radius:9px; padding:0.75rem 1rem; border:1px solid; margin-bottom:0.5rem; font-size:0.86rem; }
+  .lane:last-child{ margin-bottom:0; }
+  .lane-current{ background:var(--current-soft); border-color:var(--current-line); }
+  .lane-proposed{ background:var(--proposed-soft); border-color:var(--proposed-line); }
+  .lane-head{ display:flex; align-items:center; gap:0.5rem; margin-bottom:0.35rem; flex-wrap:wrap; }
+  .lane-label{ font-family:"IBM Plex Mono",monospace; font-size:0.63rem; letter-spacing:0.05em; text-transform:uppercase; padding:0.06rem 0.4rem; border-radius:4px; color:var(--surface); }
+  .lane-current .lane-label{ background:var(--current); }
+  .lane-proposed .lane-label{ background:var(--proposed); }
+  .system-chip{ font-family:"IBM Plex Mono",monospace; font-size:0.7rem; color:var(--ink); background:var(--surface); border:1px solid var(--line-strong); border-radius:4px; padding:0.06rem 0.45rem; }
+  .lane p{ color:var(--ink-soft); line-height:1.5; margin:0; }
+  .lane .fr{ font-family:"IBM Plex Mono",monospace; font-size:0.7rem; color:var(--ink-faint); margin-top:0.4rem; display:block; }
+  .lane .who{ font-weight:600; color:var(--ink); }
+
+  .bonus-row{ display:grid; grid-template-columns:repeat(2,1fr); gap:0.9rem; margin-top:0.4rem; }
+  @media (max-width:760px){ .bonus-row{ grid-template-columns:1fr; } }
+  .bonus-card{ background:var(--proposed-soft); border:1px dashed var(--proposed-line); border-radius:10px; padding:0.9rem 1.1rem; font-size:0.85rem; }
+  .bonus-card .tag{ font-family:"IBM Plex Mono", monospace; font-size:0.63rem; letter-spacing:0.03em; text-transform:uppercase; color:var(--proposed); display:block; margin-bottom:0.35rem; }
+
+  .not-fixed{ margin-top:1.4rem; padding:0.9rem 1.1rem; border-radius:10px; background:var(--surface-2); border:1px solid var(--line); font-size:0.85rem; color:var(--ink-soft); }
+  .not-fixed b{ color:var(--ink); }
+
+  /* wireframe chrome */
+  .wire-frame{ border:1px solid var(--line-strong); border-radius:12px; background:var(--surface); box-shadow:var(--shadow); overflow:hidden; }
+  .wire-topbar{ display:flex; align-items:center; gap:0.5rem; padding:0.6rem 0.9rem; border-bottom:1px solid var(--line); background:var(--surface-2); }
+  .wire-topbar .dot{ width:0.55rem; height:0.55rem; border-radius:50%; background:var(--line-strong); }
+  .wire-topbar .url{ font-family:"IBM Plex Mono",monospace; font-size:0.7rem; color:var(--ink-faint); margin-left:0.4rem; }
+  .wire-body{ display:grid; grid-template-columns:1.15fr 1.55fr; min-height:520px; }
+  @media (max-width:820px){ .wire-body{ grid-template-columns:1fr; } }
+
+  .queue-col{ border-right:1px dashed var(--wire-line); padding:0.9rem; background:var(--surface); }
+  @media (max-width:820px){ .queue-col{ border-right:none; border-bottom:1px dashed var(--wire-line); } }
+  .queue-head{ display:flex; justify-content:space-between; align-items:baseline; margin-bottom:0.7rem; }
+  .queue-head h3{ margin:0; }
+  .queue-head .count{ font-family:"IBM Plex Mono",monospace; font-size:0.72rem; color:var(--ink-faint); }
+  .sort-note{ font-size:0.72rem; color:var(--ink-faint); margin-bottom:0.7rem; font-style:italic; }
+
+  .q-item{ display:block; width:100%; text-align:left; background:var(--surface); border:1px solid var(--line); border-radius:8px; padding:0.6rem 0.7rem; margin-bottom:0.55rem; cursor:pointer; font-family:inherit; color:inherit; }
+  .q-item:hover{ border-color:var(--line-strong); }
+  .q-item.active{ border-color:var(--proposed); background:var(--proposed-soft); }
+  .q-item .row1{ display:flex; justify-content:space-between; align-items:center; margin-bottom:0.3rem; }
+  .q-item .inv-id{ font-family:"IBM Plex Mono",monospace; font-size:0.78rem; font-weight:600; }
+  .q-item .supplier{ font-size:0.78rem; color:var(--ink-soft); margin-bottom:0.35rem; }
+  .badge{ font-family:"IBM Plex Mono",monospace; font-size:0.62rem; letter-spacing:0.02em; text-transform:uppercase; padding:0.08rem 0.4rem; border-radius:4px; white-space:nowrap; }
+  .badge-urgent{ background:var(--urgent-soft); color:var(--urgent); }
+  .badge-moderate{ background:var(--moderate-soft); color:var(--moderate); }
+  .badge-calm{ background:var(--calm-soft); color:var(--calm); }
+  .badge-lowconf{ background:var(--current-soft); color:var(--current); }
+  .badge-highconf{ background:var(--calm-soft); color:var(--calm); }
+  .row2{ display:flex; gap:0.35rem; flex-wrap:wrap; }
+  .reason-chip{ font-size:0.68rem; color:var(--ink-faint); background:var(--wire-fill); border:1px solid var(--line); border-radius:4px; padding:0.05rem 0.4rem; }
+
+  .detail-col{ padding:1rem 1.1rem; background:var(--surface-2); }
+  .detail-head{ display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:0.9rem; flex-wrap:wrap; gap:0.5rem; }
+  .detail-head .inv-id{ font-family:"IBM Plex Mono",monospace; font-size:1rem; font-weight:600; }
+  .detail-head .meta{ font-size:0.78rem; color:var(--ink-soft); }
+  .badge-row{ display:flex; gap:0.4rem; flex-wrap:wrap; }
+
+  .wire-block{ background:var(--wire-fill); border:1px dashed var(--wire-line); border-radius:8px; padding:0.7rem 0.8rem; margin-bottom:0.8rem; }
+  .wire-block h4{ font-family:"IBM Plex Mono",monospace; font-size:0.68rem; letter-spacing:0.05em; text-transform:uppercase; color:var(--ink-faint); margin:0 0 0.5rem; }
+  .evidence-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:0.5rem; }
+  @media (max-width:560px){ .evidence-grid{ grid-template-columns:1fr; } }
+  .ev-card{ background:var(--surface); border:1px solid var(--line); border-radius:6px; padding:0.5rem 0.6rem; font-size:0.72rem; }
+  .ev-card.conflict{ border-color:var(--current); background:var(--current-soft); }
+  .ev-card .ev-id{ font-family:"IBM Plex Mono",monospace; font-weight:600; margin-bottom:0.25rem; display:block; }
+  .ev-card .ev-field{ color:var(--ink-soft); }
+  .ev-card .ev-field.flag{ color:var(--current); font-weight:600; }
+
+  .reasoning-text{ font-size:0.8rem; color:var(--ink-soft); line-height:1.55; }
+  .reasoning-text .hl{ color:var(--current); font-weight:600; }
+
+  .action-row{ display:flex; gap:0.6rem; flex-wrap:wrap; margin-top:0.4rem; }
+  .btn{ font-family:"IBM Plex Mono",monospace; font-size:0.72rem; padding:0.5rem 0.9rem; border-radius:6px; border:1px dashed var(--wire-line); background:var(--wire-fill-2); color:var(--ink-faint); cursor:not-allowed; text-align:center; }
+  .btn-primary{ border-style:solid; border-color:var(--proposed-line); background:var(--proposed-soft); color:var(--proposed); cursor:default; }
+  .btn-note{ font-size:0.68rem; color:var(--ink-faint); align-self:center; }
+
+  .placeholder-text{ height:0.55rem; background:var(--wire-fill-2); border-radius:3px; margin-bottom:0.4rem; }
+  .placeholder-text.w60{ width:60%; } .placeholder-text.w80{ width:80%; } .placeholder-text.w40{ width:40%; }
+
+  /* burndown mini panel */
+  .mini-panels{ display:grid; grid-template-columns:repeat(auto-fit, minmax(240px, 1fr)); gap:1rem; margin-top:1.4rem; }
+  .crossover-chart{ width:100%; height:90px; }
+  .crossover-legend{ display:flex; gap:1rem; font-size:0.68rem; color:var(--ink-faint); font-family:"IBM Plex Mono",monospace; margin-top:0.3rem; }
+  .crossover-legend .dot{ display:inline-block; width:0.5rem; height:0.5rem; border-radius:50%; margin-right:0.3rem; vertical-align:1px; }
+  .mini-panel{ border:1px solid var(--line-strong); border-radius:10px; background:var(--surface); padding:1rem 1.1rem; }
+  .mini-panel h4{ font-family:"IBM Plex Mono",monospace; font-size:0.7rem; text-transform:uppercase; letter-spacing:0.04em; color:var(--ink-faint); margin:0 0 0.7rem; }
+  .bars{ display:flex; align-items:flex-end; gap:0.5rem; height:80px; margin-bottom:0.5rem; }
+  .bar{ flex:1; background:var(--wire-fill-2); border:1px dashed var(--wire-line); border-radius:3px 3px 0 0; position:relative; }
+  .bar.fill{ background:var(--proposed-soft); border-color:var(--proposed-line); }
+  .bars-label{ display:flex; justify-content:space-between; font-size:0.68rem; color:var(--ink-faint); font-family:"IBM Plex Mono",monospace; }
+  .gauge-wrap{ display:flex; flex-direction:column; align-items:center; justify-content:center; height:100%; }
+  .gauge{ width:110px; height:55px; border-radius:110px 110px 0 0; border:10px solid var(--wire-fill-2); border-bottom:none; position:relative; margin-bottom:0.6rem; }
+  .gauge::after{ content:""; position:absolute; left:50%; bottom:0; width:2px; height:44px; background:var(--current); transform-origin:bottom; transform:translateX(-50%) rotate(28deg); }
+  .gauge-label{ font-family:"IBM Plex Mono",monospace; font-size:0.72rem; color:var(--ink-soft); text-align:center; }
+
+  .annot{ font-size:0.72rem; color:var(--ink-faint); font-style:italic; margin-top:0.8rem; }
+
+  /* per-step wireframe sequence */
+  .wire-step{ display:grid; grid-template-columns:5rem 1fr; gap:1rem; margin-bottom:1.8rem; align-items:start; }
+  @media (max-width:600px){ .wire-step{ grid-template-columns:1fr; gap:0.5rem; } }
+  .wire-step-time{ font-family:"IBM Plex Mono",monospace; font-weight:600; font-size:0.85rem; color:var(--ink-faint); padding-top:0.85rem; }
+  .wire-step-caption{ font-size:0.85rem; color:var(--ink-soft); margin-bottom:0.6rem; }
+  .wire-step-caption b{ color:var(--ink); font-weight:600; }
+  .wire-mini{ border:1px solid var(--line-strong); border-radius:10px; background:var(--surface); box-shadow:var(--shadow); overflow:hidden; }
+  .wire-mini-body{ padding:0.9rem 1rem; }
+  .mini-queue-row{ display:flex; justify-content:space-between; align-items:center; gap:0.6rem; padding:0.5rem 0.65rem; border:1px solid var(--line); border-radius:7px; margin-bottom:0.45rem; font-size:0.8rem; }
+  .mini-queue-row:last-child{ margin-bottom:0; }
+  .mini-queue-row.urgent-row{ border-color:var(--urgent); background:var(--urgent-soft); }
+  .mini-queue-row .inv-id{ font-family:"IBM Plex Mono",monospace; font-weight:600; }
+  .mini-queue-row .supplier-mini{ color:var(--ink-faint); font-size:0.74rem; }
+  .batch-strip{ display:flex; justify-content:space-between; align-items:center; padding:0.5rem 0.65rem; border:1px dashed var(--proposed-line); background:var(--proposed-soft); border-radius:7px; font-size:0.78rem; color:var(--proposed); }
+  .kb-card{ border:1px solid var(--calm); background:var(--calm-soft); border-radius:7px; padding:0.55rem 0.7rem; margin-bottom:0.5rem; font-size:0.78rem; }
+  .kb-card:last-child{ margin-bottom:0; }
+  .kb-card .kb-id{ font-family:"IBM Plex Mono",monospace; font-weight:600; color:var(--calm); }
+  .override-box{ border:1px dashed var(--wire-line); background:var(--wire-fill); border-radius:7px; padding:0.6rem 0.75rem; font-size:0.78rem; color:var(--ink-faint); margin-bottom:0.6rem; }
+  .kb-pending{ border:1px solid var(--moderate); background:var(--moderate-soft); border-radius:7px; padding:0.55rem 0.7rem; font-size:0.78rem; }
+  .kb-pending .kb-id{ font-family:"IBM Plex Mono",monospace; font-weight:600; color:var(--moderate); }
+  .mail-mock{ border:1px solid var(--line); border-radius:7px; overflow:hidden; font-size:0.78rem; }
+  .mail-mock .mail-field{ padding:0.4rem 0.7rem; border-bottom:1px solid var(--line); color:var(--ink-faint); }
+  .mail-mock .mail-field b{ color:var(--ink-soft); font-weight:500; }
+  .mail-mock .mail-body{ padding:0.6rem 0.7rem; }
+  .flag-card{ border:1px solid var(--current); background:var(--current-soft); border-radius:7px; padding:0.5rem 0.7rem; margin-bottom:0.6rem; font-size:0.78rem; color:var(--current); }
+
+  footer{ margin-top:2.5rem; padding-top:1.2rem; border-top:1px solid var(--line); color:var(--ink-faint); font-size:0.78rem; }
+</style>
+
+<div class="wrap">
+
+<header>
+  <div class="eyebrow">Northgate Industries · design working doc</div>
+  <h1>Analyst journey &amp; prototype wireframe</h1>
+  <p>The reviewing analyst's assumed current-state workflow, mapped to what changes with the AI system — used to design the prototype, not a finished spec. Every current-state claim and every wireframe element traces to a specific requirement (FR/NFR/DR/EX) already agreed in <code>case-facts.md</code> and the Ledger.</p>
+  <div class="scope-note">⚠ <span><b>Sourcing note:</b> SAP transaction mechanics (three-way match, tax-code config) are well-corroborated. That recoverability review runs as a separate batched process, and that duplicate-vendor discovery is manual/reactive, are secondary-sourced assumptions, not confirmed Northgate process — see <code>claims.md</code>, "Reviewing analyst's current-state workflow."</span>
+  </div>
+</header>
+
+<section>
+  <div class="sec-head"><span class="n">1</span><h2>The analyst's journey</h2></div>
+  <p class="sec-note">First, why the tech stack itself creates the problem. Then a day in her life, today — and the same day, with the AI system. Each moment reads as: what she does, in which system, and what happens next. Requirement IDs are cited inline, not in a separate list.</p>
+
+  <h3 style="margin-bottom:0.8rem;">The reality — how the tech stack fails her</h3>
+  <div class="sys-grid">
+    <div class="sys-card">
+      <h4><span class="num">1</span>3 SAP instances (SAP-EU-1/2/3)</h4>
+      <p>Inherited via 3 separate acquisitions — different vendor masters, no shared identity for the same real-world supplier. Vantpoint Fasteners exists as three different-looking vendor records with three different tax classifications, none of them cross-checked against the others.</p>
+      <span class="cite">Confirmed pattern: `research/sap-domain.md` — independently onboarded company codes commonly recreate the same supplier as separate records.</span>
+    </div>
+    <div class="sys-card">
+      <h4><span class="num">2</span>The tax engine</h4>
+      <p>Determines a tax code at posting — but only as good as the data SAP feeds it. A vague transaction description ("Project Expenses" instead of a specific category) makes a rules-based engine default to a conservative treatment rather than the correct one.</p>
+      <span class="cite">ASSUMED — general rules-based-tax-engine behavior (garbage-in-garbage-out), not confirmed for Northgate's specific engine.</span>
+    </div>
+    <div class="sys-card">
+      <h4><span class="num">3</span>The shared mailbox</h4>
+      <p>Suppliers emailing about rejected invoices, short-payments from tax disputes, requests for updated tax certificates — the channel where problems surface, never where they get solved.</p>
+      <span class="cite">Brief fact: "a shared mailbox where suppliers send queries."</span>
+    </div>
+    <div class="sys-card">
+      <h4><span class="num">4</span>The regional spreadsheets</h4>
+      <p>Because nobody fully trusts that the 3 SAP instances and the tax engine agree with each other, she keeps her own shadow tracker of local exceptions and known workarounds — illustratively, something like <code>EMEA_VAT_Exceptions_v7_FINAL.xlsx</code>.</p>
+      <span class="cite">Brief's own words: "a set of regional spreadsheets nobody will admit to relying on."</span>
+    </div>
+  </div>
+
+  <div class="legend">
+    <span><span class="dot dot-current"></span>Today — before this tool exists</span>
+    <span><span class="dot dot-proposed"></span>Proposed — with the AI system</span>
+  </div>
+
+  <h3 style="margin-bottom:0.9rem;">A day in her life — today <span style="font-weight:400; color:var(--ink-faint); text-transform:none; letter-spacing:0; font-size:0.78rem;">(illustrative reconstruction, ASSUMED)</span></h3>
+  <div class="day-timeline">
+    <div class="day-entry">
+      <div class="day-time">09:00</div>
+      <div class="day-card today">
+        <div class="triple-row"><span class="triple-label">She does</span><span class="triple-text strong">Pulls three separate AP voucher registers and consolidates them by hand into one sheet.</span></div>
+        <div class="triple-row"><span class="triple-label">In this system</span><span class="triple-text"><span class="system-chip">SAP-EU-1, -2, -3</span> <span class="system-chip">Excel / manual copy-paste</span></span></div>
+        <div class="triple-row"><span class="triple-label">And</span><span class="triple-text">reconciles different tax codes across the three instances just to see what the tax engine actually calculated for each — before her real review has even started.</span></div>
+      </div>
+    </div>
+    <div class="day-entry">
+      <div class="day-time">10:30</div>
+      <div class="day-card today">
+        <div class="triple-row"><span class="triple-label">She does</span><span class="triple-text strong">Checks whether a high-value line item has a known regional nuance.</span></div>
+        <div class="triple-row"><span class="triple-label">In this system</span><span class="triple-text"><span class="system-chip">Her own spreadsheet, EMEA_VAT_Exceptions_v7_FINAL.xlsx</span></span></div>
+        <div class="triple-row"><span class="triple-label">And</span><span class="triple-text">she's the only place that knowledge lives — not a central policy source, not searchable by anyone else on the team.</span></div>
+      </div>
+    </div>
+    <div class="day-entry">
+      <div class="day-time">01:00</div>
+      <div class="day-card today">
+        <div class="triple-row"><span class="triple-label">She does</span><span class="triple-text strong">Investigates why Vantpoint Fasteners says they were short-paid.</span></div>
+        <div class="triple-row"><span class="triple-label">In this system</span><span class="triple-text"><span class="system-chip">Shared mailbox</span> <span class="system-chip">SAP-EU-1, -2, -3</span> <span class="system-chip">Tax engine log</span></span></div>
+        <div class="triple-row"><span class="triple-label">And</span><span class="triple-text">eventually finds the invoice was coded against the vendor record incorrectly flagged exempt — one of 3 conflicting profiles for the same supplier, found only because the supplier complained.</span></div>
+      </div>
+    </div>
+    <div class="day-entry">
+      <div class="day-time">03:00</div>
+      <div class="day-card today">
+        <div class="triple-row"><span class="triple-label">She does</span><span class="triple-text strong">Finds a transaction the tax engine defaulted to "non-recoverable" over a vague line description.</span></div>
+        <div class="triple-row"><span class="triple-label">In this system</span><span class="triple-text"><span class="system-chip">The specific SAP instance</span> <span class="system-chip">Manual journal entry</span></span></div>
+        <div class="triple-row"><span class="triple-label">And</span><span class="triple-text">overrides it herself, based on her own spreadsheet notes — a real write, checked by no one else, with the reasoning living only in her head and her file.</span></div>
+      </div>
+    </div>
+    <div class="day-entry">
+      <div class="day-time">04:30</div>
+      <div class="day-card today">
+        <div class="triple-row"><span class="triple-label">She does</span><span class="triple-text strong">Notices a Meridian Industrial Supply invoice is missing its <em>Leistungsdatum</em>.</span></div>
+        <div class="triple-row"><span class="triple-label">In this system</span><span class="triple-text"><span class="system-chip">Shared mailbox</span></span></div>
+        <div class="triple-row"><span class="triple-label">And</span><span class="triple-text">emails the supplier for a correction and adds it to her tracker — the same slow, manual loop as every other exception this month.</span></div>
+      </div>
+    </div>
+  </div>
+
+  <h3 style="margin:2rem 0 0.9rem;">The same day — with the AI system</h3>
+  <div class="day-timeline">
+    <div class="day-entry">
+      <div class="day-time">09:00</div>
+      <div class="day-card proposed">
+        <div class="triple-row"><span class="triple-label">She does</span><span class="triple-text strong">Opens one review queue.</span></div>
+        <div class="triple-row"><span class="triple-label">In this system</span><span class="triple-text"><span class="system-chip">New: review queue (reads SAP-EU-1/2/3, read-only)</span></span></div>
+        <div class="triple-row"><span class="triple-label">And</span><span class="triple-text">the three instances are already reconciled and cross-referenced, and the queue is already sorted — by urgency (which reclaim windows close soonest) first, then confidence — into a fast batch-confirm set (~75-80% of volume) and a set that actually needs her.<span class="fr">FR1 · FR4 · FR5 · FR8 · FR9</span></span></div>
+      </div>
+    </div>
+    <div class="day-entry">
+      <div class="day-time">10:30</div>
+      <div class="day-card proposed">
+        <div class="triple-row"><span class="triple-label">She does</span><span class="triple-text strong">Checks the same kind of regional nuance.</span></div>
+        <div class="triple-row"><span class="triple-label">In this system</span><span class="triple-text"><span class="system-chip">The knowledge base (curated, versioned, reviewed)</span></span></div>
+        <div class="triple-row"><span class="triple-label">And</span><span class="triple-text">approved entries like KB-NL-001 and KB-DE-002 are now visible to the determination itself. <em>Not a one-time replacement — the base only covers what's been curated or fed back through review so far (see 03:00 below); it's designed to grow, not to claim completeness on day one.</em><span class="fr">FR12 · FR12a · DR1 · DR2</span></span></div>
+      </div>
+    </div>
+    <div class="day-entry">
+      <div class="day-time">01:00</div>
+      <div class="day-card proposed">
+        <div class="triple-row"><span class="triple-label">She does</span><span class="triple-text strong">Opens the Vantpoint transaction.</span></div>
+        <div class="triple-row"><span class="triple-label">In this system</span><span class="triple-text"><span class="system-chip">Review queue</span> <span class="system-chip">Shared mailbox (reply only)</span></span></div>
+        <div class="triple-row"><span class="triple-label">And</span><span class="triple-text">all 3 conflicting vendor records are already shown side by side — she replies to the supplier with the answer in minutes instead of spending the better part of an hour hunting for it.<span class="fr">FR2a · DR2</span></span></div>
+      </div>
+    </div>
+    <div class="day-entry">
+      <div class="day-time">03:00</div>
+      <div class="day-card proposed">
+        <div class="triple-row"><span class="triple-label">She does</span><span class="triple-text strong">Overrides the vague-description case, based on what she knows.</span></div>
+        <div class="triple-row"><span class="triple-label">In this system</span><span class="triple-text"><span class="system-chip">Review queue → knowledge-base candidate entry</span></span></div>
+        <div class="triple-row"><span class="triple-label">And</span><span class="triple-text">her reasoning is captured as an auditable candidate entry (like KB-FR-003, generated from resolving INV-1005) — pending the hub manager's review, not auto-trusted. Once approved, the <em>next</em> transaction like it resolves at higher confidence automatically. This is what "gets smarter over time" means here, and it's the audit trail the Head of Tax Risk would want to see.<span class="fr">FR1 · FR2 · FR13 · FR13a</span></span></div>
+      </div>
+    </div>
+    <div class="day-entry">
+      <div class="day-time">04:30</div>
+      <div class="day-card proposed">
+        <div class="triple-row"><span class="triple-label">She does</span><span class="triple-text strong">Sees the Meridian invoice already flagged.</span></div>
+        <div class="triple-row"><span class="triple-label">In this system</span><span class="triple-text"><span class="system-chip">Review queue (compliance check ran at posting)</span> <span class="system-chip">Shared mailbox (still manual)</span></span></div>
+        <div class="triple-row"><span class="triple-label">And</span><span class="triple-text">the exact missing field was named the moment it posted, not when she happened to notice it during a slow review. She still writes the email herself — automated outreach was explicitly scoped out.<span class="fr">FR6 · EX1 stays manual</span></span></div>
+      </div>
+    </div>
+  </div>
+
+  <p class="sec-note" style="margin-top:1.4rem; margin-bottom:0.6rem;"><b style="color:var(--ink);">Not part of her day, but closes the loop for others:</b></p>
+  <div class="bonus-row">
+    <div class="bonus-card"><span class="tag">Reporting, new</span>The hub tax manager (EMEA-manager persona) gets the supplier-master-data-quality problem reported back as a real, measured number — not left as an anecdote.<div class="fr">FR11</div></div>
+    <div class="bonus-card"><span class="tag">Reporting, new</span>The VP gets a recurring burndown — dollars recovered to date against the updated remaining estimate — instead of a single static figure.<div class="fr">FR10</div></div>
+  </div>
+
+  <div class="not-fixed"><b>What this doesn't fix:</b> the underlying dirty vendor-master data still exists in SAP — the system flags conflicts, it doesn't clean them up. Supplier outreach stays a manual email/spreadsheet process (EX1) — the tool tells her exactly what's wrong, faster, but she still sends the message herself.</div>
+</section>
+
+<section>
+  <div class="sec-head"><span class="n">2</span><h2>Initial wireframe, mapped to the same day</h2></div>
+  <p class="sec-note">Low-fidelity, for design discussion only. One frame per moment from "the same day — with the AI system" above — same timestamps, same scenarios, so the screen and the story stay attached to each other.</p>
+
+  <div class="wire-step">
+    <div class="wire-step-time">09:00</div>
+    <div>
+      <div class="wire-step-caption"><b>She does:</b> opens one review queue.</div>
+      <div class="wire-mini"><div class="wire-mini-body">
+        <div class="sort-note" style="margin-bottom:0.6rem;">sorted by urgency, then confidence — not confidence alone</div>
+        <div class="mini-queue-row urgent-row"><span><span class="inv-id">INV-1004</span> <span class="supplier-mini">Lac du Nord · Italy</span></span><span class="badge badge-urgent">7mo to expire</span></div>
+        <div class="mini-queue-row"><span><span class="inv-id">INV-1002</span> <span class="supplier-mini">Vantpoint Fasteners · NL</span></span><span class="badge badge-lowconf">entity conflict</span></div>
+        <div class="mini-queue-row"><span><span class="inv-id">INV-1003</span> <span class="supplier-mini">Meridian · Germany</span></span><span class="badge badge-moderate">compliance fail</span></div>
+        <div class="batch-strip"><span>11 more, high-confidence</span><span>✓ batch-confirm</span></div>
+      </div></div>
+    </div>
+  </div>
+
+  <div class="wire-step">
+    <div class="wire-step-time">10:30</div>
+    <div>
+      <div class="wire-step-caption"><b>She does:</b> checks a regional nuance for a Netherlands transaction.</div>
+      <div class="wire-mini"><div class="wire-mini-body">
+        <h4 style="font-family:'IBM Plex Mono',monospace; font-size:0.68rem; text-transform:uppercase; color:var(--ink-faint); margin:0 0 0.55rem;">Knowledge base — jurisdiction: NL</h4>
+        <div class="kb-card"><span class="kb-id">KB-NL-001</span> · reverse-charge exception, construction-adjacent services <span style="float:right; color:var(--calm);">✓ approved</span></div>
+        <div class="annot" style="margin-top:0.4rem;">Curated at migration, not auto-imported — see 03:00 for how a <em>new</em> entry gets added.</div>
+      </div></div>
+    </div>
+  </div>
+
+  <div class="wire-step">
+    <div class="wire-step-time">01:00</div>
+    <div>
+      <div class="wire-step-caption"><b>She does:</b> opens the Vantpoint transaction to answer the short-payment email.</div>
+      <div class="wire-mini">
+        <div class="wire-mini-body">
+          <div class="detail-head" style="margin-bottom:0.6rem;">
+            <div><span class="inv-id" style="font-size:0.95rem;">INV-1002</span><div class="meta">Vantpoint Fasteners B.V. · Netherlands</div></div>
+            <div class="badge-row"><span class="badge badge-lowconf">entity conflict</span><span class="badge badge-moderate">low confidence</span></div>
+          </div>
+          <div class="evidence-grid">
+            <div class="ev-card"><span class="ev-id">V-EU1-4471</span><span class="ev-field">SAP-EU-1</span><span class="ev-field">standard_rate_21</span></div>
+            <div class="ev-card conflict"><span class="ev-id">V-EU2-8830</span><span class="ev-field">SAP-EU-2 · coded here</span><span class="ev-field flag">exempt ⚠</span></div>
+            <div class="ev-card"><span class="ev-id">V-EU3-2091</span><span class="ev-field">SAP-EU-3</span><span class="ev-field">standard_rate_21</span></div>
+          </div>
+          <div class="action-row" style="margin-top:0.7rem;"><div class="btn btn-primary">Reply to supplier with answer</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="wire-step">
+    <div class="wire-step-time">03:00</div>
+    <div>
+      <div class="wire-step-caption"><b>She does:</b> overrides the vague-description case based on what she knows.</div>
+      <div class="wire-mini"><div class="wire-mini-body">
+        <div class="override-box">Determination: <b style="color:var(--current);">non-recoverable</b> · confidence: low · reason: vague line description ("Project Expenses")</div>
+        <div class="placeholder-text w80" style="margin-bottom:0.3rem;"></div>
+        <div class="placeholder-text w60" style="margin-bottom:0.7rem;"></div>
+        <div class="action-row" style="margin-bottom:0.7rem;"><div class="btn btn-primary">Override: mark recoverable</div></div>
+        <div class="kb-pending"><span class="kb-id">KB-FR-003</span> created · status: <b>pending_review</b> · awaiting: hub tax manager</div>
+      </div></div>
+    </div>
+  </div>
+
+  <div class="wire-step">
+    <div class="wire-step-time">04:30</div>
+    <div>
+      <div class="wire-step-caption"><b>She does:</b> sees the Meridian invoice already flagged, replies to the supplier.</div>
+      <div class="wire-mini"><div class="wire-mini-body">
+        <div class="flag-card">⚠ Compliance check failed — missing field: <b>leistungsdatum</b></div>
+        <div class="mail-mock">
+          <div class="mail-field"><b>To:</b> Meridian Industrial Supply GmbH</div>
+          <div class="mail-field"><b>Subject:</b> Correction needed — invoice MIS-20260620-04</div>
+          <div class="mail-body"><div class="placeholder-text w80"></div><div class="placeholder-text w60"></div></div>
+        </div>
+      </div></div>
+    </div>
+  </div>
+
+  <div class="wire-step">
+    <div class="wire-step-time">—</div>
+    <div>
+      <div class="wire-step-caption"><b>Not part of her day:</b> reporting views for the VP and hub manager.</div>
+      <div class="mini-panels">
+        <div class="mini-panel">
+          <h4>Burndown — FR10</h4>
+          <div class="bars">
+            <div class="bar" style="height:35%"></div>
+            <div class="bar" style="height:52%"></div>
+            <div class="bar fill" style="height:68%"></div>
+            <div class="bar fill" style="height:81%"></div>
+            <div class="bar fill" style="height:94%"></div>
+          </div>
+          <div class="bars-label"><span>WK 1</span><span>WK 2</span><span>WK 3</span><span>WK 4</span><span>WK 5</span></div>
+          <p class="annot">Recovered-to-date (filled) against the updated remaining-estimate — reported to the VP on a recurring cycle.</p>
+        </div>
+        <div class="mini-panel">
+          <h4>Supplier data quality — FR11</h4>
+          <div class="gauge-wrap">
+            <div class="gauge"></div>
+            <div class="gauge-label">~1/3 of records flagged<br>(measured, not estimated)</div>
+          </div>
+          <p class="annot">Reported to the hub manager specifically — the EMEA manager's own complaint, tracked.</p>
+        </div>
+        <div class="mini-panel">
+          <h4>Error cost vs. penalty baseline — FR11a</h4>
+          <svg class="crossover-chart" viewBox="0 0 200 90" preserveAspectRatio="none">
+            <line x1="10" y1="25" x2="190" y2="25" stroke="var(--ink-faint)" stroke-width="1.5" stroke-dasharray="4,3"/>
+            <polyline points="10,8 45,12 80,20 110,25 140,45 175,62" fill="none" stroke="var(--current)" stroke-width="2"/>
+            <circle cx="110" cy="25" r="4" fill="var(--calm)"/>
+            <line x1="10" y1="78" x2="190" y2="78" stroke="var(--line-strong)" stroke-width="1"/>
+          </svg>
+          <div class="crossover-legend">
+            <span><span class="dot" style="background:var(--ink-faint);"></span>$4M/yr baseline (real)</span>
+            <span><span class="dot" style="background:var(--current);"></span>modeled error cost</span>
+            <span><span class="dot" style="background:var(--calm);"></span>crossover</span>
+          </div>
+          <p class="annot">Illustrative trend, not live-measured yet — the crossover is the actual evidence for Phase 2+ pricing condition 3 (demonstrated below-baseline error cost). One real anchor ($4M), one modeled curve — see `case-facts.md` FR11a for the honest calculation.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  Low-fidelity wireframe — a design discussion tool, not a build spec. Full requirement definitions in the Ledger (<code>case-facts.md</code> §"Product requirements") and <code>prototype/README.md</code>'s build breakdown.
+</footer>
+
+</div>
+
+</body></html>

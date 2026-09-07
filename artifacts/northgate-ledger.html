@@ -1,0 +1,572 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1"><style>:root{color-scheme:light}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}[hidden]:not([hidden=until-found]){display:none!important}</style></head><body>
+<title>The Northgate Ledger</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,500;8..60,600;8..60,700&family=Source+Sans+3:wght@400;500;600;700&family=Special+Elite&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#ECEAE0; --surface:#F6F4EC; --surface-raised:#FCFBF6;
+    --ink:#21231F; --ink-soft:#5C5F55; --ink-faint:#8B8D7E;
+    --line:#D2CFC0; --line-strong:#B9B4A0;
+    --accent:#2C4A63; --accent-soft:#DCE4E8;
+    --shadow: 0 1px 2px rgba(33,35,31,0.05);
+    --tag-case-bg:#DCE6F5; --tag-case-fg:#1F4A85; --tag-case-border:#B7CBEA;
+    --tag-proto-bg:#DCEEDC; --tag-proto-fg:#276B36; --tag-proto-border:#B9DCB9;
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --bg:#14181A; --surface:#1C2124; --surface-raised:#232A2D;
+      --ink:#E8E4D6; --ink-soft:#A9A594; --ink-faint:#726E5F;
+      --line:#33372F; --line-strong:#454A3F;
+      --accent:#7EA8BE; --accent-soft:#1F2E33;
+      --shadow: 0 1px 2px rgba(0,0,0,0.3);
+      --tag-case-bg:#1C2E45; --tag-case-fg:#8FB4E3; --tag-case-border:#2C4A6B;
+      --tag-proto-bg:#1B3320; --tag-proto-fg:#8FC99B; --tag-proto-border:#2B4E33;
+    }
+  }
+  :root[data-theme="dark"]{
+    --bg:#14181A; --surface:#1C2124; --surface-raised:#232A2D;
+    --ink:#E8E4D6; --ink-soft:#A9A594; --ink-faint:#726E5F;
+    --line:#33372F; --line-strong:#454A3F;
+    --accent:#7EA8BE; --accent-soft:#1F2E33;
+    --shadow: 0 1px 2px rgba(0,0,0,0.3);
+    --tag-case-bg:#1C2E45; --tag-case-fg:#8FB4E3; --tag-case-border:#2C4A6B;
+    --tag-proto-bg:#1B3320; --tag-proto-fg:#8FC99B; --tag-proto-border:#2B4E33;
+  }
+
+  *{box-sizing:border-box;}
+  body{ background:var(--bg); color:var(--ink); font-family:"Source Sans 3", ui-sans-serif, system-ui, sans-serif; line-height:1.5; }
+  ::selection{ background:var(--accent-soft); }
+  .wrap{ max-width:900px; margin:0 auto; padding:2.5rem 1.5rem 4rem; }
+
+  h1,h2,h3{ font-family:"Source Serif 4", Georgia, serif; text-wrap:balance; color:var(--ink); font-weight:600; }
+  h1{ font-size:1.9rem; margin:0 0 0.4rem; }
+  h2{ font-size:1.25rem; margin:0; }
+  h3{ font-size:1rem; margin:0 0 0.3rem; }
+
+  .eyebrow{
+    font-family:"IBM Plex Mono", monospace; font-size:0.7rem; letter-spacing:0.08em; text-transform:uppercase;
+    color:var(--ink-faint);
+  }
+
+  header{ margin-bottom:2rem; padding-bottom:1.5rem; border-bottom:1px solid var(--line); }
+  header .eyebrow{ margin-bottom:0.5rem; }
+  header p{ color:var(--ink-soft); font-size:0.98rem; max-width:62ch; margin:0.5rem 0 0; }
+
+  section{ margin-bottom:2.5rem; }
+  .section-num{
+    display:flex; align-items:baseline; gap:0.6rem; margin-bottom:0.3rem;
+  }
+  .section-num .n{ font-family:"IBM Plex Mono", monospace; color:var(--ink-faint); font-size:0.95rem; }
+  .section-note{ color:var(--ink-soft); font-size:0.9rem; margin:0.2rem 0 1.1rem; max-width:66ch; }
+
+  /* plain lists */
+  ul.plain, ol.plain{ margin:0; padding-left:1.3rem; }
+  ul.plain li, ol.plain li{ margin-bottom:0.55rem; color:var(--ink); }
+  ul.plain li:last-child, ol.plain li:last-child{ margin-bottom:0; }
+  .quote{ color:var(--ink-soft); }
+  .who{ font-weight:600; color:var(--ink); }
+
+  /* quote table */
+  table{ width:100%; border-collapse:collapse; font-size:0.92rem; }
+  table.wide-first td:first-child, table.wide-first th:first-child{ width:22%; }
+  th{
+    font-family:"IBM Plex Mono", monospace; font-size:0.68rem; letter-spacing:0.06em; text-transform:uppercase;
+    color:var(--ink-faint); text-align:left; padding:0.5rem 0.7rem; border-bottom:1px solid var(--line-strong);
+    background:var(--surface);
+  }
+  td{ padding:0.6rem 0.7rem; border-bottom:1px solid var(--line); color:var(--ink-soft); vertical-align:top; }
+  tr:last-child td{ border-bottom:none; }
+  .tbl-wrap{ overflow-x:auto; border:1px solid var(--line); border-radius:6px; }
+  .tbl-wrap table{ min-width:560px; }
+  .group-row td{ background:var(--surface); font-family:"IBM Plex Mono", monospace; font-size:0.72rem; letter-spacing:0.04em; text-transform:uppercase; color:var(--ink-faint); border-bottom:1px solid var(--line-strong); }
+
+  /* research finding rows */
+  .finding-item{ margin-bottom:0.85rem; }
+  .finding-item:last-child{ margin-bottom:0; }
+  .finding-item .label{ color:var(--ink); }
+  .finding-item .source{ color:var(--ink-faint); font-size:0.85rem; }
+  .support-arrow{ color:var(--ink-faint); }
+
+  /* decisions */
+  .decision-item{ padding:0.75rem 0; border-top:1px solid var(--line); }
+  .decision-item:first-child{ border-top:none; }
+  .decision-item .d-label{ font-family:"IBM Plex Mono", monospace; font-size:0.68rem; letter-spacing:0.05em; text-transform:uppercase; color:var(--ink-faint); display:block; margin-bottom:0.25rem; }
+  .decision-item .basis{ color:var(--ink-faint); font-size:0.85rem; margin-top:0.3rem; }
+
+  /* requirement source tags */
+  .tag{
+    display:inline-block; font-family:"IBM Plex Mono", monospace; font-size:0.68rem; letter-spacing:0.02em;
+    padding:0.1rem 0.45rem; border-radius:4px; border:1px solid; margin-left:0.4rem; vertical-align:1px;
+  }
+  .tag-case{ background:var(--tag-case-bg); color:var(--tag-case-fg); border-color:var(--tag-case-border); }
+  .tag-proto{ background:var(--tag-proto-bg); color:var(--tag-proto-fg); border-color:var(--tag-proto-border); }
+  .tag-legend{ display:flex; gap:1.2rem; flex-wrap:wrap; margin:0.4rem 0 1.1rem; font-size:0.85rem; color:var(--ink-soft); }
+  .tag-legend span.tag{ margin-left:0; margin-right:0.35rem; }
+
+  /* inline glossary terms */
+  .term{ border-bottom:1px dotted var(--ink-faint); cursor:help; position:relative; color:inherit; }
+  .term::after{
+    content:attr(data-def); position:absolute; left:0; bottom:calc(100% + 8px);
+    width:max-content; max-width:250px; background:var(--ink); color:var(--bg);
+    font-family:"Source Sans 3", sans-serif; font-weight:400; font-size:0.78rem; line-height:1.4;
+    padding:0.55rem 0.7rem; border-radius:6px; box-shadow:0 4px 14px rgba(0,0,0,0.18);
+    opacity:0; visibility:hidden; transform:translateY(4px); transition:opacity .12s ease, transform .12s ease;
+    z-index:30; white-space:normal; text-transform:none; letter-spacing:normal;
+  }
+  .term:hover::after, .term:focus-visible::after{ opacity:1; visibility:visible; transform:translateY(0); }
+  @media (prefers-reduced-motion: reduce){ .term::after{ transition:none; } }
+
+  /* glossary appendix */
+  .glossary{ display:grid; grid-template-columns:repeat(3, 1fr); gap:1.1rem; }
+  @media (max-width: 780px){ .glossary{ grid-template-columns:1fr; } }
+  .gloss-group{ border:1px solid var(--line); border-radius:6px; padding:1.1rem 1.25rem; }
+  .gloss-group .eyebrow{ margin-bottom:0.6rem; }
+  .gloss-group dl{ margin:0; }
+  .gloss-group dt{ font-family:"IBM Plex Mono", monospace; font-size:0.8rem; font-weight:600; color:var(--ink); margin-top:0.65rem; }
+  .gloss-group dt:first-child{ margin-top:0; }
+  .gloss-group dd{ margin:0.15rem 0 0; color:var(--ink-soft); font-size:0.85rem; }
+
+  footer{ margin-top:2.5rem; padding-top:1.2rem; border-top:1px solid var(--line); color:var(--ink-faint); font-size:0.8rem; }
+
+  @media (max-width: 640px){
+    .tbl-wrap table{ font-size:0.86rem; }
+  }
+</style>
+
+<div class="wrap">
+
+<header>
+  <div class="eyebrow">Northgate Industries · case reference</div>
+  <h1>The Northgate Ledger</h1>
+  <p>What the brief states, what research established, what we assumed where neither applied, the decisions built on top, and the product requirements that follow. Reference for Phase 1 (diagnose, propose, model) and beyond.</p>
+</header>
+
+<section id="s1">
+  <div class="section-num"><span class="n">1</span><h2>Case facts</h2></div>
+  <p class="section-note">Stated directly in the brief. No analysis added here.</p>
+
+  <ul class="plain">
+    <li>Northgate Industries: ~$14B revenue, operations in 30 countries, 38,000 employees.</li>
+    <li>Global tax function: ~120 people. Indirect tax: 24 people, across 3 regional hubs — Chicago, Rotterdam, Singapore.</li>
+    <li>The indirect tax team is responsible for VAT, GST, and sales and use tax <span class="quote">"across every jurisdiction Northgate operates in"</span> — all 30 countries, not only the 3 hub countries.</li>
+    <li>Per transaction, three decisions: <span class="quote">"whether tax was charged correctly, whether it is recoverable, and where it should be reported."</span></li>
+    <li>Volume: <span class="quote">"every month they work through hundreds of thousands of accounts payable transactions."</span></li>
+    <li><span class="quote">"Wrong in one direction leaves cash on the table. Wrong in the other creates audit exposure and penalties."</span></li>
+    <li>Evidence: <span class="quote">"supplier invoices in fourteen languages, purchase orders, goods receipts, contracts, customs paperwork and credit notes."</span></li>
+    <li>Systems: <span class="quote">"three SAP instances inherited from acquisitions, a tax engine, a shared mailbox where suppliers send queries, and a set of regional spreadsheets nobody will admit to relying on."</span></li>
+    <li>Filing: <span class="quote">"monthly or quarterly depending on the jurisdiction."</span> Reclaim window: <span class="quote">"typically three to four years, after which the money is simply gone."</span></li>
+    <li>$8-30M/year unrecovered, Northgate's own estimate. <span class="quote">"Nobody inside the company agrees on the number, and the width of that range is itself part of the problem."</span></li>
+    <li>$4M in penalties and interest last year, across two jurisdictions, for incorrect filings. Jurisdictions not named.</li>
+    <li>Two people named as relevant: the VP of Global Indirect Tax (sponsor, holds budget, already presented to the CFO) and the Head of Tax Risk (signs the returns, not enthusiastic, has veto).</li>
+    <li>Stated ask, first call: <span class="quote">"Can you build us an AI that reads our invoices and tells us the right tax treatment?"</span></li>
+  </ul>
+
+  <h3 style="margin-top:1.4rem;">Discovery call quotes</h3>
+  <div class="tbl-wrap">
+    <table class="wide-first">
+      <tr><th>Who</th><th>Quote</th></tr>
+      <tr><td class="who">VP, Global Indirect Tax</td><td>"If AI codes the invoices, I free 24 people to do analysis instead of data entry. That is the whole business case."</td></tr>
+      <tr><td class="who">VP, Global Indirect Tax (later)</td><td>"The board is asking about working capital. I need a number I can defend by the year-end close."</td></tr>
+      <tr><td class="who">Head of Tax Risk</td><td>"We paid four million in penalties and interest last year on returns that were filed on time and wrong. I care far more about wrong than about slow."</td></tr>
+      <tr><td class="who">Regional tax manager, EMEA</td><td>"Coding is not the hard part. A third of our supplier master data is wrong. The same supplier exists as three vendors with three different tax profiles, and no model fixes that."</td></tr>
+      <tr><td class="who">Analyst, APAC</td><td>"Most of my month is chasing suppliers for compliant invoices. A lot of what we cannot recover is because the invoice does not meet the local format rules, not because anyone coded it wrong."</td></tr>
+      <tr><td class="who">Head of Tax Technology</td><td>"Three SAP instances from acquisitions. They will not be consolidated before 2029. Whatever you build has to live with that."</td></tr>
+      <tr><td class="who">Enterprise security</td><td>"Nothing leaves our tenant. And you go through the vendor security review like everyone else. It runs about eleven weeks."</td></tr>
+    </table>
+  </div>
+
+  <h3 style="margin-top:1.4rem;">Constraints</h3>
+  <ul class="plain">
+    <li>2 engineers plus the PM, 8 weeks to something usable.</li>
+    <li>Vendor security review, ~11 weeks, starts at signing.</li>
+    <li>No data leaves Northgate's tenant.</li>
+    <li>Read access to SAP. No writes, any version.</li>
+    <li>3 SAP instances, not being consolidated.</li>
+    <li>Year-end close is a fixed date.</li>
+    <li>Head of Tax Risk has a veto.</li>
+  </ul>
+</section>
+
+<section id="s2">
+  <div class="section-num"><span class="n">2</span><h2>Research findings</h2></div>
+  <p class="section-note">Facts (confirmed against a source) and the findings that support an assumption used elsewhere, combined by topic. VERIFIED unless noted.</p>
+
+  <h3>Tax law</h3>
+  <ul class="plain">
+    <li>EU VAT Directive 2006/112/EC Art. 226 sets an exhaustive 15-field invoice requirement across all member states. CJEU case law: the right to deduct shouldn't in principle be denied for purely formal defects if substance is provable — in practice, tax authorities often deny administratively first. <span class="source">— EU VAT Directive; VATupdate; VAT IT</span></li>
+    <li>This is real in practice, not just case law: VAT IT (working live EMEA cases) names incomplete invoices and missing VAT numbers as recurring rejection causes; a vendor breakdown cites missing/wrong supplier tax number as the single largest cause (28%, unverified methodology); Germany commonly flags a missing <em>Leistungsdatum</em> (date of supply). <span class="source">— VAT IT; Lovat Compliance (ASSUMED); VATupdate</span></li>
+    <li>Italy, Poland (mandatory 2026), and Spain (2027) are layering national e-invoicing <em>clearance</em> mandates on top of the EU minimum — a correctly-fielded invoice can still be rejected on schema/clearance grounds. <span class="source">— EDICOM</span></li>
+    <li>Switzerland and Turkey aren't EU members and aren't covered by Art. 226 at all — each runs its own regime. Singapore (10 fields), India (~19 particulars + IRP/IRN clearance above ₹5cr), and China (state-issued fapiao — a fundamentally different model) each have their own invoice-content rules. <span class="source">— IRAS, CBIC direct; secondary sources for China</span></li>
+    <li>No published benchmark ranks misclassification, dirty supplier master data, and non-compliant invoices against each other as causes of tax-recovery leakage — each is independently documented as real (KPMG, Deloitte, vendor sources), none is ranked.</li>
+  </ul>
+
+  <h3>Reclaim windows, grouped by urgency</h3>
+  <p class="section-note" style="margin-bottom:0.6rem;">Ranked by how fast the window closes, not dollar size — no per-jurisdiction $ breakdown exists. Only the researched jurisdictions; grouped where urgency is similar.</p>
+  <div class="tbl-wrap">
+    <table>
+      <tr><th>Urgency</th><th>Jurisdiction(s)</th><th>Window</th><th>Source</th></tr>
+      <tr><td>Most urgent</td><td>Italy (EMEA)</td><td>~4-5mo (Dec invoice) to ~15-16mo (Jan); flat 2yr from 2027</td><td>Secondary</td></tr>
+      <tr><td>2nd</td><td>India (APAC)</td><td>~8mo to ~20mo, depending on invoice date</td><td>Primary (CBIC)</td></tr>
+      <tr><td>3rd</td><td>China, if the fapiao rule holds (APAC)</td><td>~12 months</td><td>ASSUMED, unverified</td></tr>
+      <tr><td>Moderate</td><td>France (EMEA), Canada large-business (Americas)</td><td>2 years, flat</td><td>Secondary / Primary (CRA)</td></tr>
+      <tr><td>Lower</td><td>UK, Germany (EMEA), Canada general (Americas), US states</td><td>~3-4 years, flat or varies</td><td>Secondary / Primary</td></tr>
+      <tr><td>Least urgent</td><td>Netherlands (EMEA), Singapore (APAC)</td><td>5 years, flat</td><td>Secondary / Primary (IRAS)</td></tr>
+    </table>
+  </div>
+
+  <p class="section-note" style="margin-bottom:0.6rem;">Reinertsen's <span class="term" tabindex="0" data-def="Sequencing framework: rank by what delay actually destroys, not by what's easiest to build first.">Cost of Delay</span> framework is the reasoning behind ranking by urgency here — sequencing by what delay actually destroys, not by what's easiest to build first (general knowledge, not a book Renata owns).</p>
+
+  <p class="section-note"><strong>What this means for requirements and assumptions:</strong> jurisdiction needs a parameterized reclaim-window rule (rolling-years vs. return-deadline-bound) and its own invoice-content rule set — one global constant or one hub-level number both fail. Format-compliance checking is confirmed real and belongs in Phase 1/EMEA scope, not deferred. The root-cause diagnosis can't be settled externally — it has to be measured from Northgate's own data. Switzerland/Turkey need their own rule set or explicit v1 exclusion. Italy's floor is the sharpest reason for EMEA-first; India's is why phase 2 targets a jurisdiction, not "all of APAC" — the Cost of Delay logic above, not just build tractability.</p>
+
+  <h3>SAP &amp; workflow architecture</h3>
+  <ul class="plain">
+    <li>Tax engines (Vertex, ONESOURCE, Avalara) integrate with SAP by intercepting the tax-determination step and writing the result back to the document — incompatible with a strict read-only constraint. <span class="source">— Vertex, ONESOURCE partner documentation</span></li>
+    <li>SAP vendor master data splits into general (client-wide) and company-code-specific data, including tax classification. Independently onboarded company codes commonly recreate the same real-world supplier as separate vendor records, each with its own tax classification. <span class="source">— SAP Community, Codasol</span></li>
+    <li>Vic.ai and AppZen both use confidence-based routing: score every transaction, auto-process above a threshold, route the rest to a human with reasons/evidence attached. ONESOURCE's public documentation describes compliance-layer exception workflows only — no public per-transaction confidence mechanism found. <span class="source">— Vic.ai, AppZen, Thomson Reuters documentation</span></li>
+  </ul>
+  <p class="section-note"><strong>What this means for requirements and assumptions:</strong> the workflow must be a side-by-side "extract, determine, recommend" design, never in-transaction write-back. Supplier and vendor-master-record are distinct entities needing an entity-resolution layer. Confidence-based exception routing with evidence attached is a workable, precedented pattern to build on.</p>
+
+  <h3>Security review &amp; tenant/deployment architecture</h3>
+  <p class="section-note" style="margin-bottom:0.6rem;">In plain terms: "tenant" means Northgate's own private cloud environment — a locked room only Northgate holds the key to. A public AI API sends data into the vendor's own room; the answer is a private instance of the model inside Northgate's own room, reached only through a connection that never touches the public internet, under a contract that the provider will never read the data or train on it. Honest limit: the underlying hardware is still the cloud provider's — no option, hosted or self-hosted, achieves a literal zero-third-party absolute short of air-gapped owned hardware.</p>
+  <ul class="plain">
+    <li>SIG and CAIQ are the standard vendor security questionnaires; CAIQ specifically probes cloud tenancy, residency, and encryption. Sandbox demos on synthetic data, staged data-access expansion, and shadow-mode operation are documented patterns for building trust ahead of full production access. <span class="source">— Bitsight, SecurityScorecard; vendor/practitioner sources</span></li>
+    <li><strong>Hyperscaler confirmed as Microsoft/Azure for planning purposes</strong> — a settled premise for this exercise, not externally verified. Azure OpenAI Service, provisioned in Northgate's own subscription, private-endpoint-only, no-training-use terms — the primary, presented answer. AWS Bedrock (fully-managed, via PrivateLink) kept as a one-line noted alternative only, not a hedged parallel option. Self-hosting an open-weight model is the most literal answer to "nothing leaves our tenant" but declined — ~15-20% ops overhead, unrealistic for 2 engineers in 8 weeks. <span class="source">— Microsoft Learn; AWS re:Post</span></li>
+    <li><strong>Who pays:</strong> the resource lives in Northgate's own subscription, so Northgate's cloud provider bills Northgate directly for consumption — separate from, and not included in, Ampliwork's fee.</li>
+    <li>Security reviews validating "data doesn't leave the tenant" concretely check architecture/data-flow diagrams, subprocessor disclosure, network configuration evidence, and DPA terms — architectural and contractual isolation are treated as separate questions.</li>
+  </ul>
+  <p class="section-note"><strong>What this means for requirements and assumptions:</strong> NFR1-3 (tenant-bound data, private network only, no training use) hold with Azure now confirmed as the answer. The sandbox → shadow-mode → staged-access sequencing is what bridges the 8-week build / 11-week review gap. Cloud infrastructure cost sits on Northgate's own bill, not Ampliwork's fee — which is why the fixed-fee argument doesn't need to price in usage growth.</p>
+
+  <h3>Market &amp; pricing</h3>
+  <ul class="plain">
+    <li>Ryan LLC sells proprietary tax-recovery software at Northgate's revenue tier (states $4B in client savings). Way2VAT, AppZen, Vic.ai, and MindBridge are named comparable/adjacent tools. ~850-950 public companies rank at $14B+ TTM revenue — no source directly counts companies with an in-house indirect-tax function of Northgate's scale. <span class="source">— ryan.com; vendor sites; CompaniesMarketCap.com, pulled directly</span></li>
+    <li>VAT IT, Taxback International, and Ryan run contingency as their <em>primary</em> pricing model, not a narrow carve-out, though none publish rates; adjacent AP-recovery-audit firms cite 10-40%, most commonly 20-30%.</li>
+  </ul>
+  <p class="section-note"><strong>What this means for requirements and assumptions:</strong> revised — the incentive-conflict concern assumed the AI's output goes unchecked; it doesn't, since the human reviewer is Northgate's own risk-owning team with zero contingency stake. Pricing is phased, not permanently narrow: Phase 1 fixed-fee + contingency on the urgent-recoverables bucket, expanding to contingency on the full ongoing recovered-$ in Phase 2+ once human-in-the-loop control, continuously tracked metrics, and a below-baseline error cost are proven. TAM ≈ 350-550 applies an unsourced 40-55% filter on top of the real revenue-rank count — the weakest link, flag it as such.</p>
+
+  <h3>Prototype data</h3>
+  <ul class="plain">
+    <li>SROIE and CORD are single-country retail-receipt datasets with no VAT fields; FUNSD's license excludes commercial use. vatnode/eu-vat-rates-data is MIT licensed, with VAT rates and ID formats for 45 European jurisdictions, sourced from the EC's TEDB.</li>
+  </ul>
+  <p class="section-note"><strong>What this means for requirements and assumptions:</strong> no open dataset fits as-is — hand-build synthetic invoices anchored to the real vatnode rates. Duplicate-vendor-tax-profile is the recommended messy input, tied directly to the EMEA manager's complaint.</p>
+</section>
+
+<section id="s3">
+  <div class="section-num"><span class="n">3</span><h2>Additional assumptions</h2></div>
+  <p class="section-note">Not backed by research or the brief, and not already captured as a row in the Information table (section 4) — see that table for the fuller set. Stated as assumptions because no source addresses them.</p>
+
+  <ul class="plain">
+    <li><span class="term" tabindex="0" data-def="Accounts Payable — money Northgate owes its suppliers for goods/services received. The brief's own 'hundreds of thousands of accounts payable transactions' a month.">AP</span> spend for an industrial manufacturer is roughly 40-60% of revenue.</li>
+    <li>"A third of our supplier master data is wrong" — the denominator (records / unique suppliers / $ volume) isn't specified. A third is material under any reading; severity doesn't wait on resolving which one. The specific field that differs across duplicate profiles is most likely tax classification, not confirmed.</li>
+    <li>Automated supplier outreach (drafting/tracking correction requests) is out of scope — a communication system, not a tax-determination system, outside the brief's ask and the build budget.</li>
+    <li>India's IRP/IRN compliance-check extension and China's fapiao model are real, separate later-phase engineering work, not a free generalization of the EU/Singapore design.</li>
+  </ul>
+</section>
+
+<section id="s4">
+  <div class="section-num"><span class="n">4</span><h2>Information table</h2></div>
+  <p class="section-note">Consolidated from sections 1-2. Referenced by number in section 5.</p>
+
+  <div class="tbl-wrap">
+    <table>
+      <tr><th>#</th><th>Information</th><th>Type</th><th>Basis</th></tr>
+
+      <tr class="group-row"><td colspan="4">The job and its risk asymmetry</td></tr>
+      <tr><td>1</td><td>Three decisions per transaction: charged correctly, recoverable, where reported.</td><td>Case fact</td><td>Brief</td></tr>
+      <tr><td>2</td><td>Under-claims have the reclaim window as a grace period; over-claims are audit-caught with no equivalent self-correction runway.</td><td>Assumption</td><td>Derived from #1</td></tr>
+
+      <tr class="group-row"><td colspan="4">Clocks and jurisdictions</td></tr>
+      <tr><td>3</td><td>Reclaim windows: UK/Germany ~4yr, NL ~5yr, France ~2yr, Singapore 5yr, Canada 2yr (large business), India ~8-20mo, Italy ~4-5mo.</td><td>Research fact</td><td>IRAS/CRA/CBIC (primary); Italy via secondary sources</td></tr>
+      <tr><td>4</td><td>Per-jurisdiction filing frequency not established for any of the 30 countries.</td><td>Assumption (gap)</td><td>Not researched</td></tr>
+      <tr><td>5</td><td>30-country footprint constructed by hub (~7/14/9).</td><td>Assumption</td><td>Not in brief</td></tr>
+
+      <tr class="group-row"><td colspan="4">The money</td></tr>
+      <tr><td>6</td><td>$4M penalties, two unnamed jurisdictions (left as stated, not named — a bounded, comparatively mild picture); $8-30M/year unrecovered, disputed internally.</td><td>Case fact</td><td>Brief</td></tr>
+      <tr><td>7</td><td>No benchmark exists for leakage % of AP spend at Northgate's scale, anywhere.</td><td>Research fact (absence)</td><td>Searched Big 4 + tax-tech vendors</td></tr>
+      <tr><td>8</td><td>AP spend ~40-60% of revenue, applied to a $1M-per-$1B-spend recovery ratio, implies ~$5.6-8.4M (sanity check only).</td><td>Assumption</td><td>Two stacked assumptions</td></tr>
+
+      <tr class="group-row"><td colspan="4">Evidence, systems, and data model</td></tr>
+      <tr><td>9</td><td>Six evidence document types, each mapping to a different determination question.</td><td>Case fact + reasoning</td><td>Brief + our mapping</td></tr>
+      <tr><td>10</td><td>Four data sources: 3 SAP instances, tax engine, shared mailbox, spreadsheets.</td><td>Case fact</td><td>Brief</td></tr>
+      <tr><td>11</td><td>Read-only / no-data-leaves-tenant applies explicitly to SAP; extension to the other three sources is assumed.</td><td>Assumption</td><td>Not stated in brief</td></tr>
+
+      <tr class="group-row"><td colspan="4">Workflow and architecture</td></tr>
+      <tr><td>13</td><td>Supplier ≠ vendor master record; duplication arises from independent per-company-code onboarding.</td><td>Research → assumption</td><td>SAP Community, Codasol</td></tr>
+      <tr><td>14</td><td>Read-only forces an extract-determine-recommend architecture, not in-transaction integration.</td><td>Research → assumption</td><td>Reasoned from SAP integration pattern</td></tr>
+      <tr><td>15</td><td>Confidence-based exception routing (score, threshold, route with evidence) is a workable pattern.</td><td>Research fact</td><td>Vic.ai, AppZen</td></tr>
+      <tr><td>16</td><td>Time-to-expiration must be computed per transaction, not per jurisdiction (Italy/India bind to a return date).</td><td>Research + reasoning</td><td>CBIC, tax-advisory sources</td></tr>
+      <tr><td>17</td><td>Sandbox → shadow-mode → staged access bridges the build/review gap.</td><td>Research → assumption</td><td>Vendor/practitioner sources</td></tr>
+      <tr><td>18</td><td>Backlog run and ongoing monthly processing share one pipeline; input and queue-priority axis differ.</td><td>Assumption</td><td>Our architecture reasoning</td></tr>
+
+      <tr class="group-row"><td colspan="4">Market and pricing</td></tr>
+      <tr><td>19</td><td>Contingency pricing is standard in VAT reclaim (VAT IT/Ryan/Taxback run it as their primary model); revised view is it's viable broadly, phased on proven human-in-the-loop control and tracked metrics, not permanently narrowed.</td><td>Research + reasoning, revised</td><td>VAT IT, Ryan, Taxback + reasoning</td></tr>
+      <tr><td>20</td><td>TAM ≈ 350-550 public multinationals in Northgate's tier.</td><td>Research fact + assumption</td><td>CompaniesMarketCap (fact) × 40-55% filter (assumption)</td></tr>
+      <tr><td>21</td><td>Ryan LLC and Way2VAT are existing comparable offerings.</td><td>Research fact</td><td>ryan.com, secondary search</td></tr>
+      <tr><td>22</td><td>Cost of Delay ranks EMEA &gt; APAC &gt; Americas; build tractability ranks EMEA &gt; Americas &gt; APAC.</td><td>Research → assumption</td><td>Reinertsen framework + per-hub floors (row 3)</td></tr>
+
+      <tr class="group-row"><td colspan="4">Value sequencing</td></tr>
+      <tr><td>23</td><td>The VP's stated ask is invoice-only; the 3-part job needs evidence beyond the invoice.</td><td>Case fact + reasoning</td><td>Brief quote + our mapping</td></tr>
+      <tr><td>24</td><td>Recovered cash is a stronger board number than a headcount claim.</td><td>Assumption</td><td>Judgment, not sourced</td></tr>
+      <tr><td>25</td><td>Backlog data is colder than fresh data, implying a higher exception rate than steady state.</td><td>Assumption</td><td>Our reasoning</td></tr>
+
+      <tr class="group-row"><td colspan="4">Invoice compliance</td></tr>
+      <tr><td>26</td><td>EU invoice-compliance rejection is real and present-day (VAT IT case experience, Germany's Leistungsdatum trap, expanding clearance mandates in Italy/Poland/Spain) — not just theoretical.</td><td>Research fact</td><td>VAT IT, VATupdate, EDICOM</td></tr>
+      <tr><td>27</td><td>Singapore (10 fields), India (~19 particulars + IRP/IRN clearance), and China (state-issued fapiao) each have their own mandatory invoice-content regime.</td><td>Research fact (China: ASSUMED, secondary only)</td><td>IRAS, CBIC (primary); secondary for China</td></tr>
+      <tr><td>28</td><td>Switzerland and Turkey, in the assumed EMEA footprint, aren't EU members and aren't covered by Art. 226 at all.</td><td>Assumption (gap)</td><td>EU membership fact</td></tr>
+
+      <tr class="group-row"><td colspan="4">Tenant &amp; deployment architecture</td></tr>
+      <tr><td>29</td><td>Azure OpenAI, provisioned in Northgate's own subscription, private-endpoint-only, satisfies "nothing leaves our tenant" as a checkable, contractual + architectural claim. AWS Bedrock is the noted fallback, same shape.</td><td>Research → assumption</td><td>Microsoft Learn, AWS re:Post</td></tr>
+      <tr><td>30</td><td>Hyperscaler confirmed as Microsoft/Azure for planning purposes (by decision, not external verification).</td><td>Resolved assumption</td><td>Settled premise — supported by SAP/BTP-Azure pairing + "tenant" being Microsoft-specific terminology</td></tr>
+      <tr><td>30a</td><td>Northgate's cloud provider bills Northgate directly for consumption, since the resource sits in Northgate's own subscription — separate from Ampliwork's fee.</td><td>Assumption</td><td>Standard bring-your-own-cloud commercial structure</td></tr>
+
+      <tr class="group-row"><td colspan="4">Model behavior &amp; reporting</td></tr>
+      <tr><td>31</td><td>Model optimization target: precision for auto-processed determinations, recall for routing — not accuracy.</td><td>Assumption</td><td>Derived from the brief's "wrong &gt; slow" framing + ML evaluation theory</td></tr>
+      <tr><td>32</td><td>Working-capital number reported as a burndown (baseline + recurring updates), not a single static estimate.</td><td>Assumption</td><td>Directly answers the VP's stated ask</td></tr>
+      <tr><td>33</td><td>No current error rate is computable from the brief's numbers; measure the human-only baseline empirically in Phase 1.</td><td>Assumption (as an absence)</td><td>Brief gives costs, not rates</td></tr>
+      <tr><td>34</td><td>Supplier-master-data-quality scale is measured and reported back to the EMEA manager specifically.</td><td>Assumption</td><td>Our stakeholder-risk judgment</td></tr>
+    </table>
+  </div>
+</section>
+
+<section id="s5">
+  <div class="section-num"><span class="n">5</span><h2>Decisions</h2></div>
+  <p class="section-note">Built on the table above. Each references the row(s) it's based on.</p>
+
+  <div class="decision-item">
+    <span class="d-label">Decision</span>
+    Pilot in EMEA (Rotterdam hub) first.
+    <div class="basis">Based on: rows 3 (Italy's window, tightest of any hub), 5 (assumed EMEA has the most countries), 13 (EMEA manager's testable complaint), and harmonized EU invoice rules.</div>
+  </div>
+
+  <div class="decision-item">
+    <span class="d-label">Decision</span>
+    After EMEA, sequence by jurisdiction, not hub — target India specifically, not all of APAC.
+    <div class="basis">Based on: rows 3 and 22 (Cost of Delay and build-tractability disagree on Americas vs. APAC; jurisdiction-level targeting resolves it).</div>
+  </div>
+
+  <div class="decision-item">
+    <span class="d-label">Decision</span>
+    Sequence value delivery as cash first (Phase 1), headcount redeployment later (Phase 2+).
+    <div class="basis">Based on: rows 2 (risk asymmetry), 16 (urgency-weighted queue), 24 (cash as the stronger board number).</div>
+  </div>
+
+  <div class="decision-item">
+    <span class="d-label">Decision</span>
+    The information model treats jurisdiction, not hub, as the rules boundary, with time-to-expiration computed per transaction.
+    <div class="basis">Based on: rows 3 and 16.</div>
+  </div>
+
+  <div class="decision-item">
+    <span class="d-label">Decision</span>
+    The individual transaction is the unit of record; batch exists only in the review interface.
+    <div class="basis">Based on: row 16 (per-transaction time-to-expiration requires it) and our own architecture reasoning (audit-trail integrity) — an implementation-level design call, not a separate tracked assumption.</div>
+  </div>
+
+  <div class="decision-item">
+    <span class="d-label">Decision</span>
+    Dual pricing: fixed-fee/retainer for the core engagement, contingency narrowly on the Phase 1 urgent-recoverables bucket only. The fee covers the service layer only — Northgate's own cloud provider bills Northgate directly for AI/compute consumption, not included in Ampliwork's fee.
+    <div class="basis">Based on: rows 18, 19, and 30a (one pipeline, not two builds; contingency's incentive conflict doesn't apply to a bucket with a $0 counterfactual and human sign-off; usage-based cloud cost sits on Northgate's own bill).</div>
+  </div>
+
+  <div class="decision-item">
+    <span class="d-label">Decision</span>
+    The exception queue is urgency-weighted, not confidence-only.
+    <div class="basis">Based on: row 16.</div>
+  </div>
+
+  <div class="decision-item">
+    <span class="d-label">Decision</span>
+    Phase 1 runs as iterative eval-and-refine cycles against the backlog, not a single pass.
+    <div class="basis">Based on: row 15 (the confidence-threshold pattern) and row 25 (backlog is colder/higher-exception-rate than steady state — a risk to report honestly, but also more edge cases to calibrate the threshold against before going live on fresh volume).</div>
+  </div>
+
+  <div class="decision-item">
+    <span class="d-label">Decision</span>
+    Invoice format-compliance checking is confirmed in Phase 1/EMEA scope. Automated supplier outreach is explicitly out of scope.
+    <div class="basis">Format-compliance-in-scope based on: rows 26-28 (EU/EMEA invoice-compliance evidence stands on its own). Outreach-out-of-scope is not a table-referenced finding — it's a scoping call (section 3): outreach is a different kind of system (supplier communication, not tax determination), outside the brief's ask and build budget.</div>
+  </div>
+
+  <div class="decision-item">
+    <span class="d-label">Decision</span>
+    Model optimization target: precision for auto-processed determinations, recall for the routing decision. "Auto-processed" means the analyst confirms-and-files at speed rather than investigating from scratch (FR3a) — the system never files anything itself at any confidence level (FR7).
+    <div class="basis">Based on: row 31.</div>
+  </div>
+
+  <div class="decision-item">
+    <span class="d-label">Decision</span>
+    The VP's working-capital ask is answered with a burndown (baseline + recurring reporting through year-end close), and the supplier-master-data scale is measured and reported to the EMEA manager the same way.
+    <div class="basis">Based on: rows 32-34.</div>
+  </div>
+
+  <div class="decision-item">
+    <span class="d-label">Decision</span>
+    Pricing is phased, not permanently narrow: Phase 1 fixed-fee + contingency on the urgent-recoverables bucket; Phase 2+ contingency expands to the full ongoing recovered-$ once human-in-the-loop control (Northgate's own team), continuously tracked metrics, and a below-baseline error cost are proven.
+    <div class="basis">Based on: row 19, revised. The original narrow-forever framing assumed the AI's output goes unchecked — it doesn't, since the reviewer is Northgate's own risk-owning team with zero contingency stake.</div>
+  </div>
+
+  <div class="decision-item">
+    <span class="d-label">Decision</span>
+    Hyperscaler confirmed as Microsoft/Azure for planning purposes. The model runs on Azure OpenAI Service, provisioned in Northgate's own subscription, private-endpoint-only — "determine externally" (outside SAP) and "nothing leaves our tenant" (outside Northgate's cloud boundary) describe different boundaries, not a contradiction. AWS Bedrock kept as a one-line noted alternative, not a hedged parallel option; self-hosting and a public multi-tenant API were considered and declined. $4M penalty jurisdictions left as stated in the brief — exactly "two," not named, not all 30.
+    <div class="basis">Based on: row 30 (confirmed) and row 6 (brief is precise — a bounded, comparatively mild exposure picture).</div>
+  </div>
+
+  <div class="decision-item">
+    <span class="d-label">Decision</span>
+    "What the VP is wrong about" (the Part 1.6 headline): she conflates invoice coding with mechanical data entry, separable from tax-treatment judgment. It isn't — the tax code assigned during coding largely <em>is</em> the "charged correctly / recoverable" determination, just recorded as a code rather than stated as a sentence. The EMEA manager's own "coding is not the hard part" confirms this: the real bottlenecks sit upstream of coding, in dirty supplier master data and non-compliant invoices. The freed 24-person capacity should redirect to those two named problems plus the exception queue, not a vague "analysis" bucket. The invoice-only-scope point (row 23) and the cash-vs-headcount value framing remain strong supporting material, not the headline.
+    <div class="basis">Based on: rows 13 (supplier/vendor duplication), 23 (invoice-only scope), 26 (invoice-compliance evidence), and the VP's own business-case quote (section 1).</div>
+  </div>
+
+  <div class="decision-item">
+    <span class="d-label">Decision</span>
+    Regional spreadsheets (the 4th named data source) become a supported knowledge base — curated, not imported wholesale, since the spreadsheets are informal precisely because nobody fully trusts them either. New entries come from a feedback loop: an analyst's override becomes a candidate entry, reviewed and approved by the hub tax manager before it can influence future auto-processed determinations. This is the concrete mechanism behind "confidence threshold tightens as accuracy improves" (NFR5) — previously an unexplained promise — and it's the trust-building answer for the Head of Tax Risk specifically: every accepted override is now an auditable, reviewed record. Included in the prototype, not deferred.
+    <div class="basis">Based on: row 10 (regional spreadsheets as a named data source) and NFR5.</div>
+  </div>
+
+  <h3 style="margin-top:1.6rem;">Open — not yet decided</h3>
+  <ul class="plain">
+    <li>Whether the AP-spend cross-check calculation (row 8, ~$5.6-8.4M, near the low end of the $8-30M range) is worth including in the deck — recommended as an appendix sanity-check, not a headline number.</li>
+  </ul>
+</section>
+
+<section id="s6">
+  <div class="section-num"><span class="n">6</span><h2>Risks and mitigations</h2></div>
+  <div class="tbl-wrap">
+    <table>
+      <tr><th>Risk</th><th>Basis</th><th>Mitigation</th></tr>
+      <tr><td>Backlog data is colder than fresh data.</td><td>Row 25</td><td>Report Phase 1's exception rate as a backlog baseline, not a steady-state figure.</td></tr>
+      <tr><td>Batch-to-continuous operational transition.</td><td>Row 18</td><td>Treat the cutover as its own milestone gate with sign-off, not an assumed side effect.</td></tr>
+      <tr><td>The assumed country footprint and volume-by-hub (rows 5, and the volume assumption in section 4) could be wrong, undermining the EMEA-first sequencing.</td><td>Rows 5, 22</td><td>Confirm the actual footprint and volume distribution as the first step of the diagnostic phase, before the sequencing commitment hardens.</td></tr>
+      <tr><td>Italy's window is sourced from converging secondary sources, not a primary statute citation.</td><td>Row 3</td><td>State the mechanism (return-deadline-bound) without overclaiming the precise legal citation if pushed.</td></tr>
+      <tr><td>Hyperscaler is confirmed as Azure by decision, not external verification — still a settled premise, not a proven fact.</td><td>Row 30</td><td>If challenged, be ready to name AWS Bedrock as the fallback architecture without re-litigating the whole recommendation.</td></tr>
+      <tr><td>Switzerland and Turkey aren't covered by the EU compliance-check baseline.</td><td>Row 28</td><td>Deferred as a follow-up — exclude explicitly from v1 coverage or scope a separate rule set before final delivery, not before this plan is usable.</td></tr>
+      <tr><td>China's fapiao model is fundamentally different from the EU/Singapore pattern.</td><td>Row 27</td><td>Name it as a "known won't work as-is" if China is ever discussed, not a free generalization.</td></tr>
+    </table>
+  </div>
+</section>
+
+<section id="s7">
+  <div class="section-num"><span class="n">7</span><h2>Product requirements</h2></div>
+  <p class="section-note">Testable, ready to seed a PRD. Grouped by feature, not requirement type — IDs (FR/NFR/DR/EX) stay as-is so citations elsewhere still resolve; only the grouping and order changed.</p>
+  <div class="tag-legend">
+    <span><span class="tag tag-case">brief</span>stated directly in the case study, not derived</span>
+    <span><span class="tag tag-proto">prototype</span>actually built/demonstrated in the prototype</span>
+  </div>
+
+  <h3>1. Tax-treatment determination engine</h3>
+  <p class="section-note" style="margin-bottom:0.6rem;">The core capability: read the evidence, cross-reference beyond the invoice where needed, determine the three-part treatment, score confidence, and use the correct (deduplicated) supplier identity.</p>
+  <ul class="plain">
+    <li>FR1. The system shall determine, per transaction, whether tax was charged correctly, whether it is recoverable, and where it should be reported.<span class="tag tag-case">brief</span><span class="tag tag-proto">prototype</span></li>
+    <li>FR1a. The system shall extract and structure the evidence needed for a given determination from whichever of the six named document types apply — invoice, purchase order, goods receipt, contract, customs paperwork, credit note — not only the invoice.<span class="tag tag-proto">prototype</span></li>
+    <li>FR1b. Where a determination depends on evidence beyond the invoice, the system shall retrieve and incorporate that evidence rather than determining from invoice content alone.<span class="tag tag-proto">prototype</span></li>
+    <li>FR2. The system shall compute a confidence score for each determination.<span class="tag tag-proto">prototype</span></li>
+    <li>FR2a. The determination shall use the entity-resolved supplier tax profile (DR2), flagging conflicting duplicate profiles, rather than silently using whichever vendor record the transaction happens to be coded against — the EMEA manager's exact failure mode.<span class="tag tag-proto">prototype</span></li>
+    <li>DR2. Supplier and vendor master record shall be distinct entities, connected via an entity-resolution mapping.<span class="tag tag-proto">prototype</span></li>
+  </ul>
+
+  <h3 style="margin-top:1.4rem;">2. Confidence-based routing &amp; analyst workflow</h3>
+  <p class="section-note" style="margin-bottom:0.6rem;">How a human stays in the loop at every confidence level, since the system can never execute anything itself.</p>
+  <ul class="plain">
+    <li>FR3. The system shall route determinations below a configurable confidence threshold to human review, with supporting evidence and reasons attached.<span class="tag tag-proto">prototype</span></li>
+    <li>FR3a. Determinations at or above the confidence threshold still require an explicit analyst confirm-and-file action — a streamlined batch-confirm step, not autonomous execution. No determination, at any confidence level, is filed without an analyst action (a consequence of FR7, not a design choice).<span class="tag tag-proto">prototype</span></li>
+    <li>NFR5. The confidence threshold shall be configurable and shall tighten over time as measured accuracy improves.<span class="tag tag-proto">prototype</span></li>
+    <li>NFR6. Auto-processed determinations shall be optimized for precision; the routing decision shall be optimized for recall.<span class="tag tag-proto">prototype</span></li>
+    <li>FR9. The review interface shall present transactions grouped for reviewer efficiency, while each transaction remains its own individually addressable record.<span class="tag tag-proto">prototype</span></li>
+    <li>DR3. The individual transaction shall be the atomic unit of record; no aggregation into a batch record at the data layer.<span class="tag tag-proto">prototype</span></li>
+  </ul>
+
+  <h3 style="margin-top:1.4rem;">3. Reclaim-window urgency tracking</h3>
+  <p class="section-note" style="margin-bottom:0.6rem;">Jurisdiction-aware timing, so the queue reflects what's about to expire, not just what's uncertain.</p>
+  <ul class="plain">
+    <li>FR4. The system shall compute a time-to-expiration value per transaction, from that transaction's own invoice date and its jurisdiction's reclaim-window rule.<span class="tag tag-proto">prototype</span></li>
+    <li>FR5. The exception queue shall be ordered by urgency (time-to-expiration) in addition to confidence.<span class="tag tag-proto">prototype</span></li>
+    <li>DR1. Jurisdiction shall be a first-class entity with its own parameters, independent of which hub processes the transaction.<span class="tag tag-proto">prototype</span></li>
+  </ul>
+
+  <h3 style="margin-top:1.4rem;">4. Invoice format-compliance checking</h3>
+  <p class="section-note" style="margin-bottom:0.6rem;">A second, separate capability from tax-treatment determination: is the document itself valid before its content is even scored.</p>
+  <ul class="plain">
+    <li>FR6. The system shall check each invoice against its jurisdiction's mandatory-content requirements as a distinct step feeding the recoverability determination.<span class="tag tag-proto">prototype</span></li>
+    <li>EX1. Automated supplier outreach is out of scope for this engagement.</li>
+    <li>EX2. Full support for China's fapiao-based invoicing model is out of scope until scheduled as its own phase.</li>
+  </ul>
+
+  <h3 style="margin-top:1.4rem;">5. Backlog + ongoing processing pipeline</h3>
+  <p class="section-note" style="margin-bottom:0.6rem;">One engine, two input modes.</p>
+  <ul class="plain">
+    <li>FR8. The system shall process both an accumulated historical backlog and an ongoing incoming stream via the same determination pipeline.</li>
+  </ul>
+
+  <h3 style="margin-top:1.4rem;">6. Recovery &amp; diagnostic reporting</h3>
+  <p class="section-note" style="margin-bottom:0.6rem;">What gets reported back to the VP and the EMEA manager specifically.</p>
+  <ul class="plain">
+    <li>FR10. The system shall report, on a recurring cycle, dollar amount recovered to date against the updated remaining-estimate.<span class="tag tag-proto">prototype</span></li>
+    <li>FR11. The system shall report the measured scale of the supplier-master-data-quality problem as part of Phase 1 diagnostics.<span class="tag tag-proto">prototype</span></li>
+  </ul>
+
+  <h3 style="margin-top:1.4rem;">8. Knowledge base &amp; trust-building feedback loop</h3>
+  <p class="section-note" style="margin-bottom:0.6rem;">The 4th named data source (regional spreadsheets) formalized, plus the mechanism that makes "accuracy improves over time" concrete rather than a promise. Every accepted override becomes an auditable, reviewed record — the trust-building answer for the Head of Tax Risk specifically.</p>
+  <ul class="plain">
+    <li>FR12. The system shall maintain a structured, versioned knowledge base of jurisdiction- and entity-specific exceptions beyond the base rule set, seeded by curating existing regional-spreadsheet content — not by importing it wholesale.<span class="tag tag-proto">prototype</span></li>
+    <li>FR12a. Each knowledge-base entry shall carry provenance (source, author, date, review status). An entry shall not influence auto-processed determinations until approved.<span class="tag tag-proto">prototype</span></li>
+    <li>FR13. When an analyst overrides a determination, the override and its stated reason shall be captured as a candidate knowledge-base entry, not discarded.<span class="tag tag-proto">prototype</span></li>
+    <li>FR13a. Candidate entries shall be surfaced for review (by the hub tax manager) before promotion to an approved, active rule.<span class="tag tag-proto">prototype</span></li>
+    <li>DR4. Knowledge-base entries shall be a first-class entity, distinct from jurisdiction rules (DR1) and entity-resolution mappings (DR2), linked to the transaction(s) that originated them, for auditability.<span class="tag tag-proto">prototype</span></li>
+  </ul>
+
+  <h3 style="margin-top:1.4rem;">7. Platform &amp; security constraints</h3>
+  <p class="section-note" style="margin-bottom:0.6rem;">The tenant/SAP boundary the whole system is built inside of.</p>
+  <ul class="plain">
+    <li>NFR1. All data processed shall remain within Northgate's own cloud tenant/subscription; no data shall be sent to a public multi-tenant model API.<span class="tag tag-case">brief</span></li>
+    <li>NFR2. All communication with any model/AI resource shall occur over a private network path, not the public internet.</li>
+    <li>NFR3. Any third-party model provider shall be contractually prohibited from using Northgate's data for training or accessing it outside the agreed service boundary.</li>
+    <li>NFR4. SAP access shall be read-only; no write access to any SAP instance, in any version.<span class="tag tag-case">brief</span></li>
+    <li>FR7. The system shall not write or post any determination into SAP or any filing system; write-back is performed only by an authorized human or downstream system.<span class="tag tag-case">brief</span><span class="tag tag-proto">prototype</span></li>
+    <li>EX3. Consolidation of the 3 SAP instances is out of scope; the solution operates across all 3 as-is.<span class="tag tag-case">brief</span><span class="tag tag-proto">prototype</span></li>
+  </ul>
+</section>
+
+<section style="margin-top:2.5rem;">
+  <div class="section-num"><span class="n">—</span><h2>Glossary</h2></div>
+  <div class="glossary">
+    <div class="gloss-group">
+      <div class="eyebrow">Tax &amp; finance</div>
+      <dl>
+        <dt>AP</dt><dd>Accounts Payable — money Northgate owes its suppliers for goods/services received. The brief's own "hundreds of thousands of accounts payable transactions" a month.</dd>
+        <dt>VAT / GST</dt><dd>Value Added Tax / Goods and Services Tax — a consumption tax charged at each stage of a supply chain; businesses reclaim what they paid on inputs.</dd>
+        <dt>Recoverability</dt><dd>Whether tax paid on a purchase can legally be reclaimed or offset.</dd>
+        <dt>Reclaim window</dt><dd>The deadline after which an otherwise-valid tax reclaim is permanently lost.</dd>
+        <dt>Time-to-expiration</dt><dd>Time remaining before a specific transaction's reclaim window closes, computed per transaction.</dd>
+        <dt>Contingency fee</dt><dd>A pricing model paying the vendor a % of what they recover.</dd>
+      </dl>
+    </div>
+    <div class="gloss-group">
+      <div class="eyebrow">SAP &amp; technical</div>
+      <dl>
+        <dt>Company code</dt><dd>SAP's unit for a legal entity within an instance; vendor tax data is kept per company code.</dd>
+        <dt>Vendor master data</dt><dd>The record SAP holds per supplier — general (client-wide) data plus company-code-specific data.</dd>
+        <dt>Read-only / write-back</dt><dd>Read-only: viewing SAP data without posting changes. Write-back: posting a result into the live record — always a human action here, never performed by the system itself, at any confidence level.</dd>
+        <dt>Exception routing</dt><dd>Sending a low-confidence case to a human for full investigation, vs. a high-confidence case, which still needs a human to confirm and file it — just at speed, not from scratch.</dd>
+        <dt>Shadow mode</dt><dd>Running a new system in parallel with the existing process, without letting it act.</dd>
+        <dt>Tenant</dt><dd>A customer's own isolated cloud environment — the "locked room" data must stay inside.</dd>
+        <dt>Private endpoint</dt><dd>A network connection that never touches the public internet, even between two cloud resources.</dd>
+      </dl>
+    </div>
+    <div class="gloss-group">
+      <div class="eyebrow">Frameworks</div>
+      <dl>
+        <dt>MECE</dt><dd>Mutually Exclusive, Collectively Exhaustive — a check for whether categories overlap or leave gaps.</dd>
+        <dt>Cost of Delay</dt><dd>Sequencing by what delay destroys, not by what's easiest to build first.</dd>
+        <dt>Elevator test</dt><dd>Stating the recommendation and its payoff in under 30 seconds.</dd>
+        <dt>Rider / Elephant / Path</dt><dd>Change model — rational direction, emotional motivation, environment design.</dd>
+      </dl>
+    </div>
+  </div>
+</section>
+
+<footer>
+  Full sourcing for every row lives in <code>claims.md</code>; per-topic reasoning lives in <code>case-facts.md</code> and <code>research/*.md</code>.
+</footer>
+
+</div>
+
+</body></html>

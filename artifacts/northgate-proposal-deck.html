@@ -1,0 +1,372 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1"><style>:root{color-scheme:light}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}[hidden]:not([hidden=until-found]){display:none!important}</style></head><body>
+<title>Northgate Proposal</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#F7F5F0; --surface:#FFFFFF; --surface-2:#EFECE3;
+    --ink:#1B1D1E; --ink-soft:#54585B; --ink-faint:#8A8D8E;
+    --line:#DDD8CB; --accent:#9A5A22; --accent-soft:#F0E2CE;
+    --shadow:0 1px 2px rgba(0,0,0,0.06);
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --bg:#14171C; --surface:#1B1F26; --surface-2:#20242C;
+      --ink:#EDECE6; --ink-soft:#A8A9AA; --ink-faint:#6E7176;
+      --line:#2C313A; --accent:#C9A15A; --accent-soft:rgba(201,161,90,0.14);
+      --shadow:0 2px 10px rgba(0,0,0,0.4);
+    }
+  }
+  :root[data-theme="dark"]{
+    --bg:#14171C; --surface:#1B1F26; --surface-2:#20242C;
+    --ink:#EDECE6; --ink-soft:#A8A9AA; --ink-faint:#6E7176;
+    --line:#2C313A; --accent:#C9A15A; --accent-soft:rgba(201,161,90,0.14);
+    --shadow:0 2px 10px rgba(0,0,0,0.4);
+  }
+  *{box-sizing:border-box;}
+  html,body{height:100%;}
+  body{ margin:0; background:var(--bg); color:var(--ink); font-family:"Inter",ui-sans-serif,system-ui,sans-serif; overflow:hidden; }
+  h1,h2,h3{ font-family:"Fraunces", Georgia, serif; color:var(--ink); text-wrap:balance; margin:0; }
+  .eyebrow{ font-family:"IBM Plex Mono",monospace; font-size:0.72rem; letter-spacing:0.1em; text-transform:uppercase; color:var(--accent); margin-bottom:0.7rem; }
+
+  .deck{ position:relative; height:100vh; width:100vw; }
+  .slide{
+    position:absolute; inset:0; display:none; flex-direction:column; justify-content:center;
+    padding:4vh 8vw; max-width:1200px; margin:0 auto;
+  }
+  .slide.active{ display:flex; }
+  .slide-inner{ width:100%; }
+
+  .part-tag{ font-family:"IBM Plex Mono",monospace; font-size:0.7rem; letter-spacing:0.08em; text-transform:uppercase; color:var(--ink-faint); margin-bottom:1.2rem; }
+
+  h1.big{ font-size:clamp(2rem,4.5vw,3.6rem); font-weight:600; line-height:1.08; margin-bottom:1rem; }
+  h2.headline{ font-size:clamp(1.5rem,3.2vw,2.4rem); font-weight:600; line-height:1.15; margin-bottom:1.4rem; max-width:26ch; }
+  .lede{ font-size:clamp(1.05rem,1.6vw,1.35rem); color:var(--ink-soft); max-width:62ch; line-height:1.5; margin-bottom:1.6rem; }
+
+  ul.pt{ list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:0.9rem; }
+  ul.pt li{ font-size:clamp(0.95rem,1.35vw,1.2rem); line-height:1.5; color:var(--ink); padding-left:1.4rem; position:relative; max-width:68ch; }
+  ul.pt li::before{ content:"—"; position:absolute; left:0; color:var(--accent); }
+  ul.pt li b{ font-weight:600; }
+  ul.pt li .muted{ color:var(--ink-soft); }
+
+  .quote-block{ border-left:3px solid var(--accent); padding:0.3rem 0 0.3rem 1.2rem; margin:0.4rem 0; font-family:"Fraunces",Georgia,serif; font-style:italic; font-size:clamp(1rem,1.6vw,1.3rem); color:var(--ink); max-width:56ch; }
+  .quote-who{ font-family:"IBM Plex Mono",monospace; font-size:0.72rem; text-transform:uppercase; letter-spacing:0.05em; color:var(--ink-faint); margin-top:0.3rem; display:block; }
+
+  .two-col{ display:grid; grid-template-columns:1.1fr 1fr; gap:3.5rem; align-items:start; }
+  @media (max-width:900px){ .two-col{ grid-template-columns:1fr; gap:1.5rem; } }
+
+  .stat{ font-family:"Fraunces",serif; font-size:clamp(2.4rem,5vw,4rem); font-weight:600; color:var(--accent); line-height:1; }
+  .stat-label{ font-size:0.95rem; color:var(--ink-soft); margin-top:0.4rem; max-width:28ch; }
+  .stat-row{ display:flex; gap:3rem; flex-wrap:wrap; margin:1.2rem 0; }
+
+  .card{ background:var(--surface); border:1px solid var(--line); border-radius:12px; padding:1.3rem 1.5rem; box-shadow:var(--shadow); }
+  .card-grid{ display:grid; grid-template-columns:repeat(2,1fr); gap:1rem; }
+  @media (max-width:900px){ .card-grid{ grid-template-columns:1fr; } }
+  .card h3{ font-size:1rem; margin-bottom:0.5rem; color:var(--accent); }
+  .card p{ margin:0; font-size:0.92rem; color:var(--ink-soft); line-height:1.5; }
+  .card.risk-bad{ border-color:#A6483A; }
+  .card.risk-bad h3{ color:#C0584A; }
+  @media (prefers-color-scheme: dark){ :root:not([data-theme="light"]) .card.risk-bad{ border-color:#8C5A4A; } :root:not([data-theme="light"]) .card.risk-bad h3{ color:#E0977E; } }
+  :root[data-theme="dark"] .card.risk-bad{ border-color:#8C5A4A; }
+  :root[data-theme="dark"] .card.risk-bad h3{ color:#E0977E; }
+
+  .tag{ display:inline-block; font-family:"IBM Plex Mono",monospace; font-size:0.68rem; letter-spacing:0.03em; text-transform:uppercase; padding:0.15rem 0.55rem; border-radius:4px; background:var(--accent-soft); color:var(--accent); margin-right:0.4rem; margin-bottom:0.4rem; }
+
+  .demo-slide{ text-align:center; }
+  .demo-slide .live-badge{ display:inline-flex; align-items:center; gap:0.5rem; font-family:"IBM Plex Mono",monospace; font-size:0.85rem; letter-spacing:0.05em; text-transform:uppercase; color:var(--accent); border:1px solid var(--accent); border-radius:999px; padding:0.4rem 1.1rem; margin-bottom:1.6rem; }
+  .demo-slide .dot{ width:0.5rem; height:0.5rem; border-radius:50%; background:var(--accent); animation:pulse 1.6s infinite; }
+  @keyframes pulse{ 0%,100%{opacity:1;} 50%{opacity:0.3;} }
+  @media (prefers-reduced-motion: reduce){ .demo-slide .dot{ animation:none; } }
+  .demo-steps{ display:flex; flex-direction:column; gap:0.7rem; align-items:center; margin-top:1.5rem; }
+  .demo-step{ font-size:1.1rem; color:var(--ink-soft); }
+  .demo-step b{ color:var(--ink); }
+
+  .not-fixed-note{ margin-top:1.6rem; font-size:0.88rem; color:var(--ink-faint); border-top:1px solid var(--line); padding-top:1rem; max-width:60ch; }
+
+  .term-grid{ display:grid; grid-template-columns:1fr 1fr; column-gap:2rem; row-gap:0.55rem; margin-bottom:1rem; }
+  @media (max-width:800px){ .term-grid{ grid-template-columns:1fr; } }
+  .term-grid dt{ font-family:"IBM Plex Mono",monospace; font-weight:600; font-size:0.78rem; color:var(--accent); margin-bottom:0.1rem; }
+  .term-grid dd{ margin:0; font-size:0.86rem; color:var(--ink-soft); line-height:1.4; }
+  .rel-flow{ font-size:0.92rem; color:var(--ink); background:var(--surface); border:1px solid var(--line); border-radius:8px; padding:0.7rem 0.9rem; margin-bottom:1rem; line-height:1.6; }
+
+  .weight-badge{ display:inline-block; font-family:"IBM Plex Mono",monospace; font-size:0.62rem; letter-spacing:0.03em; text-transform:uppercase; padding:0.1rem 0.5rem; border-radius:999px; margin-bottom:0.5rem; }
+  .weight-high{ background:var(--accent-soft); color:var(--accent); }
+  .weight-low{ background:var(--surface-2); color:var(--ink-faint); border:1px solid var(--line); }
+  .theory-quote{ font-family:"Fraunces",Georgia,serif; font-style:italic; font-size:0.82rem; color:var(--ink-soft); margin:0.3rem 0 0.4rem; line-height:1.4; }
+  .theory-why{ font-size:0.8rem; color:var(--ink-soft); line-height:1.4; margin:0; }
+
+  .review-backdrop{ position:relative; border:1.5px dashed var(--accent); border-radius:12px; padding:1.5rem 0.9rem 0.9rem; margin-bottom:0.8rem; background:var(--accent-soft); }
+  .review-backdrop-tab{ position:absolute; top:-0.75rem; left:1rem; background:var(--accent); color:var(--surface); font-family:"IBM Plex Mono",monospace; font-size:0.66rem; letter-spacing:0.06em; text-transform:uppercase; padding:0.25rem 0.7rem; border-radius:999px; }
+  .review-backdrop .card-grid{ margin-bottom:0; }
+  .feedback-note{ display:flex; align-items:center; gap:0.5rem; font-size:0.78rem; color:var(--accent); font-family:"IBM Plex Mono",monospace; letter-spacing:0.02em; margin-top:0.6rem; }
+  .feedback-note .arrow{ font-size:1rem; }
+
+  .recommendation-slide h1.big{ color:var(--accent); }
+
+  /* nav chrome */
+  .chrome{ position:fixed; bottom:0; left:0; right:0; display:flex; align-items:center; justify-content:space-between; padding:1rem 2rem; z-index:10; pointer-events:none; }
+  .chrome > *{ pointer-events:auto; }
+  .nav-btn{ font-family:"IBM Plex Mono",monospace; font-size:0.8rem; background:var(--surface); border:1px solid var(--line); color:var(--ink); border-radius:8px; padding:0.5rem 0.9rem; cursor:pointer; box-shadow:var(--shadow); }
+  .nav-btn:hover{ border-color:var(--accent); color:var(--accent); }
+  .nav-btn:disabled{ opacity:0.3; cursor:default; }
+  .counter{ font-family:"IBM Plex Mono",monospace; font-size:0.75rem; color:var(--ink-faint); background:var(--surface); border:1px solid var(--line); border-radius:8px; padding:0.5rem 0.9rem; }
+  .progress{ position:fixed; top:0; left:0; height:3px; background:var(--accent); transition:width 0.25s ease; z-index:10; }
+
+  footer.slide-foot{ position:absolute; top:1.6rem; right:2rem; font-family:"IBM Plex Mono",monospace; font-size:0.68rem; color:var(--ink-faint); letter-spacing:0.04em; text-transform:uppercase; }
+
+  @media (max-width:640px){
+    .slide{ padding:3vh 6vw; }
+    body{ overflow-y:auto; }
+    .slide{ position:relative; height:auto; min-height:100vh; }
+    .chrome{ position:sticky; }
+  }
+</style>
+
+<div class="progress" id="progress" style="width:8.3%"></div>
+<div class="deck" id="deck">
+
+  <!-- SLIDE 1 -->
+  <section class="slide active">
+    <div class="slide-inner">
+      <div class="part-tag">Part 1 · The Pitch — 1 / 8</div>
+      <div class="eyebrow">Northgate Industries · Proposal for the second meeting</div>
+      <h1 class="big" style="font-size:clamp(1.4rem,2.8vw,2.1rem); margin-bottom:0.7rem;">Six quotes disagree. Only three are actually competing theories.</h1>
+      <p class="lede" style="font-size:0.92rem; margin-bottom:1rem;">The other three — Head of Tax Risk, Head of Tax Technology, Enterprise Security — are stakeholder constraints, not diagnoses. Addressed on the Risk, information-model, and architecture slides, not weighted here as competing root causes.</p>
+      <div class="card-grid" style="margin-bottom:1rem;">
+        <div class="card">
+          <span class="weight-badge weight-low">Weighted least</span>
+          <h3 style="margin-bottom:0.2rem;">VP, Global Indirect Tax</h3>
+          <div class="theory-quote">"Coding is the bottleneck — that's the whole business case."</div>
+          <p class="theory-why">Her own opinion, no independent corroboration. Resolved directly on the final Part 1 slide.</p>
+        </div>
+        <div class="card">
+          <span class="weight-badge weight-high">Weighted most</span>
+          <h3 style="margin-bottom:0.2rem;">Regional tax manager, EMEA</h3>
+          <div class="theory-quote">"A third of our supplier master data is wrong — the same supplier as three vendors, three tax profiles."</div>
+          <p class="theory-why">Independently corroborated by real SAP-architecture research, not just her account — and by what her own analyst runs into daily: pulling 3 separate SAP exports by hand just to see what tax code was applied.</p>
+        </div>
+        <div class="card">
+          <span class="weight-badge weight-high">Weighted most</span>
+          <h3 style="margin-bottom:0.2rem;">Analyst, APAC</h3>
+          <div class="theory-quote">"Most of my month is chasing suppliers for compliant invoices — not coding errors."</div>
+          <p class="theory-why">Independently corroborated by real EU invoice-law research (Art. 226, CJEU case law) — a second, distinct root cause, not the same complaint twice.</p>
+        </div>
+      </div>
+      <p class="lede" style="font-size:0.95rem; margin-bottom:0;"><b style="color:var(--ink);">$8–30M</b> disputed internally — the width of that range is itself the diagnostic signal.</p>
+    </div>
+  </section>
+
+  <!-- SLIDE 3 -->
+  <section class="slide">
+    <div class="slide-inner">
+      <div class="part-tag">Part 1 · The Pitch — 2 / 8 · Assumptions</div>
+      <h2 class="headline">What we're assuming, stated once</h2>
+      <div class="card-grid">
+        <div class="card"><h3>Hyperscaler</h3><p>Azure — a settled premise for planning, not externally verified.</p></div>
+        <div class="card"><h3>Country footprint</h3><p>~7 Americas / 14 EMEA / 9 APAC — constructed, not stated in the brief.</p></div>
+        <div class="card"><h3>Contingency pricing</h3><p>Viable broadly, not narrowly carved out — revised after direct challenge.</p></div>
+        <div class="card"><h3>Error-rate baseline</h3><p>Doesn't exist yet. Phase 1 measures it — we don't assume it.</p></div>
+        <div class="card"><h3>Sample data</h3><p>Northgate shared sample records during discovery — the prototype's synthetic dataset is built from that, not invented from nothing.</p></div>
+        <div class="card"><h3>Follow-up access</h3><p>Clarifying questions beyond the discovery-call quotes let us build the analyst's actual day-in-the-life, not just infer it from six lines of transcript.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SLIDE 4 -->
+  <section class="slide">
+    <div class="slide-inner">
+      <div class="part-tag">Part 1 · The Pitch — 3 / 8</div>
+      <h2 class="headline">What we propose: one agent, a deterministic pipeline around it, a human at the end of every path</h2>
+      <div class="card-grid" style="margin-bottom:1.1rem;">
+        <div class="card"><h3>1. Ingest &amp; check</h3><p>Read SAP + documents. Entity conflicts and compliance gaps are caught by plain code — no model needed, no model risk.</p></div>
+        <div class="card"><h3>2. The one agent</h3><p>A single reasoning model determines charged-correctly / recoverable / where-reported, with evidence and a confidence score. Not several agents stitched together.</p></div>
+        <div class="card"><h3>3. Route</h3><p>High confidence → batch-confirm. Low confidence → full review, evidence attached. Never write-back — a hard constraint, not a design choice.</p></div>
+        <div class="card"><h3>4. File &amp; learn</h3><p>The analyst files it herself, always. Her overrides become reviewed, auditable knowledge-base rules — not judgment lost after the fact.</p></div>
+      </div>
+      <p class="lede" style="font-size:1rem; margin-bottom:0;"><b style="color:var(--ink);">Where the human stays, and why there specifically:</b> every determination needs an analyst action before filing, at every confidence level, because the system literally cannot write to SAP — not a trust exercise, a hard constraint the whole design is built around.</p>
+    </div>
+  </section>
+
+  <!-- SLIDE 5 -->
+  <section class="slide">
+    <div class="slide-inner">
+      <div class="part-tag">Part 1 · The Pitch — 4 / 8</div>
+      <h2 class="headline" style="font-size:clamp(1.3rem,2.6vw,2rem); margin-bottom:1rem;">The information model — eight entities, one flow</h2>
+      <dl class="term-grid">
+        <div><dt>Legal entity</dt><dd>The Northgate operating company that books the transaction and files the return.</dd></div>
+        <div><dt>Jurisdiction</dt><dd>The actual rules boundary — <b>not hub</b>. Its own reclaim window, invoice rules, filing frequency.</dd></div>
+        <div><dt>Supplier</dt><dd>The real-world business Northgate buys from — resolved across possibly-duplicate vendor records.</dd></div>
+        <div><dt>Transaction</dt><dd>The atomic unit of record. One supplier, one invoice, one legal entity, one point in time.</dd></div>
+        <div><dt>Invoice</dt><dd>The supplier's own document — not always sufficient alone for 2 of the 3 required determinations.</dd></div>
+        <div><dt>Recoverability determination</dt><dd>The output: charged correctly / recoverable / where reported, plus confidence.</dd></div>
+        <div><dt>Filing period</dt><dd>The monthly or quarterly cadence a determination gets swept into.</dd></div>
+        <div><dt>Reclaim</dt><dd>The actual right to recover input tax — alive until its jurisdiction's window closes.</dd></div>
+      </dl>
+      <div class="rel-flow">A legal entity buys from a <b>supplier</b> (resolved past duplicate vendor records) → a <b>transaction</b>, documented by an <b>invoice</b> → evaluated against its <b>jurisdiction's</b> rules → a <b>recoverability determination</b> → filed in the next <b>filing period</b> → if recoverable, an active <b>reclaim</b>, ticking down to its jurisdiction's window.</div>
+      <p class="lede" style="font-size:0.92rem; margin-bottom:0.5rem;"><b style="color:var(--ink);">Left out of v1:</b> legal entity isn't yet independent from jurisdiction (assumed near 1:1); credit notes are named but not yet linked to a specific prior transaction; filing period is a jurisdiction attribute, not its own tracked record. Also out: automated supplier outreach, full China fapiao support, SAP consolidation.</p>
+      <p class="not-fixed-note" style="margin-top:0.6rem; padding-top:0.6rem;"><b style="color:var(--ink);">What breaks if this is wrong:</b> a hub-level model would treat a 5-year Netherlands claim as expired at the coarser EMEA minimum — actively abandoning money that's still recoverable.</p>
+    </div>
+  </section>
+
+  <!-- SLIDE 6 — LIVE DEMO -->
+  <section class="slide demo-slide">
+    <div class="slide-inner">
+      <div class="part-tag">Part 1 · The Pitch — 5 / 8</div>
+      <div class="live-badge"><span class="dot"></span> Live prototype — 3 minutes</div>
+      <h2 class="headline" style="margin:0 auto 1.4rem; text-align:center;">Vantpoint Fasteners: one supplier, three vendor records, three tax profiles</h2>
+      <div class="demo-steps">
+        <div class="demo-step">1. The sheet, sorted by <b>urgency</b> — Italy surfaces first, ahead of higher-confidence cases</div>
+        <div class="demo-step">2. The conflict, <b>computed</b> from 3 separate SAP exports that never referenced each other</div>
+        <div class="demo-step">3. Override → approve → re-run — the feedback loop, working end to end</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SLIDE 6a — RISK -->
+  <section class="slide">
+    <div class="slide-inner">
+      <div class="part-tag">Part 1 · The Pitch — 6 / 8</div>
+      <h2 class="headline">The risk, and how we bound it</h2>
+      <p class="lede" style="margin-bottom:0.8rem;">Defined for our determination — is this transaction recoverable:</p>
+
+      <div class="review-backdrop">
+        <span class="review-backdrop-tab">Human review process — never zero, at any tier</span>
+        <div class="card-grid">
+          <div class="card"><h3>True positive</h3><p>Flagged recoverable, genuinely is.</p></div>
+          <div class="card risk-bad"><h3>False positive</h3><p>Flagged recoverable, actually isn't — <b>the $4M penalty problem</b> if it slips through.</p></div>
+        </div>
+        <div class="feedback-note"><span class="arrow">&#8635;</span> Active feedback loop reduces this over time — evidence already consolidated, not scattered across 3 systems</div>
+      </div>
+
+      <div class="card-grid" style="margin-bottom:0.9rem;">
+        <div class="card risk-bad"><h3>False negative</h3><p>Not flagged, but was recoverable — the $8–30M left on the table.</p></div>
+        <div class="card"><h3>True negative</h3><p>Not flagged, genuinely not recoverable.</p></div>
+      </div>
+
+      <ul class="pt" style="margin-bottom:0;">
+        <li>Batch-confirm (high confidence) or full review (low) — <b>"slow is better than wrong" holds at every tier</b>, not just the routed one.</li>
+        <li><b>Precision</b> on auto-processed, <b>recall</b> on routing. Baseline: Phase 1 measures the human-only process's actual rate — the number auto-processing has to beat before an analyst can safely trust a batch at speed.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- SLIDE 7 -->
+  <section class="slide">
+    <div class="slide-inner">
+      <div class="part-tag">Part 1 · The Pitch — 7 / 8</div>
+      <h2 class="headline">Phasing, timeline, pricing logic</h2>
+      <ul class="pt">
+        <li>The 11-week security review runs <b>in parallel</b> with the 8-week sandboxed build — the only way the year-end-close ask is achievable at all.</li>
+        <li><b>Phase 1</b> (EMEA/Rotterdam): clears the urgent-recoverables backlog. Cash first, not headcount — doesn't depend on the coding-bottleneck diagnosis being right.</li>
+        <li><b>Phase 2+</b>: India, targeted — not "all of APAC." Cost-of-Delay ranked, not just build-tractability ranked.</li>
+        <li><b>Pricing:</b> fixed-fee + narrow contingency in Phase 1, expanding once 3 conditions are proven — human-in-the-loop control, tracked metrics, below-baseline error cost.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- SLIDE 8 -->
+  <section class="slide">
+    <div class="slide-inner">
+      <div class="part-tag">Part 1 · The Pitch — 8 / 8</div>
+      <h2 class="headline">What the VP is wrong about</h2>
+      <div class="quote-block">"If AI codes the invoices, I free 24 people to do analysis instead of data entry. That is the whole business case."<span class="quote-who">VP, Global Indirect Tax</span></div>
+      <ul class="pt" style="margin-top:1.2rem;">
+        <li>She's treating "coding" as mechanical data entry, separable from tax judgment. It isn't — the tax code assigned during coding <b>is</b> the recoverability determination.</li>
+        <li>The EMEA manager's own words confirm it: <i>"Coding is not the hard part."</i></li>
+        <li><b>How we'd tell her:</b> the freed capacity should go to the two concrete problems her own team already named — not a vague "analysis" bucket.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- SLIDE 9 — PART 2 RECOMMENDATION -->
+  <section class="slide recommendation-slide">
+    <div class="slide-inner">
+      <div class="part-tag">Part 2 · Is This A Product? — 1 / 4 · Recommendation</div>
+      <h1 class="big">Yes — conditionally.</h1>
+      <p class="lede" style="max-width:52ch;">A real, differentiated wedge — nobody found doing exactly this — but only if it's scoped to the right niche, and only if the vendor-security-review overhead is treated as something to systematically shrink, not absorb per customer.</p>
+    </div>
+  </section>
+
+  <!-- SLIDE 10 -->
+  <section class="slide">
+    <div class="slide-inner">
+      <div class="part-tag">Part 2 · Is This A Product? — 2 / 4</div>
+      <h2 class="headline">The first niche</h2>
+      <ul class="pt">
+        <li>Segment by <b>ERP fragmentation from M&amp;A history</b> — sharper filter than size alone. A clean single-ERP company has no need for this.</li>
+        <li>$10–20B+ revenue, genuine multi-jurisdiction VAT/GST exposure, fragmented multi-instance ERP.</li>
+        <li><b>Refuse:</b> no in-house indirect-tax function of meaningful size; single-ERP/clean-data companies; primarily-domestic-sales-tax exposure.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- SLIDE 11 -->
+  <section class="slide">
+    <div class="slide-inner">
+      <div class="part-tag">Part 2 · Is This A Product? — 3 / 4</div>
+      <h2 class="headline">Opportunity size &amp; packaging</h2>
+      <div class="two-col">
+        <ul class="pt">
+          <li>~350–550 public multinationals in Northgate's tier × ~30–50% niche filter ≈ <b>100–275 company SAM</b>.</li>
+          <li>Illustrative ceiling at full maturity: <b>$1.2–7.5M/account/year</b> — not a near-term number. The real constraint is sales/review velocity, not market size.</li>
+        </ul>
+        <div class="card">
+          <h3>Packaging</h3>
+          <p>The phased-contingency structure <b>is</b> the expansion mechanism — a pilot converts to recurring automatically as trust conditions are proven, not via a separate renegotiation.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SLIDE 12 -->
+  <section class="slide">
+    <div class="slide-inner">
+      <div class="part-tag">Part 2 · Is This A Product? — 4 / 4</div>
+      <h2 class="headline">What has to be true</h2>
+      <ul class="pt">
+        <li><span class="tag">Strongest yes</span> Jurisdiction rule packs are genuinely shared assets — built once per country, reused indefinitely.</li>
+        <li><span class="tag">Biggest risk</span> The 11-week security review must become a compounding asset — a reusable trust package — or this stays a service business.</li>
+        <li><span class="tag">Unresolved</span> The 100–275 SAM estimate needs real pipeline data, not just this arithmetic.</li>
+      </ul>
+      <p class="not-fixed-note">One more thing, if asked: compute cost doesn't pool across customers the way the security-review trust package does — each single-tenant deployment re-earns its own cost optimization.</p>
+    </div>
+  </section>
+
+</div>
+
+<div class="chrome">
+  <button class="nav-btn" id="prevBtn" onclick="go(-1)">← Prev</button>
+  <div class="counter" id="counter">1 / 12</div>
+  <button class="nav-btn" id="nextBtn" onclick="go(1)">Next →</button>
+</div>
+
+<script>
+(function(){
+  var slides = document.querySelectorAll('.slide');
+  var total = slides.length;
+  var idx = 0;
+
+  function render(){
+    slides.forEach(function(s,i){ s.classList.toggle('active', i===idx); });
+    document.getElementById('counter').textContent = (idx+1) + ' / ' + total;
+    document.getElementById('progress').style.width = ((idx+1)/total*100) + '%';
+    document.getElementById('prevBtn').disabled = idx===0;
+    document.getElementById('nextBtn').disabled = idx===total-1;
+  }
+
+  window.go = function(delta){
+    idx = Math.max(0, Math.min(total-1, idx+delta));
+    render();
+  };
+
+  document.addEventListener('keydown', function(e){
+    if(e.key==='ArrowRight' || e.key===' ') { go(1); e.preventDefault(); }
+    if(e.key==='ArrowLeft') { go(-1); e.preventDefault(); }
+  });
+
+  render();
+})();
+</script>
+
+</body></html>
