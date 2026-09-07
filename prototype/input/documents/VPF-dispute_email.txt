@@ -1,0 +1,12 @@
+[Extracted from the shared mailbox — supplier correspondence, not fed to the LLM: this
+case never reaches the model, since entity-conflict detection is deterministic and hard-stops
+before any LLM call. Included here as what the analyst would see in her review, matching the
+day-in-the-life's shared-mailbox scenario.]
+
+From: accounts@vantpointfasteners.nl
+To: ap-emea@northgate.com
+Subject: Short payment — invoice VPF-20260810-07
+
+We note invoice VPF-20260810-07 was paid EUR 500 short of the invoiced total. Our records
+show standard-rate VAT should apply to this transaction. Please advise on the treatment
+applied on your end, as we have not recorded this account as VAT-exempt.

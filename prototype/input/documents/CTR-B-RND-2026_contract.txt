@@ -1,0 +1,15 @@
+[Extracted excerpt — supply & installation agreement, contracts repository]
+
+AGREEMENT — Reinraum Technik GmbH and Northgate Industries GmbH (Entity B, Germany)
+Effective: 2026-03-01
+
+Scope of engagement: Supplier shall provide specialized cleanroom-classified tooling and
+fittings for the Northgate R&D Facility, Building B, including the ISO Class 5 laboratory
+and manufacturing floor currently under fit-out for the Advanced Materials research program.
+
+Cost allocation: All charges under this agreement are to be booked against cost center
+CC-4520-RND (R&D Facility, Building B) and are not general facilities or office-equipment
+spend.
+
+This is a standalone third-party commercial supply agreement. Reinraum Technik GmbH is not
+an affiliated entity, subsidiary, or intra-group counterparty of Northgate Industries.

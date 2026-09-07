@@ -1,0 +1,23 @@
+[Extracted text from supplier PDF invoice — original German, multilingual extraction per FR1a]
+
+RECHNUNG Nr. RT-20260701-02
+Reinraum Technik GmbH, Stuttgart, Deutschland
+USt-IdNr.: DE887744221
+
+An: Northgate Industries GmbH, Werk B (F&E-Anlage)
+Datum: 01.07.2026
+
+Position 1: Spezialwerkzeuge für Reinraum — Ausstattung fuer die Reinraum-klassifizierte
+Labor- und Fertigungsflaeche in der F&E-Anlage, Gebaeude B. Menge: 1 Satz (12 Werkzeuge,
+antistatische Ausfuehrung, ISO-Klasse-5-zertifiziert).
+
+Nettobetrag: EUR 21.500,00
+USt (19%): EUR 4.085,00
+Gesamtbetrag: EUR 25.585,00
+
+Kostenstelle (lt. Bestellung): CC-4520-RND
+
+[English gloss, for context only — not the source of record]
+Invoice for specialized cleanroom tools — equipment for the cleanroom-classified lab and
+manufacturing space at the R&D Facility, Building B. Quantity: 1 set (12 tools, antistatic,
+ISO Class 5 certified). Net EUR 21,500. VAT 19% = EUR 4,085. Cost center per the PO: CC-4520-RND.

@@ -17,6 +17,7 @@ Must handle one awkward input, not the clean case (non-compliant format / duplic
 2. **LLM determination + RAG retrieval of the knowledge base (FR1, FR1b, FR2, FR12)** — for transactions that pass the deterministic checks, retrieve the jurisdiction's *approved* knowledge-base entries and inject them as context before asking the model for the three-part determination and confidence. `pending_review` entries are filtered out before they ever reach a prompt (FR12a) — this is the enforcement point for that requirement, not just a policy statement.
 3. **Time-to-expiration + urgency sort (FR4, FR5)** — deterministic date math, sorts the output sheet so INV-1004 (Italy) surfaces first despite INV-1001 having equal-or-higher confidence.
 4. **The feedback loop, demoed as two CLI commands (FR13, FR13a)** — `src/apply_feedback.py override` captures an analyst's override as a `pending_review` candidate entry; `approve` flips it live; re-running `determine.py` shows the next similar transaction resolving at higher confidence. This is the actual trust-building mechanism, demonstrated end to end, not asserted.
+5. **Structured-vs-unstructured document ingestion (FR1a) — INV-1006, the flagship "connects the dots" case (Reinraum Technik GmbH, cleanroom R&D tooling).** SAP alone shows a vague line description and a default non-recoverable tax code. The model reads the actual invoice text (German), the contract (confirming the R&D cost center), and a knowledge-base rule (KB-DE-004) to override to recoverable — the real version of "the LLM bridges what SAP and the tax engine can't see." Not yet confirmed on a full live run (built the same pass the Gemini free-tier quota was exhausted) — confirm before presenting.
 
 **Should build if time allows:**
 5. **The review-queue UI** (the wireframe artifact) — once the sheet pipeline works end to end. The sheet already carries every column the UI would show (confidence, urgency, flags, reasoning, KB entries used); the UI is a presentation layer on the same data, not a different capability.
@@ -32,6 +33,12 @@ Even though the prototype runs on synthetic data via Gemini's public API (the te
 - **Review UI** — everything else: the queue, evidence display, confirm/override actions, knowledge-base review screens, reporting. No LLM in the loop for most of this — it's conventional CRUD against the data files, with the determination service invoked only at specific trigger points (a transaction needs a determination). Keep this as a separate module even though both run in the same demo process — don't let LLM calls leak into UI-rendering code.
 
 In production, this separation stops being a code-organization nicety and becomes a deployment boundary: the determination service must be a private-endpoint-only resource inside Northgate's own Azure subscription (the piece all the tenant-isolation discussion is about), while the review UI — which also touches real transaction data, not just the LLM piece — must *also* run inside that subscription (NFR1 says "all data processed," not "the model call specifically"). Both pieces live in-tenant; only the *reasoning* piece needs the private-endpoint-to-a-model-resource pattern specifically.
+
+## Input (`input/`)
+
+- `sap_eu_*_export.csv` — the 3 structured SAP exports (vendor + invoice + PO/GR/GL-cost-center detail + native tax codes).
+- `emea_vat_exceptions.csv` — the knowledge base, including `KB-DE-004` (the cleanroom-R&D rule for INV-1006).
+- `documents/` — the unstructured half: actual invoice PDF text (multilingual), contract excerpts, and customs paperwork, actually read by `determine.py`'s `load_document_text`, not just referenced. Includes the full documentation for the new flagship case (INV-1006, Reinraum Technik GmbH) and the contract that resolves INV-1005 (Ostrava). See `answers/03-information-model.md` §4 for the structured-vs-unstructured map and what's still not built (invoice field-presence extraction for FR6).
 
 ## Source (`src/`)
 

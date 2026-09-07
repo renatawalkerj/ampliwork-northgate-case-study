@@ -91,14 +91,15 @@
       "scenario": "urgency-queue jump — tightest reclaim window (FR4, FR5)",
       "vendor_record_id": "V-FR2-5502",
       "jurisdiction": "IT",
-      "jurisdiction_note": "Lac du Nord Logistics SARL (French supplier) billing a cross-border logistics service to Northgate's Italian entity — reporting jurisdiction is Italy.",
+      "jurisdiction_note": "Lac du Nord Logistics SARL (French supplier) billing a cross-border B2B logistics service to Northgate's Italian entity. Under the EU VAT Directive's general B2B place-of-supply rule (Art. 44), this is reverse-charged: the French supplier charges 0%, and Northgate's Italian entity self-assesses and recovers the Italian VAT itself. Reporting jurisdiction is Italy.",
       "invoice_date": "2026-08-01",
       "invoice_number": "LDN-20260801-12",
       "fields_present": ["seller_vat_id", "buyer_name", "invoice_number", "invoice_date", "description", "quantity", "net_amount", "vat_rate", "vat_amount", "gross_total", "sdi_clearance_code"],
       "sdi_clearance_code": "IT-SDI-4471829",
       "net_amount": 42000.00,
-      "vat_rate_charged": 0.22,
-      "vat_amount_charged": 9240.00,
+      "vat_rate_charged": 0.0,
+      "vat_amount_charged": 0.0,
+      "vat_rate_charged_note": "Correctly reverse-charged (0%) per the EU cross-border B2B general rule — corrected after an earlier draft of this fixture incorrectly showed 22% charged directly, which a live LLM run flagged as implausible (no real invoice would show a foreign supplier charging the buyer-country's domestic rate). Kept in claims.md as the actual build history.",
       "linked_evidence": {
         "purchase_order": "PO-IT-31005",
         "goods_receipt": "GR-IT-31005-A"
@@ -111,7 +112,7 @@
         "entity_conflict_flagged": false,
         "compliance_pass": true,
         "time_to_expiration_days_approx": 237,
-        "notes": "Highest confidence AND highest dollar amount of the 5, but by far the least runway (Italy's return-deadline-bound rule vs. everyone else's multi-year rolling window). Must sort ahead of INV-1001 in the exception/priority queue despite both being high-confidence — this is the case that proves urgency-weighting, not confidence-only ordering, matters (case-facts.md §4)."
+        "notes": "Highest confidence AND highest dollar amount of the 5, but by far the least runway (Italy's return-deadline-bound rule vs. everyone else's multi-year rolling window). Must sort ahead of INV-1001 in the exception/priority queue despite both being high-confidence — this is the case that proves urgency-weighting, not confidence-only ordering, matters (case-facts.md §4). Reverse-charge (0%) is the correct treatment here — see vat_rate_charged_note for why this was corrected after a live run."
       }
     },
     {
