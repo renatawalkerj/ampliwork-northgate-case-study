@@ -13,7 +13,7 @@ Must handle one awkward input, not the clean case (non-compliant format / duplic
 **Revised priority, per explicit direction: demo the LLM + the feedback loop first, ugly is fine, UI last.** The v1 build is a script, not a web app — data ingestion, deterministic checks, an LLM call for the actual tax-judgment reasoning, and a flat CSV she opens in Excel. She still keys the result into SAP herself either way (FR7) — a sheet and a polished review queue hand her the same information, so build the cheap one first. See `src/README.md` for the actual runnable code and the 3-minute demo script.
 
 **Must build — v1, the sheet:**
-1. **Data ingestion + deterministic pre-checks (FR2a, FR6, DR2)** — entity-conflict detection and compliance-field checking are structured comparisons against the JSON data, not LLM calls. `src/determine.py`.
+1. **Data ingestion + deterministic pre-checks (FR2a, FR6, DR2)** — entity-conflict detection and compliance-field checking are structured comparisons against the consolidated SAP export data, not LLM calls. `src/determine.py`.
 2. **LLM determination + RAG retrieval of the knowledge base (FR1, FR1b, FR2, FR12)** — for transactions that pass the deterministic checks, retrieve the jurisdiction's *approved* knowledge-base entries and inject them as context before asking the model for the three-part determination and confidence. `pending_review` entries are filtered out before they ever reach a prompt (FR12a) — this is the enforcement point for that requirement, not just a policy statement.
 3. **Time-to-expiration + urgency sort (FR4, FR5)** — deterministic date math, sorts the output sheet so INV-1004 (Italy) surfaces first despite INV-1001 having equal-or-higher confidence.
 4. **The feedback loop, demoed as two CLI commands (FR13, FR13a)** — `src/apply_feedback.py override` captures an analyst's override as a `pending_review` candidate entry; `approve` flips it live; re-running `determine.py` shows the next similar transaction resolving at higher confidence. This is the actual trust-building mechanism, demonstrated end to end, not asserted.
@@ -46,10 +46,9 @@ In production, this separation stops being a code-organization nicety and become
 
 ## Data files (`data/`)
 
-- `jurisdictions.json` — 4 EMEA jurisdictions (NL, DE, FR, IT), reclaim-window rule type/value, invoice-compliance mechanism and mandatory fields. VAT rates anchored to real, current values (vatnode/eu-vat-rates-data, MIT licensed).
-- `vendor_master_records.json` — mock 3-SAP-instance vendor extract, including the Vantpoint duplicate-vendor conflict and an `entity_resolution_map` (what FR2a requires the system to compute, precomputed here as the demo's input).
-- `invoices.json` — the 5 synthetic transactions, each with an `expected` ground-truth block used by the eval harness (see `evals/`).
-- `knowledge_base.json` — the regional-spreadsheets data source, formalized: 2 approved seed entries + 1 `pending_review` candidate entry generated from INV-1005's resolution, each with full provenance (source, author, date, review status).
+- `jurisdictions.json` — 4 EMEA jurisdictions (NL, DE, FR, IT), reclaim-window rule type/value, invoice-compliance mechanism and mandatory fields. VAT rates anchored to real, current values (vatnode/eu-vat-rates-data, MIT licensed). The only file left here — this is reference config the tool ships with, not per-run data.
+
+Vendor records, invoices, and the knowledge base used to live here as pre-merged JSON; they were superseded by the 3-separate-SAP-export CSV approach in `input/` (closer to how she'd actually receive this data) and removed once orphaned. See "Input (`input/`)" above for where that data lives now.
 
 ## Eval framework (`evals/`)
 
