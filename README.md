@@ -30,7 +30,7 @@ Each lives in this repo (`artifacts/`) as a self-contained HTML file — open di
 ## Running the prototype
 ```
 cd prototype/src
-pip install -r requirements.txt
+pip3 install -r requirements.txt
 export GEMINI_API_KEY=your-key-here
 python3 determine.py
 ```

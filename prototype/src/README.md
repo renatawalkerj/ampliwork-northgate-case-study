@@ -11,7 +11,7 @@ The free tier caps at **20 requests/day per model**. It blocked full verificatio
 ## Setup
 
 ```
-pip install -r requirements.txt
+pip3 install -r requirements.txt
 export GEMINI_API_KEY=your-key-here
 ```
 
