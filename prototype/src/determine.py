@@ -10,7 +10,7 @@ Starts from what the analyst would actually have, not a pre-merged answer key:
 - Her own shadow spreadsheet (`input/emea_vat_exceptions.csv`) — the regional-
   spreadsheets data source, formalized (FR12), read as an actual CSV she'd
   recognize, not a clean database table.
-- `data/jurisdictions.json` — reference config the tool ships with (not
+- `input/jurisdictions.json` — reference config the tool ships with (not
   something she personally exports; the tax rules aren't hers to maintain).
 
 Entity resolution (FR2a/DR2) is COMPUTED here, not looked up from a
@@ -52,7 +52,6 @@ except ImportError:
     print("Missing dependency. Run: pip3 install -r requirements.txt", file=sys.stderr)
     sys.exit(1)
 
-DATA_DIR = os.path.join(os.path.dirname(__file__), "..", "data")
 INPUT_DIR = os.path.join(os.path.dirname(__file__), "..", "input")
 DOCUMENTS_DIR = os.path.join(INPUT_DIR, "documents")
 OUTPUT_DIR = os.path.join(os.path.dirname(__file__), "..", "output")
@@ -94,7 +93,7 @@ def load_kb_csv():
 
 
 def load_jurisdictions():
-    with open(os.path.join(DATA_DIR, "jurisdictions.json")) as f:
+    with open(os.path.join(INPUT_DIR, "jurisdictions.json")) as f:
         return {j["code"]: j for j in json.load(f)["jurisdictions"]}
 
 

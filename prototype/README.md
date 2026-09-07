@@ -39,14 +39,11 @@ In production, this separation stops being a code-organization nicety and become
 - `sap_eu_*_export.csv` — the 3 structured SAP exports (vendor + invoice + PO/GR/GL-cost-center detail + native tax codes).
 - `emea_vat_exceptions.csv` — the knowledge base, including `KB-DE-004` (the cleanroom-R&D rule for INV-1006).
 - `documents/` — the unstructured half: actual invoice PDF text (multilingual), contract excerpts, and customs paperwork, actually read by `determine.py`'s `load_document_text`, not just referenced. Includes the full documentation for the new flagship case (INV-1006, Reinraum Technik GmbH) and the contract that resolves INV-1005 (Ostrava). See `answers/03-information-model.md` §4 for the structured-vs-unstructured map and what's still not built (invoice field-presence extraction for FR6).
+- `jurisdictions.json` — 4 EMEA jurisdictions (NL, DE, FR, IT), reclaim-window rule type/value, invoice-compliance mechanism and mandatory fields. VAT rates anchored to real, current values (vatnode/eu-vat-rates-data, MIT licensed).
 
 ## Source (`src/`)
 
 `determine.py` (the pipeline: deterministic checks → RAG retrieval → LLM → CSV) and `apply_feedback.py` (the two-command feedback-loop demo: `override`, `approve`, `list`). See `src/README.md` for setup and the exact 3-minute demo sequence.
-
-## Data files (`data/`)
-
-- `jurisdictions.json` — 4 EMEA jurisdictions (NL, DE, FR, IT), reclaim-window rule type/value, invoice-compliance mechanism and mandatory fields. VAT rates anchored to real, current values (vatnode/eu-vat-rates-data, MIT licensed).
 
 ## Eval framework (`evals/`)
 

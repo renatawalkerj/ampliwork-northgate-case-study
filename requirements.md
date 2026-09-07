@@ -59,7 +59,7 @@ Everything the proposal has to satisfy, consolidated from the brief's constraint
 - Switzerland/Turkey compliance-rule-set question: deferred as a follow-up, not blocking the current plan.
 
 ## 6. Prototype
-- Must handle one awkward/messy input, not the clean case — flagship: duplicate-vendor-tax-profile (INV-1002), tied to EMEA's complaint. Built alongside 4 more: happy path, format-compliance failure, urgency-queue jump, and a genuine tax-judgment ambiguity. See `prototype/data/invoices.json`.
+- Must handle one awkward/messy input, not the clean case — flagship: duplicate-vendor-tax-profile (INV-1002), tied to EMEA's complaint. Built alongside more: happy path, format-compliance failure, urgency-queue jump, and genuine tax-judgment ambiguity. See `prototype/README.md`'s build breakdown for the full scenario set.
 - Must show the exception path — matters more than the happy path given who holds the veto.
 - Low fidelity is fine, ugly is fine, working is not optional.
 - Includes a batch view for review convenience, but the underlying record stays at the unit level.

@@ -82,7 +82,7 @@ Traced from the actual code, not described from memory. Four sources, and a prec
 | `id`, `rule` | The actual exception content | **Yes — but only for entries that are both `status == approved` AND jurisdiction-matched** (`retrieve_kb_context`). This is FR12a's enforcement point, not a policy statement. |
 | `status`, `added_by`, `date`, `reviewed_by`, `review_date`, `origin_transaction` | Governance/provenance, `apply_feedback.py`'s override/approve workflow | No — the model never sees who added a rule or when, only the rule itself, and only once approved |
 
-### 3. Jurisdiction reference config (`data/jurisdictions.json`) — real-world source: tax-engine config or the tax team's own research; not something an individual analyst maintains
+### 3. Jurisdiction reference config (`input/jurisdictions.json`) — real-world source: tax-engine config or the tax team's own research; not something an individual analyst maintains
 
 | Field | Used for | Reaches the LLM prompt? |
 |---|---|---|
