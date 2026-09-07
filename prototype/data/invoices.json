@@ -1,0 +1,147 @@
+{
+  "_note": "5 synthetic transactions, hand-built per OUTLINE.md 'Step: prototype data' and requirements.md §6. Each carries an 'expected' ground-truth block used by the eval harness (prototype/evals/) to score the system's actual output — this is what makes 'correct' testable rather than a judgment call at demo time. as_of_date is the reference date for computing time-to-expiration.",
+  "as_of_date": "2026-09-06",
+  "invoices": [
+    {
+      "invoice_id": "INV-1001",
+      "scenario": "clean / happy path",
+      "vendor_record_id": "V-DE1-1187",
+      "jurisdiction": "DE",
+      "invoice_date": "2026-07-15",
+      "invoice_number": "MIS-20260715-01",
+      "fields_present": ["seller_vat_id", "buyer_name", "invoice_number", "invoice_date", "leistungsdatum", "description", "quantity", "net_amount", "vat_rate", "vat_amount", "gross_total"],
+      "leistungsdatum": "2026-07-12",
+      "net_amount": 18400.00,
+      "vat_rate_charged": 0.19,
+      "vat_amount_charged": 3496.00,
+      "linked_evidence": {
+        "purchase_order": "PO-DE-88213",
+        "goods_receipt": "GR-DE-88213-A"
+      },
+      "expected": {
+        "charged_correctly": true,
+        "recoverable": true,
+        "reporting_jurisdiction": "DE",
+        "confidence_tier": "high",
+        "entity_conflict_flagged": false,
+        "compliance_pass": true,
+        "time_to_expiration_days_approx": 1461,
+        "notes": "Single clean vendor record, all mandatory fields present, standard rate matches jurisdiction. Should auto-process — batch-confirm, not investigate."
+      }
+    },
+    {
+      "invoice_id": "INV-1002",
+      "scenario": "duplicate-vendor conflicting tax profile (flagship case — EMEA manager's complaint, FR2a)",
+      "vendor_record_id": "V-EU2-8830",
+      "vendor_record_id_note": "Invoice was coded against the WRONG vendor record (the one incorrectly flagged exempt) — this is the exact failure mode FR2a exists to catch.",
+      "jurisdiction": "NL",
+      "invoice_date": "2026-08-10",
+      "invoice_number": "VPF-20260810-07",
+      "fields_present": ["seller_vat_id", "buyer_name", "invoice_number", "invoice_date", "description", "quantity", "net_amount", "vat_rate", "vat_amount", "gross_total"],
+      "net_amount": 9200.00,
+      "vat_rate_charged": 0.0,
+      "vat_amount_charged": 0.0,
+      "vat_rate_charged_note": "Charged as exempt (0%), per the vendor record it was coded against — this is what a naive system would silently accept as correct.",
+      "linked_evidence": {
+        "purchase_order": "PO-NL-55190",
+        "goods_receipt": "GR-NL-55190-A"
+      },
+      "expected": {
+        "charged_correctly": false,
+        "charged_correctly_note": "Should have been charged standard_rate_21 — the exempt classification on V-EU2-8830 is the data error, not a real exemption. Correct answer requires resolving to SUP-VANTPOINT and seeing the conflict across V-EU1-4471 / V-EU2-8830 / V-EU3-2091.",
+        "recoverable": "indeterminate_pending_correction",
+        "reporting_jurisdiction": "NL",
+        "confidence_tier": "low",
+        "entity_conflict_flagged": true,
+        "compliance_pass": true,
+        "time_to_expiration_days_approx": 1822,
+        "notes": "This is the case that must NOT auto-process. A system that just reads this one invoice and its one linked vendor record will confidently get this wrong. Success = the system surfaces all 3 conflicting vendor records as evidence and routes for review, not a silent pass-through."
+      }
+    },
+    {
+      "invoice_id": "INV-1003",
+      "scenario": "non-compliant format — missing mandatory field (FR6)",
+      "vendor_record_id": "V-DE1-1187",
+      "jurisdiction": "DE",
+      "invoice_date": "2026-06-20",
+      "invoice_number": "MIS-20260620-04",
+      "fields_present": ["seller_vat_id", "buyer_name", "invoice_number", "invoice_date", "description", "quantity", "net_amount", "vat_rate", "vat_amount", "gross_total"],
+      "fields_present_note": "leistungsdatum is missing — the exact known German trap named in research/tax-domain.md.",
+      "net_amount": 6100.00,
+      "vat_rate_charged": 0.19,
+      "vat_amount_charged": 1159.00,
+      "linked_evidence": {
+        "purchase_order": "PO-DE-88240",
+        "goods_receipt": "GR-DE-88240-A"
+      },
+      "expected": {
+        "charged_correctly": "cannot_determine_pending_compliance_fix",
+        "recoverable": "blocked_by_compliance_failure",
+        "reporting_jurisdiction": "DE",
+        "confidence_tier": "low",
+        "entity_conflict_flagged": false,
+        "compliance_pass": false,
+        "compliance_failure_field": "leistungsdatum",
+        "time_to_expiration_days_approx": 1387,
+        "notes": "Compliance check must fail BEFORE the recoverability determination is scored — the point of FR6 is that this is a distinct, earlier gate, not folded into the tax-judgment call."
+      }
+    },
+    {
+      "invoice_id": "INV-1004",
+      "scenario": "urgency-queue jump — tightest reclaim window (FR4, FR5)",
+      "vendor_record_id": "V-FR2-5502",
+      "jurisdiction": "IT",
+      "jurisdiction_note": "Lac du Nord Logistics SARL (French supplier) billing a cross-border logistics service to Northgate's Italian entity — reporting jurisdiction is Italy.",
+      "invoice_date": "2026-08-01",
+      "invoice_number": "LDN-20260801-12",
+      "fields_present": ["seller_vat_id", "buyer_name", "invoice_number", "invoice_date", "description", "quantity", "net_amount", "vat_rate", "vat_amount", "gross_total", "sdi_clearance_code"],
+      "sdi_clearance_code": "IT-SDI-4471829",
+      "net_amount": 42000.00,
+      "vat_rate_charged": 0.22,
+      "vat_amount_charged": 9240.00,
+      "linked_evidence": {
+        "purchase_order": "PO-IT-31005",
+        "goods_receipt": "GR-IT-31005-A"
+      },
+      "expected": {
+        "charged_correctly": true,
+        "recoverable": true,
+        "reporting_jurisdiction": "IT",
+        "confidence_tier": "high",
+        "entity_conflict_flagged": false,
+        "compliance_pass": true,
+        "time_to_expiration_days_approx": 237,
+        "notes": "Highest confidence AND highest dollar amount of the 5, but by far the least runway (Italy's return-deadline-bound rule vs. everyone else's multi-year rolling window). Must sort ahead of INV-1001 in the exception/priority queue despite both being high-confidence — this is the case that proves urgency-weighting, not confidence-only ordering, matters (case-facts.md §4)."
+      }
+    },
+    {
+      "invoice_id": "INV-1005",
+      "scenario": "genuine tax-judgment ambiguity, not a data-quality issue (FR1b)",
+      "vendor_record_id": "V-EU3-6644",
+      "jurisdiction": "FR",
+      "jurisdiction_note": "Cross-border service from a Czech supplier to Northgate's French entity — reverse-charge mechanics apply, but recoverability depends on whether the service is an intra-group management charge (often restricted/partially blocked) or an ordinary third-party taxable supply (fully recoverable). That distinction lives in the underlying service contract, not the invoice.",
+      "invoice_date": "2026-05-10",
+      "invoice_number": "OPT-20260510-03",
+      "fields_present": ["seller_vat_id", "buyer_name", "invoice_number", "invoice_date", "description", "quantity", "net_amount", "vat_rate", "vat_amount", "gross_total"],
+      "net_amount": 27500.00,
+      "vat_rate_charged": 0.0,
+      "vat_amount_charged": 0.0,
+      "vat_rate_charged_note": "Reverse-charge invoice — 0% charged by the supplier, VAT self-assessed by Northgate's French entity; recoverability of that self-assessed amount is the open question.",
+      "linked_evidence": {
+        "purchase_order": "PO-FR-77410",
+        "goods_receipt": null,
+        "contract": "CTR-OSTRAVA-2025 (referenced, not attached — the demo's point: the system must recognize it needs this document, not guess without it)"
+      },
+      "expected": {
+        "charged_correctly": "indeterminate_without_contract",
+        "recoverable": "indeterminate_without_contract",
+        "reporting_jurisdiction": "FR",
+        "confidence_tier": "low",
+        "entity_conflict_flagged": false,
+        "compliance_pass": true,
+        "time_to_expiration_days_approx": 653,
+        "notes": "No data-quality problem here — a clean single vendor record, a compliant invoice. The ambiguity is a real tax-judgment question that depends on evidence beyond the invoice (FR1b). Success = the system says 'need the contract, routing for review' rather than guessing a treatment from the invoice alone."
+      }
+    }
+  ]
+}

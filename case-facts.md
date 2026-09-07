@@ -8,6 +8,8 @@ Feeds Phase 1 (diagnose, propose, model) directly. Three layers throughout: **Wh
 
 **Per transaction, three separate decisions**, straight from the brief: (1) was tax charged correctly, (2) is it recoverable, (3) where should it be reported. These aren't one lookup — see §7, this is the crux of the diagnosis.
 
+**Volume, straight from the brief, previously not logged here:** "every month they work through hundreds of thousands of accounts payable transactions" — a real, verbatim number (not an estimate), and the anchor for any transaction-volume or per-invoice-value arithmetic (`research/assumed-customer-profile.md`).
+
 **Wrong in one direction vs. the other, precisely:**
 - Fail to identify/claim recoverable tax → **leaves cash on the table** (the $8–30M problem, §3)
 - Incorrectly claim or misreport → **audit exposure and penalties** (the $4M problem, §3)
@@ -131,15 +133,15 @@ Feeds Phase 1 (diagnose, propose, model) directly. Three layers throughout: **Wh
 
 **Diagnostic value of the spreadsheets specifically:** their existence is corroborating evidence for a data-quality/process-fragility root cause (supports EMEA's complaint) independent of anything EMEA said directly — worth naming as a second, independent signal pointing the same direction.
 
-## 7. The stated ask vs. the actual job — the sharpest candidate for "what the VP is wrong about"
+## 7. The stated ask vs. the actual job — "what the VP is wrong about," resolved
 
-**The VP's literal words:** *"can you build us an AI that reads our invoices and tells us the right tax treatment?"* — one input (invoices), one output (a single "treatment").
+**Resolved candidate (the headline for Part 1.6):** the VP's own business-case quote — *"If AI codes the invoices, I free 24 people to do analysis instead of data entry. That is the whole business case"* — treats "coding" as mechanical data entry, separable from the tax-treatment judgment. It isn't. In AP/tax operations, "coding" an invoice means assigning it a tax code, and that code **is** the encoded answer to two of the brief's own three questions (charged correctly, recoverable) — not a task sitting next to treatment-classification, but largely the same action seen from a process lens instead of a substance lens. The EMEA manager's own words confirm this read: *"Coding is not the hard part."* She isn't calling coding trivial — she's saying that once supplier data is clean, getting the code right isn't where effort or errors concentrate. The real bottlenecks sit upstream of coding: dirty supplier master data (her complaint) and non-compliant invoices (the APAC analyst's complaint) — both corrupt the inputs to a coding/treatment decision regardless of how good the determination logic itself is.
 
-**The team's actual job, per the brief's own description (§1):** three separate determinations per transaction, each drawing on **different evidence beyond the invoice** — recoverability rules often live in the contract, cross-border treatment needs customs paperwork, timing needs the goods receipt (§5).
+**What this means for the pitch's reframe:** the VP isn't wrong that AI should absorb the coding work — he's wrong about what "coding" is (he thinks it's separable, low-value data entry) and wrong about what "analysis" will turn out to mean once people are freed from it. The freed capacity shouldn't go to a vague "analysis" bucket — it should go to the two concrete problems his own team already named: supplier-master-data remediation and invoice-compliance triage, plus the exception queue for genuinely ambiguous cases. That's a more specific, more defensible correction than "you asked for the wrong tool," because it's built entirely from stakeholders' own words, not an outside critique.
 
-**This is a strong, evidence-based answer to Part 1.6.** The VP's own framing of the solution undersells what's actually required: an invoice-only reader cannot reliably answer 2 of the 3 questions the team actually has to answer (recoverability, correct reporting jurisdiction), because those depend on evidence the invoice alone doesn't contain.
+**Supporting point, not the headline:** the VP's literal ask — *"reads our invoices and tells us the right tax treatment"* — is also invoice-only in scope, and the team's actual job draws on evidence beyond the invoice (recoverability rules often live in the contract, cross-border treatment needs customs paperwork, timing needs the goods receipt, §5). This is real and worth having as Q&A ammunition, but it's a scope-of-input correction, smaller than the coding/judgment conflation above — useful supporting material, not the lead.
 
-**How it reframes the other stakeholders' quotes:** EMEA's and APAC's complaints stop looking like two unrelated gripes and start looking like corroborating evidence for the same underlying point — both are describing exactly the kind of non-invoice context (supplier identity, document validity/compliance) that an invoice-only tool would miss. This gives the diagnosis a throughline: the VP's own framing of the ask, not just the three practitioners' complaints, is evidence for a broader-than-invoices information model — which is also the direct justification for why the workflow proposal (§Part 1.2) needs multi-document input, not invoice-only.
+**How it reframes the other stakeholders' quotes:** EMEA's and APAC's complaints stop looking like two unrelated gripes and start looking like corroborating evidence for the same underlying point — both are naming exactly the upstream problems that survive no matter how good the coding/treatment logic is. This gives the diagnosis a throughline: the VP's own words, not just the practitioners' complaints, are evidence that "just automate the coding" undersells the job.
 
 ## 8. The EMEA manager's claim — "a third of our supplier master data is wrong"
 
@@ -190,6 +192,8 @@ Feeds Phase 1 (diagnose, propose, model) directly. Three layers throughout: **Wh
 - **$4M penalty jurisdictions:** left as stated in the brief — "two jurisdictions," not named, not "all of them." The brief is precise here: exactly two, a bounded and comparatively mild picture, not systemic exposure across the footprint.
 - **Hyperscaler:** confirmed as Microsoft/Azure for planning purposes. Simplifies the architecture story to Azure OpenAI directly (`answers/02-workflow-proposal.md`), with AWS/Bedrock kept as a one-line noted alternative rather than a hedged three-way menu.
 - **Contingency pricing:** revised — phased expansion from the narrow Phase 1 bucket to the full ongoing recovered-$, conditional on proven human-in-the-loop control, tracked metrics, and a demonstrated below-baseline error cost. See `answers/05-roadmap-pricing.md`.
+- **"What the VP is wrong about" (Part 1.6 headline):** resolved as the coding/judgment conflation in her own business-case quote (§7) — not the invoice-only-scope point, which is now supporting material. See `answers/01-diagnosis.md` for the full candidate comparison.
+- **Regional spreadsheets become a supported knowledge base, curated not imported, with a review gate.** The 4th named data source (the shadow spreadsheets analysts already keep) gets formalized into a structured, versioned exceptions store — but seeded by *curating* existing content, not ingesting it wholesale, since the spreadsheets are informal precisely because nobody fully trusts them either. New entries come from a feedback loop: an analyst's override of a system determination becomes a *candidate* entry, reviewed and approved (by the hub tax manager) before it can influence future auto-processed determinations. This is the concrete mechanism behind NFR5's "confidence threshold tightens as accuracy improves" claim — previously an unexplained promise — and it's the trust-building answer for the Head of Tax Risk specifically: every accepted override is now an auditable, reviewed record instead of a one-off judgment call. Included in the prototype, not deferred. See FR12/FR12a/FR13/FR13a/DR4 above.
 
 ## Deferred as follow-ups (not blocking)
 
@@ -198,39 +202,55 @@ Feeds Phase 1 (diagnose, propose, model) directly. Three layers throughout: **Wh
 ## Still open
 
 - [ ] Decide whether the AP-spend cross-check calculation (§3) — Accounts Payable, money Northgate owes suppliers; the calc landed at ~$5.6-8.4M, near the low end of the $8-30M range — is worth including as a defensible sanity-check in the deck, clearly labeled as such
-- [ ] Confirm the "VP is wrong about invoice-only framing" angle (§7) as the Part 1.6 answer, or weigh it against alternatives
 
 ## Product requirements (for the PRD)
 
-Testable, categorized, ready to seed a PRD. Each traces back to a decision already established above or in `requirements.md`.
+Testable, ready to seed a PRD. Grouped by feature, not by requirement type — IDs (FR/NFR/DR/EX) are kept as-is so existing cross-references (in Decisions above, `requirements.md`, the digest) still resolve; only the grouping and order changed. Tags: **[brief]** = stated directly in the case study, not derived; **[prototype]** = actually built/demonstrated in the prototype. Mirrors the digest's blue/green color-coding — see `prototype/README.md`'s build breakdown for what "actually built" means concretely.
 
-**Functional**
-- FR1. The system shall determine, per transaction, whether tax was charged correctly, whether it is recoverable, and where it should be reported.
-- FR2. The system shall compute a confidence score for each determination.
-- FR3. The system shall route determinations below a configurable confidence threshold to human review, with supporting evidence and reasons attached.
-- FR4. The system shall compute a time-to-expiration value per transaction, from that transaction's own invoice date and its jurisdiction's reclaim-window rule (rolling-N-years or return-deadline-bound).
-- FR5. The exception queue shall be ordered by urgency (time-to-expiration) in addition to confidence.
-- FR6. The system shall check each invoice against its jurisdiction's mandatory-content requirements (field-checklist or government-clearance mechanism) as a distinct step feeding the recoverability determination.
-- FR7. The system shall not write or post any determination into SAP or any filing system; write-back is performed only by an authorized human or downstream system.
-- FR8. The system shall process both an accumulated historical backlog (batch mode) and an ongoing incoming stream (continuous mode) via the same determination pipeline.
-- FR9. The review interface shall present transactions grouped for reviewer efficiency, while each transaction remains its own individually addressable record.
-- FR10. The system shall report, on a recurring cycle, dollar amount recovered to date against the updated remaining-estimate (a burndown).
-- FR11. The system shall report the measured scale of the supplier-master-data-quality problem as part of Phase 1 diagnostics.
+**1. Tax-treatment determination engine** — the core capability: read the evidence, cross-reference beyond the invoice where needed, determine the three-part treatment, score confidence, and use the correct (deduplicated) supplier identity.
+- FR1. The system shall determine, per transaction, whether tax was charged correctly, whether it is recoverable, and where it should be reported. **[brief] [prototype]**
+- FR1a. The system shall extract and structure the evidence needed for a given determination from whichever of the six named document types apply — invoice, purchase order, goods receipt, contract, customs paperwork, credit note — not only the invoice. **[prototype]**
+- FR1b. Where a determination depends on evidence beyond the invoice (e.g., recoverability terms in a contract, cross-border treatment in customs paperwork, timing from the goods receipt), the system shall retrieve and incorporate that evidence rather than determining from invoice content alone (case-facts.md §7). **[prototype]**
+- FR2. The system shall compute a confidence score for each determination. **[prototype]**
+- FR2a. The system's determination shall use the entity-resolved supplier tax profile (DR2), flagging cases where a supplier has conflicting duplicate profiles, rather than silently using whichever vendor record the transaction happens to be coded against (case-facts.md §8 — the EMEA manager's failure mode). **[prototype]**
+- DR2. Supplier (real-world entity) and vendor master record (per-instance SAP object) shall be distinct entities, connected via an entity-resolution mapping. **[prototype]**
 
-**Non-functional / architecture**
-- NFR1. All data processed shall remain within Northgate's own cloud tenant/subscription; no data shall be sent to a public multi-tenant model API.
-- NFR2. All communication with any model/AI resource shall occur over a private network path, not the public internet.
-- NFR3. Any third-party model provider shall be contractually prohibited from using Northgate's data for training or accessing it outside the agreed service boundary.
-- NFR4. SAP access shall be read-only; no write access to any SAP instance, in any version.
-- NFR5. The confidence threshold shall be configurable and shall tighten over time as measured accuracy improves.
-- NFR6. Auto-processed determinations shall be optimized for precision; the routing decision shall be optimized for recall.
+**2. Confidence-based routing & analyst workflow** — how a human stays in the loop at every confidence level, since the system can never execute anything itself.
+- FR3. The system shall route determinations below a configurable confidence threshold to human review, with supporting evidence and reasons attached. **[prototype]**
+- FR3a. Determinations at or above the confidence threshold shall still require an explicit analyst confirm-and-file action before any filing occurs — presented as a streamlined batch-confirm step, not autonomous execution. No determination, at any confidence level, is filed without an analyst action (consequence of FR7 — the system cannot write to SAP or any filing system regardless of confidence). **[prototype]**
+- NFR5. The confidence threshold shall be configurable and shall tighten over time as measured accuracy improves. **[prototype]**
+- NFR6. Auto-processed determinations shall be optimized for precision; the routing decision shall be optimized for recall. **[prototype]**
+- FR9. The review interface shall present transactions grouped for reviewer efficiency, while each transaction remains its own individually addressable record. **[prototype]**
+- DR3. The individual transaction shall be the atomic unit of record; no aggregation into a batch record at the data layer. **[prototype]**
 
-**Data model**
-- DR1. Jurisdiction shall be a first-class entity with its own parameters (reclaim-window rule type/value, invoice-content rules, filing frequency), independent of which hub processes the transaction.
-- DR2. Supplier (real-world entity) and vendor master record (per-instance SAP object) shall be distinct entities, connected via an entity-resolution mapping.
-- DR3. The individual transaction shall be the atomic unit of record; no aggregation into a batch record at the data layer.
+**3. Reclaim-window urgency tracking** — jurisdiction-aware timing, so the queue reflects what's about to expire, not just what's uncertain.
+- FR4. The system shall compute a time-to-expiration value per transaction, from that transaction's own invoice date and its jurisdiction's reclaim-window rule (rolling-N-years or return-deadline-bound). **[prototype]**
+- FR5. The exception queue shall be ordered by urgency (time-to-expiration) in addition to confidence. **[prototype]**
+- DR1. Jurisdiction shall be a first-class entity with its own parameters (reclaim-window rule type/value, invoice-content rules, filing frequency), independent of which hub processes the transaction. **[prototype]**
 
-**Explicit scope exclusions**
+**4. Invoice format-compliance checking** — a second, separate capability from tax-treatment determination: is the document itself valid before its content is even scored.
+- FR6. The system shall check each invoice against its jurisdiction's mandatory-content requirements (field-checklist or government-clearance mechanism) as a distinct step feeding the recoverability determination. **[prototype]**
 - EX1. Automated supplier outreach (drafting/sending/tracking correction requests) is out of scope for this engagement.
 - EX2. Full support for China's fapiao-based invoicing model is out of scope until scheduled as its own phase; the compliance check shall not be assumed to extend there without dedicated rework.
-- EX3. Consolidation of the 3 SAP instances is out of scope; the solution operates across all 3 as-is.
+
+**5. Backlog + ongoing processing pipeline** — one engine, two input modes.
+- FR8. The system shall process both an accumulated historical backlog (batch mode) and an ongoing incoming stream (continuous mode) via the same determination pipeline.
+
+**6. Recovery & diagnostic reporting** — what gets reported back to the VP and the EMEA manager specifically.
+- FR10. The system shall report, on a recurring cycle, dollar amount recovered to date against the updated remaining-estimate (a burndown). **[prototype]**
+- FR11. The system shall report the measured scale of the supplier-master-data-quality problem as part of Phase 1 diagnostics. **[prototype]**
+
+**8. Knowledge base & trust-building feedback loop** — the fourth named data source (regional spreadsheets) formalized, plus the mechanism that makes NFR5's "accuracy improves over time" concrete rather than a promise. Load-bearing for trust with the Head of Tax Risk specifically: every accepted override becomes an auditable, reviewed record, not a one-off judgment call lost after the fact.
+- FR12. The system shall maintain a structured, versioned knowledge base of jurisdiction- and entity-specific exceptions beyond the base rule set, seeded by curating existing regional-spreadsheet content — not by importing it wholesale (§ new decision below). **[prototype]**
+- FR12a. Each knowledge-base entry shall carry provenance (source, author, date, review status: proposed / reviewed / approved). An entry shall not influence auto-processed (high-confidence) determinations until approved. **[prototype]**
+- FR13. When an analyst overrides a system determination, the override and its stated reason shall be captured as a candidate knowledge-base entry, not discarded. **[prototype]**
+- FR13a. Candidate knowledge-base entries shall be surfaced for review (by the hub tax manager persona, `answers/02-workflow-proposal.md`) before being promoted to an approved, active rule. **[prototype]**
+- DR4. Knowledge-base entries shall be a first-class entity, distinct from jurisdiction rules (DR1) and entity-resolution mappings (DR2), linked to the specific transaction(s) that originated or were affected by them, for auditability. **[prototype]**
+
+**7. Platform & security constraints** — the tenant/SAP boundary the whole system is built inside of.
+- NFR1. All data processed shall remain within Northgate's own cloud tenant/subscription; no data shall be sent to a public multi-tenant model API. **[brief]**
+- NFR2. All communication with any model/AI resource shall occur over a private network path, not the public internet.
+- NFR3. Any third-party model provider shall be contractually prohibited from using Northgate's data for training or accessing it outside the agreed service boundary.
+- NFR4. SAP access shall be read-only; no write access to any SAP instance, in any version. **[brief]**
+- FR7. The system shall not write or post any determination into SAP or any filing system; write-back is performed only by an authorized human or downstream system. **[brief] [prototype]**
+- EX3. Consolidation of the 3 SAP instances is out of scope; the solution operates across all 3 as-is. **[brief] [prototype]**

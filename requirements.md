@@ -44,6 +44,7 @@ Everything the proposal has to satisfy, consolidated from the brief's constraint
 - One pipeline serves both the backlog (Phase 1) and the ongoing monthly stream (Phase 2+) — same engine, different input and dominant queue axis, not two builds.
 - Invoice format-compliance checking is in scope, confirmed for Phase 1/EMEA. Automated supplier outreach (drafting/tracking correction requests) is explicitly out of scope.
 - Current error-rate baseline (precision/recall of the human-only process today) must be measured empirically in Phase 1 — no external rate is computable from the brief's numbers.
+- **Regional spreadsheets (4th data source) become a supported, versioned knowledge base — curated from existing content, not imported wholesale.** New entries come from a feedback loop: an analyst's override of a determination becomes a candidate entry, reviewed/approved by the hub tax manager before it can influence future auto-processed determinations. This is the concrete mechanism behind "confidence threshold tightens as accuracy improves" and the trust-building answer for the Head of Tax Risk — every accepted override becomes an auditable, reviewed record. Included in the prototype build, not deferred to a later phase. See `case-facts.md`, feature group 8.
 
 ## 5. Roadmap & business
 - Pilot scope: EMEA (Rotterdam hub) first.
@@ -57,11 +58,14 @@ Everything the proposal has to satisfy, consolidated from the brief's constraint
 - Switzerland/Turkey compliance-rule-set question: deferred as a follow-up, not blocking the current plan.
 
 ## 6. Prototype
-- Must handle one awkward/messy input, not the clean case (recommended: duplicate-vendor-tax-profile, tied to EMEA's complaint).
+- Must handle one awkward/messy input, not the clean case — flagship: duplicate-vendor-tax-profile (INV-1002), tied to EMEA's complaint. Built alongside 4 more: happy path, format-compliance failure, urgency-queue jump, and a genuine tax-judgment ambiguity. See `prototype/data/invoices.json`.
 - Must show the exception path — matters more than the happy path given who holds the veto.
 - Low fidelity is fine, ugly is fine, working is not optional.
 - Includes a batch view for review convenience, but the underlying record stays at the unit level.
 - Synthetic invoice data anchored to real EU VAT rates (vatnode/eu-vat-rates-data, MIT licensed) — no open dataset fits as-is.
+- Eval framework defined before the build: ground-truth expected values baked into each synthetic invoice, scored against determination accuracy, confidence-tier accuracy, precision-on-auto-processed, recall-on-routing, entity-conflict detection, compliance-check accuracy, and time-to-expiration correctness. See `prototype/evals/eval-plan.md`.
+- What improves iteration-to-iteration is prompt/instruction and confidence-threshold refinement against the eval set — not weight-level fine-tuning (no fine-tuning budget on Gemini's free tier, consistent with the same constraint already named for the production recommendation).
+- **v1 build priority, revised: a CSV/sheet pipeline first, UI only if time remains.** Data ingestion → deterministic entity-conflict/compliance checks → RAG retrieval of approved knowledge-base entries → LLM determination → a flat sheet she opens directly. Matches how the analyst already works (spreadsheets) and demos the actual pitch (the LLM + the feedback loop), not UI chrome. See `prototype/src/`.
 
 ## 7. Deliverables (the case study submission itself)
 - Deck: ≤8 slides (Part 1) + ≤4 slides (Part 2) = 12 max. Appendix optional, uncapped.

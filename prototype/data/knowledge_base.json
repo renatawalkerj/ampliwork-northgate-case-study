@@ -1,0 +1,64 @@
+{
+  "_note": "Synthetic. Demonstrates FR12/FR12a/FR13/FR13a/DR4 — the regional-spreadsheets data source formalized into a structured, versioned, provenance-tracked knowledge base, with a feedback loop from analyst overrides. 'Seed' entries model curated migration from today's shadow spreadsheets (illustrative content, not real Northgate exceptions). The 'candidate' entry models the feedback loop firing off INV-1005's resolution — this is the trust-building mechanism, not the seed data.",
+  "schema": {
+    "id": "unique entry id",
+    "status": "approved | pending_review — an entry with status other than approved shall not influence auto-processed (high-confidence) determinations, per FR12a",
+    "jurisdiction": "which jurisdiction this exception applies to",
+    "rule": "the exception itself, in plain language",
+    "provenance": {
+      "source": "where this entry came from",
+      "added_by": "role, not an invented named individual",
+      "date": "ISO date",
+      "reviewed_by": "role that approved it, or null if still pending",
+      "review_date": "ISO date, or null if still pending"
+    },
+    "origin_transaction": "the invoice_id that triggered this entry, if it came from the feedback loop rather than initial curation — null for seed entries"
+  },
+  "knowledge_base_entries": [
+    {
+      "id": "KB-NL-001",
+      "status": "approved",
+      "jurisdiction": "NL",
+      "rule": "Reverse-charge treatment applies to a narrow category of construction-adjacent services distinct from the standard-rate default — verified against a documented ruling, not a general assumption.",
+      "provenance": {
+        "source": "Curated migration from the EMEA hub's existing shadow spreadsheet (illustrative — 'EMEA_VAT_Exceptions_v7_FINAL.xlsx')",
+        "added_by": "EMEA hub tax manager",
+        "date": "2026-08-15",
+        "reviewed_by": "EMEA hub tax manager",
+        "review_date": "2026-08-15"
+      },
+      "origin_transaction": null,
+      "_note": "Illustrative seed entry — demonstrates curated migration, not a real Northgate exception. Approved because it was reviewed at migration time, not auto-trusted from the source spreadsheet."
+    },
+    {
+      "id": "KB-DE-002",
+      "status": "approved",
+      "jurisdiction": "DE",
+      "rule": "Intra-group cost-sharing invoices below a documented internal threshold carry a reduced evidence requirement — a narrower documentation bar than third-party services of the same category.",
+      "provenance": {
+        "source": "Curated migration from the EMEA hub's existing shadow spreadsheet (illustrative)",
+        "added_by": "EMEA hub tax manager",
+        "date": "2026-08-15",
+        "reviewed_by": "EMEA hub tax manager",
+        "review_date": "2026-08-15"
+      },
+      "origin_transaction": null,
+      "_note": "Illustrative seed entry, same migration batch as KB-NL-001."
+    },
+    {
+      "id": "KB-FR-003",
+      "status": "pending_review",
+      "jurisdiction": "FR",
+      "rule": "Cross-border services from EU suppliers to Northgate's French entity: absent an explicit intra-group designation in the underlying contract, resolves as a fully recoverable taxable third-party supply, not a restricted intra-group charge.",
+      "provenance": {
+        "source": "Analyst override, following manual review of the contract CTR-OSTRAVA-2025",
+        "added_by": "reviewing analyst",
+        "date": "2026-05-14",
+        "reviewed_by": null,
+        "review_date": null
+      },
+      "origin_transaction": "INV-1005",
+      "_note": "This is the feedback loop firing, not seed data — the analyst's own resolution of INV-1005's ambiguity becomes a candidate rule. Per FR12a, this entry does NOT influence any auto-processed determination while pending_review. Once the hub tax manager approves it, future Ostrava-shaped transactions resolve at higher confidence automatically instead of re-triggering a full manual investigation each time."
+    }
+  ]
+}

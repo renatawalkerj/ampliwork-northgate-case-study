@@ -1,0 +1,73 @@
+{
+  "_note": "Synthetic/illustrative for the prototype demo. Standard VAT rates anchored to real, current values (vatnode/eu-vat-rates-data, MIT licensed, sourced from the EC's TEDB) so a tax-literate reviewer doesn't spot an implausible rate. Reclaim-window and mandatory-field detail reflects real research already in claims.md/case-facts.md, simplified to what the demo needs.",
+  "jurisdictions": [
+    {
+      "code": "NL",
+      "name": "Netherlands",
+      "vat_standard_rate": 0.21,
+      "reclaim_window": {
+        "rule_type": "rolling_years",
+        "value_years": 5
+      },
+      "invoice_compliance": {
+        "mechanism": "field_checklist",
+        "mandatory_fields": [
+          "seller_vat_id", "buyer_name", "invoice_number", "invoice_date",
+          "description", "quantity", "net_amount", "vat_rate", "vat_amount", "gross_total"
+        ]
+      }
+    },
+    {
+      "code": "DE",
+      "name": "Germany",
+      "vat_standard_rate": 0.19,
+      "reclaim_window": {
+        "rule_type": "rolling_years",
+        "value_years": 4
+      },
+      "invoice_compliance": {
+        "mechanism": "field_checklist",
+        "mandatory_fields": [
+          "seller_vat_id", "buyer_name", "invoice_number", "invoice_date",
+          "leistungsdatum", "description", "quantity", "net_amount", "vat_rate", "vat_amount", "gross_total"
+        ],
+        "note": "leistungsdatum (date of supply, distinct from invoice date) is a commonly-missed field per research/tax-domain.md — used here as the demo's format-compliance failure."
+      }
+    },
+    {
+      "code": "FR",
+      "name": "France",
+      "vat_standard_rate": 0.20,
+      "reclaim_window": {
+        "rule_type": "rolling_years",
+        "value_years": 2
+      },
+      "invoice_compliance": {
+        "mechanism": "field_checklist",
+        "mandatory_fields": [
+          "seller_vat_id", "buyer_name", "invoice_number", "invoice_date",
+          "description", "quantity", "net_amount", "vat_rate", "vat_amount", "gross_total"
+        ]
+      }
+    },
+    {
+      "code": "IT",
+      "name": "Italy",
+      "vat_standard_rate": 0.22,
+      "reclaim_window": {
+        "rule_type": "return_deadline_bound",
+        "note": "Deduction capped at the filing deadline of the annual VAT return for the year the right arose (until the scheduled 1 Jan 2027 reform) — not a rolling count from invoice date. ~4-5 months for a December invoice, ~15-16 months for a January invoice.",
+        "annual_return_deadline_month": 4,
+        "annual_return_deadline_day": 30
+      },
+      "invoice_compliance": {
+        "mechanism": "government_clearance",
+        "note": "SDI (Sistema di Interscambio) clearance required — a correctly-fielded invoice can still fail on schema/clearance grounds, not just missing fields.",
+        "mandatory_fields": [
+          "seller_vat_id", "buyer_name", "invoice_number", "invoice_date",
+          "description", "quantity", "net_amount", "vat_rate", "vat_amount", "gross_total", "sdi_clearance_code"
+        ]
+      }
+    }
+  ]
+}
