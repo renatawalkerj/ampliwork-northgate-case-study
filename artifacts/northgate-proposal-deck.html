@@ -96,12 +96,6 @@
   .theory-quote{ font-family:"Fraunces",Georgia,serif; font-style:italic; font-size:0.82rem; color:var(--ink-soft); margin:0.3rem 0 0.4rem; line-height:1.4; }
   .theory-why{ font-size:0.8rem; color:var(--ink-soft); line-height:1.4; margin:0; }
 
-  .review-backdrop{ position:relative; border:1.5px dashed var(--accent); border-radius:12px; padding:1.5rem 0.9rem 0.9rem; margin-bottom:0.8rem; background:var(--accent-soft); }
-  .review-backdrop-tab{ position:absolute; top:-0.75rem; left:1rem; background:var(--accent); color:var(--surface); font-family:"IBM Plex Mono",monospace; font-size:0.66rem; letter-spacing:0.06em; text-transform:uppercase; padding:0.25rem 0.7rem; border-radius:999px; }
-  .review-backdrop .card-grid{ margin-bottom:0; }
-  .feedback-note{ display:flex; align-items:center; gap:0.5rem; font-size:0.78rem; color:var(--accent); font-family:"IBM Plex Mono",monospace; letter-spacing:0.02em; margin-top:0.6rem; }
-  .feedback-note .arrow{ font-size:1rem; }
-
   .recommendation-slide h1.big{ color:var(--accent); }
 
   /* nav chrome */
@@ -131,29 +125,29 @@
     <div class="slide-inner">
       <div class="part-tag">Part 1 · The Pitch — 1 / 8</div>
       <div class="eyebrow">Northgate Industries · Proposal for the second meeting</div>
-      <h1 class="big" style="font-size:clamp(1.4rem,2.8vw,2.1rem); margin-bottom:0.7rem;">Six quotes disagree. Only three are actually competing theories.</h1>
-      <p class="lede" style="font-size:0.92rem; margin-bottom:1rem;">The other three — Head of Tax Risk, Head of Tax Technology, Enterprise Security — are stakeholder constraints, not diagnoses. Addressed on the Risk, information-model, and architecture slides, not weighted here as competing root causes.</p>
+      <h1 class="big" style="font-size:clamp(1.4rem,2.8vw,2.1rem); margin-bottom:0.7rem;">Six quotes disagree. Three are competing theories on root cause.</h1>
+      <p class="lede" style="font-size:0.92rem; margin-bottom:1rem;">The other three — Head of Tax Risk, Head of Tax Technology, Enterprise Security — are constraints on the plan, not diagnoses of the problem.</p>
       <div class="card-grid" style="margin-bottom:1rem;">
         <div class="card">
           <span class="weight-badge weight-low">Weighted least</span>
           <h3 style="margin-bottom:0.2rem;">VP, Global Indirect Tax</h3>
           <div class="theory-quote">"Coding is the bottleneck — that's the whole business case."</div>
-          <p class="theory-why">Her own opinion, no independent corroboration. Resolved directly on the final Part 1 slide.</p>
+          <p class="theory-why">Her opinion, uncorroborated. Addressed directly on slide 8.</p>
         </div>
         <div class="card">
           <span class="weight-badge weight-high">Weighted most</span>
           <h3 style="margin-bottom:0.2rem;">Regional tax manager, EMEA</h3>
           <div class="theory-quote">"A third of our supplier master data is wrong — the same supplier as three vendors, three tax profiles."</div>
-          <p class="theory-why">Independently corroborated by real SAP-architecture research, not just her account — and by what her own analyst runs into daily: pulling 3 separate SAP exports by hand just to see what tax code was applied.</p>
+          <p class="theory-why">Corroborated: real SAP-architecture research, and the analyst's own daily task of reconciling 3 exports by hand.</p>
         </div>
         <div class="card">
           <span class="weight-badge weight-high">Weighted most</span>
           <h3 style="margin-bottom:0.2rem;">Analyst, APAC</h3>
           <div class="theory-quote">"Most of my month is chasing suppliers for compliant invoices — not coding errors."</div>
-          <p class="theory-why">Independently corroborated by real EU invoice-law research (Art. 226, CJEU case law) — a second, distinct root cause, not the same complaint twice.</p>
+          <p class="theory-why">Corroborated: EU invoice-compliance law. A separate root cause, not a repeat of the first.</p>
         </div>
       </div>
-      <p class="lede" style="font-size:0.95rem; margin-bottom:0;"><b style="color:var(--ink);">$8–30M</b> disputed internally — the width of that range is itself the diagnostic signal.</p>
+      <p class="lede" style="font-size:0.95rem; margin-bottom:0;"><b style="color:var(--ink);">$8–30M</b> disputed internally — the range itself is the signal.</p>
     </div>
   </section>
 
@@ -184,7 +178,7 @@
         <div class="card"><h3>3. Route</h3><p>High confidence → batch-confirm. Low confidence → full review, evidence attached. Never write-back — a hard constraint, not a design choice.</p></div>
         <div class="card"><h3>4. File &amp; learn</h3><p>The analyst files it herself, always. Her overrides become reviewed, auditable knowledge-base rules — not judgment lost after the fact.</p></div>
       </div>
-      <p class="lede" style="font-size:1rem; margin-bottom:0;"><b style="color:var(--ink);">Where the human stays, and why there specifically:</b> every determination needs an analyst action before filing, at every confidence level, because the system literally cannot write to SAP — not a trust exercise, a hard constraint the whole design is built around.</p>
+      <p class="lede" style="font-size:1rem; margin-bottom:0;"><b style="color:var(--ink);">Where the human stays, and why:</b> the system cannot write to SAP. Every determination needs an analyst action before filing, at every confidence level — a constraint, not a choice.</p>
     </div>
   </section>
 
@@ -232,25 +226,19 @@
     <div class="slide-inner">
       <div class="part-tag">Part 1 · The Pitch — 6 / 8</div>
       <h2 class="headline">The risk, and how we bound it</h2>
-      <p class="lede" style="margin-bottom:0.8rem;">Defined for our determination — is this transaction recoverable:</p>
-
-      <div class="review-backdrop">
-        <span class="review-backdrop-tab">Human review process — never zero, at any tier</span>
-        <div class="card-grid">
-          <div class="card"><h3>True positive</h3><p>Flagged recoverable, genuinely is.</p></div>
-          <div class="card risk-bad"><h3>False positive</h3><p>Flagged recoverable, actually isn't — <b>the $4M penalty problem</b> if it slips through.</p></div>
-        </div>
-        <div class="feedback-note"><span class="arrow">&#8635;</span> Active feedback loop reduces this over time — evidence already consolidated, not scattered across 3 systems</div>
-      </div>
+      <p class="lede" style="margin-bottom:0.8rem;">For "is this transaction recoverable":</p>
 
       <div class="card-grid" style="margin-bottom:0.9rem;">
-        <div class="card risk-bad"><h3>False negative</h3><p>Not flagged, but was recoverable — the $8–30M left on the table.</p></div>
+        <div class="card"><h3>True positive</h3><p>Flagged recoverable, genuinely is.</p></div>
+        <div class="card risk-bad"><h3>False positive</h3><p>Flagged recoverable, isn't — the $4M penalty problem.</p></div>
+        <div class="card risk-bad"><h3>False negative</h3><p>Not flagged, was recoverable — part of the $8–30M left on the table.</p></div>
         <div class="card"><h3>True negative</h3><p>Not flagged, genuinely not recoverable.</p></div>
       </div>
 
       <ul class="pt" style="margin-bottom:0;">
-        <li>Batch-confirm (high confidence) or full review (low) — <b>"slow is better than wrong" holds at every tier</b>, not just the routed one.</li>
-        <li><b>Precision</b> on auto-processed, <b>recall</b> on routing. Baseline: Phase 1 measures the human-only process's actual rate — the number auto-processing has to beat before an analyst can safely trust a batch at speed.</li>
+        <li>High confidence → batch-confirm. Low → full review. Both still end with an analyst — "slow is better than wrong" at every tier.</li>
+        <li><b>Precision</b> on auto-processed, <b>recall</b> on routing. Phase 1 measures the human-only baseline the system has to beat.</li>
+        <li>Overrides feed the knowledge base, reviewed before they count — the false-positive rate is designed to fall over time, not stay fixed.</li>
       </ul>
       <p class="not-fixed-note">We don't ask her to double-check what she's told is safe — we build the system to earn not needing that.</p>
     </div>
@@ -289,7 +277,7 @@
     <div class="slide-inner">
       <div class="part-tag">Part 2 · Is This A Product? — 1 / 4 · Recommendation</div>
       <h1 class="big">Yes — conditionally.</h1>
-      <p class="lede" style="max-width:52ch;">A real, differentiated wedge — nobody found doing exactly this — but only if it's scoped to the right niche, and only if the vendor-security-review overhead is treated as something to systematically shrink, not absorb per customer.</p>
+      <p class="lede" style="max-width:52ch;">Only if scoped to the right niche, and only if the vendor-security-review overhead is treated as something to shrink over time, not absorb per customer.</p>
     </div>
   </section>
 
