@@ -14,3 +14,4 @@ Shared standard, straight from the brief itself: "We are evaluating how you thin
 | `06-productization.md` | Part 2 (all 5 points) | not started |
 | `07-pre-read-email.md` | The one-page pre-read | not started |
 | `08-how-we-built-this.md` | "Tell us what you used, where it helped, where it led you astray" | not started |
+| `09-appendix.md` | Optional-appendix backing: assumptions, research anchors, condensed requirements, prototype verification status, key decisions | done |
