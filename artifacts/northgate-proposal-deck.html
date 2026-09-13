@@ -90,11 +90,19 @@
   .term-grid dd{ margin:0; font-size:0.86rem; color:var(--ink-soft); line-height:1.4; }
   .rel-flow{ font-size:0.92rem; color:var(--ink); background:var(--surface); border:1px solid var(--line); border-radius:8px; padding:0.7rem 0.9rem; margin-bottom:1rem; line-height:1.6; }
 
-  .weight-badge{ display:inline-block; font-family:"IBM Plex Mono",monospace; font-size:0.62rem; letter-spacing:0.03em; text-transform:uppercase; padding:0.1rem 0.5rem; border-radius:999px; margin-bottom:0.5rem; }
+  .weight-badge{ display:inline-block; font-family:"IBM Plex Mono",monospace; font-size:0.62rem; letter-spacing:0.03em; text-transform:uppercase; padding:0.1rem 0.5rem; border-radius:999px; }
   .weight-high{ background:var(--accent-soft); color:var(--accent); }
   .weight-low{ background:var(--surface-2); color:var(--ink-faint); border:1px solid var(--line); }
+  .tag-constraint{ background:var(--surface-2); color:var(--ink-faint); border:1px solid var(--line); }
   .theory-quote{ font-family:"Fraunces",Georgia,serif; font-style:italic; font-size:0.82rem; color:var(--ink-soft); margin:0.3rem 0 0.4rem; line-height:1.4; }
   .theory-why{ font-size:0.8rem; color:var(--ink-soft); line-height:1.4; margin:0; }
+
+  .quote-grid{ display:grid; grid-template-columns:1fr 1fr; gap:0 1.6rem; margin-bottom:1rem; }
+  @media (max-width:820px){ .quote-grid{ grid-template-columns:1fr; } }
+  .quote-row{ padding:0.6rem 0; border-bottom:1px solid var(--line); }
+  .quote-grid .quote-row:nth-last-child(-n+2){ border-bottom:none; }
+  .quote-row-head{ display:flex; align-items:baseline; gap:0.5rem; flex-wrap:wrap; margin-bottom:0.15rem; }
+  .quote-row-head .quote-who{ font-family:"Inter",ui-sans-serif,sans-serif; font-size:0.85rem; font-weight:600; text-transform:none; letter-spacing:normal; color:var(--ink); margin-top:0; display:inline; }
 
   .recommendation-slide h1.big{ color:var(--accent); }
 
@@ -126,25 +134,34 @@
       <div class="part-tag">Part 1 · The Pitch — 1 / 8</div>
       <div class="eyebrow">Northgate Industries · Proposal for the second meeting</div>
       <h1 class="big" style="font-size:clamp(1.4rem,2.8vw,2.1rem); margin-bottom:0.7rem;">Six quotes disagree. Three are competing theories on root cause.</h1>
-      <p class="lede" style="font-size:0.92rem; margin-bottom:1rem;">The other three — Head of Tax Risk, Head of Tax Technology, Enterprise Security — are constraints on the plan, not diagnoses of the problem.</p>
-      <div class="card-grid" style="margin-bottom:1rem;">
-        <div class="card">
-          <span class="weight-badge weight-low">Weighted least</span>
-          <h3 style="margin-bottom:0.2rem;">VP, Global Indirect Tax</h3>
+      <p class="lede" style="font-size:0.92rem; margin-bottom:1rem;">All six, in the order they came up. Three are constraints on the plan. Three are competing theories on the problem — weighted by whether anything outside the room backs them up.</p>
+      <div class="quote-grid">
+        <div class="quote-row">
+          <div class="quote-row-head"><span class="quote-who">VP, Global Indirect Tax</span><span class="weight-badge weight-low">Theory — weighted least</span></div>
           <div class="theory-quote">"Coding is the bottleneck — that's the whole business case."</div>
           <p class="theory-why">Her opinion, uncorroborated. Addressed directly on slide 8.</p>
         </div>
-        <div class="card">
-          <span class="weight-badge weight-high">Weighted most</span>
-          <h3 style="margin-bottom:0.2rem;">Regional tax manager, EMEA</h3>
-          <div class="theory-quote">"A third of our supplier master data is wrong — the same supplier as three vendors, three tax profiles."</div>
+        <div class="quote-row">
+          <div class="quote-row-head"><span class="quote-who">Head of Tax Risk</span><span class="weight-badge tag-constraint">Constraint</span></div>
+          <div class="theory-quote">"I care far more about wrong than about slow."</div>
+        </div>
+        <div class="quote-row">
+          <div class="quote-row-head"><span class="quote-who">Regional tax manager, EMEA</span><span class="weight-badge weight-high">Theory — weighted most</span></div>
+          <div class="theory-quote">"A third of our supplier master data is wrong — three vendors, three tax profiles."</div>
           <p class="theory-why">Corroborated: real SAP-architecture research, and the analyst's own daily task of reconciling 3 exports by hand.</p>
         </div>
-        <div class="card">
-          <span class="weight-badge weight-high">Weighted most</span>
-          <h3 style="margin-bottom:0.2rem;">Analyst, APAC</h3>
+        <div class="quote-row">
+          <div class="quote-row-head"><span class="quote-who">Analyst, APAC</span><span class="weight-badge weight-high">Theory — weighted most</span></div>
           <div class="theory-quote">"Most of my month is chasing suppliers for compliant invoices — not coding errors."</div>
           <p class="theory-why">Corroborated: EU invoice-compliance law. A separate root cause, not a repeat of the first.</p>
+        </div>
+        <div class="quote-row">
+          <div class="quote-row-head"><span class="quote-who">Head of Tax Technology</span><span class="weight-badge tag-constraint">Constraint</span></div>
+          <div class="theory-quote">"Three SAP instances from acquisitions — won't be consolidated before 2029."</div>
+        </div>
+        <div class="quote-row">
+          <div class="quote-row-head"><span class="quote-who">Enterprise security</span><span class="weight-badge tag-constraint">Constraint</span></div>
+          <div class="theory-quote">"Nothing leaves our tenant — the vendor security review runs about eleven weeks."</div>
         </div>
       </div>
       <p class="lede" style="font-size:0.95rem; margin-bottom:0;"><b style="color:var(--ink);">$8–30M</b> disputed internally — the range itself is the signal.</p>
